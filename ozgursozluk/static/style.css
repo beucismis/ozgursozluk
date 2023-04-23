@@ -1,0 +1,174 @@
+:root {
+    --text-color: #000000;
+    --title-color: #81C14B;
+    --background-color: #FFFFFF;
+    --entry-link-color: #81C14B;
+    --entry-background-color: #EEEEEE;
+    --form-text-color: #000000;
+    --form-border-color: #8F8F9D;
+    --form-input-background-color: #FFFFFF;
+    --form-button-background-color: #E9E9ED;
+}
+
+.dark {
+    --text-color: #E8E6E3;
+    --title-color: #81C14B;
+    --background-color: #181A1B;
+    --entry-link-color: #81C14B;
+    --entry-background-color: #222426;
+    --form-text-color: #D8D4CF;
+    --form-border-color: #373C3E;
+    --form-input-background-color: #232627;
+    --form-button-background-color: #232627;
+}
+
+body {
+    font-family: sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+a {
+    color: var(--text-color);
+}
+
+header div {
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+
+header a {
+    display: inline-block;
+    padding: 0.5rem 0.2rem;
+}
+
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+nav {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+nav a {
+    padding: 0.5rem;
+    display: inline-block;
+}
+
+.title {
+    text-align: center;
+    font-weight: normal;
+}
+
+h1 a {
+    color: black;
+    text-decoration: none;
+}
+
+small {
+    opacity: 0.5;
+    color: var(--text-color);
+}
+
+.ozgur {
+    color: var(--text-color);
+}
+
+.sozluk {
+    color: var(--title-color);
+}
+
+.description {
+    text-align: center;
+}
+
+.topic {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.topic > .entry {
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: var(--entry-background-color);
+}
+
+.content {
+    margin: 0;
+    padding: 0;
+}
+
+.content .b, .content .url {
+    text-decoration: none;
+    color: var(--entry-link-color);
+}
+
+.entry-datetime {
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.info {
+    margin: 1rem;
+    display: flex;
+    padding-top: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info > div p {
+    margin: 0;
+    padding: 0;    
+}
+
+.settings {
+    width: 35%;
+    margin: 0 auto;
+    padding-top: 3rem;
+}
+
+form {
+    padding-top: 0.5rem;
+}
+
+form .settings-group {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+
+form .settings-group > :last-child {
+    margin-left: auto;
+}
+
+form input[type=text], form select, form button {
+    padding: 0.5rem;
+    color: var(--form-text-color);
+    border: 1px solid var(--form-border-color);
+}
+
+form input[type=text] {
+    background-color: var(--form-input-background-color);
+}
+
+form select, form button {
+    background-color: var(--form-button-background-color);
+}
+
+@media only screen and (max-width: 768px) {
+    main, nav, .topic, .settings {
+        width: 100%;
+    }
+
+    nav, .title, .description {
+        text-align: left;
+    }
+    
+    form input[type=text], form select {
+        width: 50%;
+    }
+}

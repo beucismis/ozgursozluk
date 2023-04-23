@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html class="{{ 'dark' if request.cookies.get('theme') == 'dark' }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <div>
+                <a href="{{ url_for('settings') }}">settings</a>
+                <a href="{{ source }}" target="_blank">source code</a>
+            </div>
+        </header>
+        <main>
+            <h1 class="title">
+                <a href="/">
+                    <span class="ozgur">özgür</span><span class="sozluk">sözlük</span>
+                </a>
+            </h1>
+            <p class="description">{{ description }}</p>
+            {% block main %}{% endblock %}
+        </main>
+    </body>
+</html>

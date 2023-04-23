@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}özgürsözlük - settings{% endblock %}
+{% block main %}
+    <div class="settings">
+        <form method="POST" action="/settings">
+            <div class="settings-group">
+                theme:
+                <select name="theme">
+                    {% if theme == 'light' %}
+                        <option value="light" selected>light</option>
+                        <option value="dark">dark</option>
+                    {% else %}
+                        <option value="light">light</option>
+                        <option value="dark" selected>dark</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="settings-group">
+                ekşi base url:
+                <select name="eksi_base_url">
+                    {% if eksi_base_url == 'https://eksisozluk.com' %}
+                        <option value="https://eksisozluk.com" selected>eksisozluk.com</option>
+                        <option value="https://eksisozluk2023.com">eksisozluk2023.com</option>
+                    {% else %}
+                        <option value="https://eksisozluk.com">eksisozluk.com</option>
+                        <option value="https://eksisozluk2023.com" selected>eksisozluk2023.com</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div style="text-align: right;">
+                <button type="submit">save</button>
+            </div>
+        </form>
+        <div style="text-align: center; padding-top: 3rem;">v{{ version }}</div>
+    </div>
+{% endblock %}

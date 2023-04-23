@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}özgürsözlük - {{ topic.title }}{% endblock %}
+{% block main %}
+    <nav>{% include "navigation.html" %}</nav>
+    <div class="topic">
+        <div class="info">
+            <div><p>{{ topic.title }}</p></div>
+            <div>
+                {% if p > 1 %}
+                    <a href="/{{ topic.title_id() }}?p={{ p-1 }}">previous</a>
+                    {% if p < topic.pagecount %}/{% endif %}
+                {% endif %}
+                {% if p < topic.pagecount %}
+                    <a href="/{{ topic.title_id() }}?p={{ p+1 }}">next</a>
+                {% endif %}
+                {% if topic.pagecount > 1 %}
+                    -
+                    <a href="/{{ topic.title_id() }}?p={{ topic.pagecount }}">last page</a>
+                {% endif %}
+            </div>
+        </div>
+        {% for entry in topic.entrys %}
+            <div class="entry">
+                {{ entry.content|safe }}
+                </br>
+                <div style="text-align: right;"><small>{{ entry.datetime }}</small></div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
