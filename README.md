@@ -12,6 +12,7 @@ Free alternative simple ekşi sözlük front-end. Offical instance: http://ozgur
 - Topic search
 - View topic and entry
 - Gündem topic list support
+- Optioanl dispay author nickname
 - Ad-free, simple and fast
 - Light and dark theme support
 - Responsive support for small screens
@@ -31,8 +32,9 @@ python3 serve.py
 </p>
 
 ## ToDo
+- [ ] API endpoint
 - [ ] Docker support
 - [ ] Page support for debe
-- [ ] Display optional author nickname
+- [+] Display optional author nickname
 - [ ] Sorthing for entries today and all
 - [ ] URL change support for alternative front-ends (e.g: twitter to nitter)
