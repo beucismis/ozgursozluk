@@ -1,4 +1,10 @@
 # ozgursozluk
+
+![](https://img.shields.io/badge/python-3.8%2B-blue)
+![](https://img.shields.io/badge/style-black-black)
+![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/test.yml)
+![](https://img.shields.io/website?url=http%3A%2F%2Fozgursozluk.freedns.rocks)
+
 Free alternative simple ekşi sözlük front-end. Offical instance: http://ozgursozluk.freedns.rocks
 
 ## Features
@@ -25,6 +31,7 @@ python3 serve.py
 </p>
 
 ## ToDo
+- [ ] Docker support
 - [ ] Page support for debe
 - [ ] Display optional author nickname
 - [ ] Sorthing for entries today and all
