@@ -4,10 +4,7 @@
     --background-color: #FFFFFF;
     --entry-link-color: #81C14B;
     --entry-background-color: #EEEEEE;
-    --form-text-color: #000000;
-    --form-border-color: #8F8F9D;
-    --form-input-background-color: #FFFFFF;
-    --form-button-background-color: #E9E9ED;
+    color-scheme: light;
 }
 
 .dark {
@@ -16,10 +13,7 @@
     --background-color: #181A1B;
     --entry-link-color: #81C14B;
     --entry-background-color: #222426;
-    --form-text-color: #D8D4CF;
-    --form-border-color: #373C3E;
-    --form-input-background-color: #232627;
-    --form-button-background-color: #232627;
+    color-scheme: dark;
 }
 
 body {
@@ -145,18 +139,13 @@ form .settings-group > :last-child {
     margin-left: auto;
 }
 
-form input[type=text], form select, form button {
+form input, form select, form button {
     padding: 0.5rem;
-    color: var(--form-text-color);
-    border: 1px solid var(--form-border-color);
 }
 
-form input[type=text] {
-    background-color: var(--form-input-background-color);
-}
-
-form select, form button {
-    background-color: var(--form-button-background-color);
+form input[type='checkbox'] {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 @media only screen and (max-width: 768px) {
@@ -168,7 +157,7 @@ form select, form button {
         text-align: left;
     }
     
-    form input[type=text], form select {
+    form input[type='text'], form select {
         width: 50%;
     }
 }
