@@ -16,6 +16,18 @@
                 </select>
             </div>
             <div class="settings-group">
+                display author nickname:
+                <select name="display_author_nickname">
+                    {% if display_author_nickname == 'False' %}
+                        <option value="False" selected>no</option>
+                        <option value="True">yes</option>
+                    {% else %}
+                        <option value="False">no</option>
+                        <option value="True" selected>yes</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="settings-group">
                 ekşi base url:
                 <select name="eksi_base_url">
                     {% if eksi_base_url == 'https://eksisozluk.com' %}
@@ -27,10 +39,15 @@
                     {% endif %}
                 </select>
             </div>
-            <div style="text-align: right;">
-                <button type="submit">save</button>
-            </div>
+            <div style="text-align: right;"><button type="submit">save</button></div>
         </form>
-        <div style="text-align: center; padding-top: 3rem;">v{{ version }}</div>
+        <div style="text-align: center; padding-top: 3rem;">
+            v{{ version }}
+            -
+            last commit: 
+            <a href="{{ source }}/commit/{{ last_commit }}" target="_blank">
+                {{ last_commit[:8] }}
+            </a>
+        </div>
     </div>
 {% endblock %}

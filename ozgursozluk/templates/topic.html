@@ -23,7 +23,13 @@
             <div class="entry">
                 {{ entry.content|safe }}
                 </br>
-                <div style="text-align: right;"><small>{{ entry.datetime }}</small></div>
+                <div style="text-align: right;">
+                    {% if request.cookies.get('display_author_nickname') == 'True' %}
+                        <small>{{ entry.author }}</small>
+                        -
+                    {% endif %}
+                    <small>{{ entry.datetime }}</small>
+                </div>
             </div>
         {% endfor %}
     </div>

@@ -2,10 +2,19 @@ import flask
 
 import ozgursozluk
 from ozgursozluk.api import Eksi
-from ozgursozluk.config import DEFAULT_THEME, DEFAULT_EKSI_BASE_URL
+from ozgursozluk.config import (
+    DEFAULT_THEME,
+    DEFAULT_DISPLAY_AUTHOR_NICKNAME,
+    DEFAULT_EKSI_BASE_URL,
+)
 
 
 eksi = Eksi()
+
+
+def last_commit() -> str:
+    with open(".git/refs/heads/main") as file:
+        return file.read()
 
 
 @ozgursozluk.app.context_processor
@@ -14,6 +23,7 @@ def context_processor():
         version=ozgursozluk.__version__,
         source=ozgursozluk.__source__,
         description=ozgursozluk.__description__,
+        last_commit=last_commit(),
     )
 
 
@@ -53,27 +63,44 @@ def topic(title: str):
 def entry(id: int):
     eksi.base_url = flask.request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template("topic.html", topic=eksi.get_entry(id), p=1)
+    return flask.render_template(
+        "topic.html",
+        topic=eksi.get_entry(id),
+        p=1,
+    )
 
 
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
 def settings():
     theme = flask.request.cookies.get("theme", DEFAULT_THEME)
     eksi_base_url = flask.request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
+    display_author_nickname = flask.request.cookies.get(
+        "display_author_nickname", DEFAULT_DISPLAY_AUTHOR_NICKNAME
+    )
 
     if flask.request.method == "POST":
         response = flask.make_response(
             flask.render_template(
-                "settings.html", theme=theme, eksi_base_url=eksi_base_url
+                "settings.html",
+                theme=theme,
+                eksi_base_url=eksi_base_url,
+                display_author_nickname=display_author_nickname,
             )
         )
         response.set_cookie("theme", flask.request.form["theme"])
         response.set_cookie("eksi_base_url", flask.request.form["eksi_base_url"])
+        response.set_cookie(
+            "display_author_nickname",
+            flask.request.form["display_author_nickname"],
+        )
 
         return response
 
     return flask.render_template(
-        "settings.html", theme=theme, eksi_base_url=eksi_base_url
+        "settings.html",
+        theme=theme,
+        eksi_base_url=eksi_base_url,
+        display_author_nickname=display_author_nickname,
     )
 
 
