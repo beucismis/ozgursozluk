@@ -63,11 +63,7 @@ def topic(title: str):
 def entry(id: int):
     eksi.base_url = flask.request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template(
-        "topic.html",
-        topic=eksi.get_entry(id),
-        p=1,
-    )
+    return flask.render_template("topic.html", topic=eksi.get_entry(id), p=1)
 
 
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
