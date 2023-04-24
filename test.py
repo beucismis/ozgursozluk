@@ -15,7 +15,7 @@ class TestTopic(unittest.TestCase):
         self.assertEqual(topic.title, "linux")
 
     def test_permalink(self):
-        self.assertEqual(topic.permalink, "https://eksisozluk2023.com/linux--32084")
+        self.assertEqual(topic.permalink, "https://eksisozluk.com/linux--32084")
 
 
 if __name__ == "__main__":
