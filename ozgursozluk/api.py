@@ -11,10 +11,13 @@ from ozgursozluk.config import DEFAULT_EKSI_BASE_URL
 
 CHARMAP = {
     " ": "-",
-    "(": "-",
-    ")": "-",
+    ".": "-",
+    "'": "",
+    "(": "",
+    ")": "",
     "ç": "c",
     "ı": "i",
+    "ğ": "g",
     "ö": "o",
     "ş": "s",
     "ü": "u",
