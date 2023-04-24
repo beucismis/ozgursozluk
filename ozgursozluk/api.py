@@ -6,11 +6,13 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-
 from ozgursozluk.config import DEFAULT_EKSI_BASE_URL
 
 
 CHARMAP = {
+    " ": "-",
+    "(": "-",
+    ")": "-",
     "ç": "c",
     "ı": "i",
     "ö": "o",
@@ -45,7 +47,7 @@ class Topic:
     entrys: Iterator[Entry]
 
     def title_id(self) -> str:
-        return _unicode_tr(f"{self.title}--{self.id}".replace(" ", "-"))
+        return _unicode_tr(f"{self.title}--{self.id}")
 
 
 class Eksi:
