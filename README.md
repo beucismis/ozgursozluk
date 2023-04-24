@@ -35,6 +35,6 @@ python3 serve.py
 - [ ] API endpoint
 - [ ] Docker support
 - [ ] Page support for debe
-- [+] Display optional author nickname
+- [x] Display optional author nickname
 - [ ] Sorthing for entries today and all
 - [ ] URL change support for alternative front-ends (e.g: twitter to nitter)
