@@ -11,7 +11,7 @@ Free alternative simple ekşi sözlük front-end. Offical instance: http://ozgur
 - No JavaScript
 - Topic search
 - View topic and entry
-- Gündem topic list support
+- Gündem and debe page support
 - Optioanl dispay author nickname
 - Ad-free, simple and fast
 - Light and dark theme support
