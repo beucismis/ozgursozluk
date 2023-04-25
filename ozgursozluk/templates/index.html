@@ -4,9 +4,24 @@
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
         <div class="info">
-            <div><p>gündem</p></div>
+            <div>
+                <p>gündem - <a href="/debe">debe</a></p>
+            </div>
+            <div>
+                {% if p > 1 %}
+                    <a href="/?p={{ p-1 }}">previous</a>
+                    {% if p < 3 %}/{% endif %}
+                {% endif %}
+                {% if p < 3 %}
+                    <a href="/?p={{ p+1 }}">next</a>
+                {% endif %}
+                {% if 3 > 1 %}
+                    -
+                    <a href="/?p={{ 3 }}">last page</a>
+                {% endif %}
+            </div>
         </div>
-        {% for topic in agenda %}
+        {% for topic in gundem %}
             <div class="entry">
                 <div style="display: flex; justify-content: space-between;">
                     <div>

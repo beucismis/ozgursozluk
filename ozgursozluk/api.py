@@ -15,6 +15,7 @@ CHARMAP = {
     "'": "",
     "(": "",
     ")": "",
+    "+": "-",
     "ç": "c",
     "ı": "i",
     "ğ": "g",
@@ -25,10 +26,16 @@ CHARMAP = {
 
 
 @dataclass
-class Agenda:
+class Gundem:
     title: str
     views: str
     pinned: bool
+    permalink: str
+
+
+@dataclass
+class Debe:
+    title: str
     permalink: str
 
 
@@ -109,7 +116,7 @@ class Eksi:
             self._get_entrys(soup),
         )
 
-    def get_entry(self, id: int) -> Topic:
+    def get_entry(self, id: str) -> Topic:
         response = self._get(f"/entry/{id}")
         soup = BeautifulSoup(response.content, "html.parser")
         h1 = soup.find("h1", id="title")
@@ -122,16 +129,27 @@ class Eksi:
             self._get_entrys(soup),
         )
 
-    def get_agenda(self) -> Iterator[Agenda]:
-        response = self._get()
+    def get_gundem(self, page: int = 1) -> Iterator[Gundem]:
+        response = self._get("/basliklar/gundem", {"p": page})
         soup = BeautifulSoup(response.content, "html.parser")
         topic_list = soup.find("ul", class_="topic-list").find_all("a", href=True)
 
         for topic in topic_list:
-            yield Agenda(
+            yield Gundem(
                 topic.contents[0],
                 "" if len(topic.contents) < 2 else topic.contents[1],
                 topic.has_attr("class"),
+                topic["href"],
+            )
+
+    def get_debe(self) -> Iterator[Debe]:
+        response = self._get("/debe")
+        soup = BeautifulSoup(response.content, "html.parser")
+        topic_list = soup.find("ul", class_="topic-list").find_all("a", href=True)
+
+        for topic in topic_list:
+            yield Debe(
+                topic.find("span", class_="caption").text,
                 topic["href"],
             )
 
