@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}özgürsözlük - debe{% endblock %}
+{% block main %}
+    <nav>{% include "navigation.html" %}</nav>
+    <div class="topic">
+        <div class="info">
+            <div>
+                <p>debe - <a href="/">gündem</a></p>
+            </div>
+        </div>
+        {% for entry in debe %}
+            <div class="entry">
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <a style="text-decoration: none;" href="{{ entry.permalink }}">
+                            {{ entry.title }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
