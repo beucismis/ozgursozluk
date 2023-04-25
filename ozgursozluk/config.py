@@ -1,7 +1,7 @@
-HOST = "0.0.0.0"
-PORT = 3131
-DEBUG = True
-SECRET_KEY = "Some secret string here"
+from os import environ
+
+
+SECRET_KEY = environ.get("OZGURSOZLUK_SECRET_KEY", "Some secret string")
 
 DEFAULT_THEME = "light"
 DEFAULT_DISPLAY_AUTHOR_NICKNAME = "False"
