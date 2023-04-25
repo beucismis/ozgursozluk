@@ -139,7 +139,12 @@ form .settings-group > :last-child {
     margin-left: auto;
 }
 
-form input, form select, form button {
+form input, form select {
+    width: 50%;
+    padding: 0.5rem;
+}
+
+form button {
     padding: 0.5rem;
 }
 
@@ -155,9 +160,5 @@ form input[type='checkbox'] {
 
     nav, .title, .description {
         text-align: left;
-    }
-    
-    form input[type='text'], form select {
-        width: 50%;
     }
 }
