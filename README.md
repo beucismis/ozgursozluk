@@ -9,15 +9,16 @@ Free alternative simple ekşi sözlük front-end. Offical instance: http://ozgur
 
 ## Features
 - No JavaScript
-- Topic search
-- View topic and entry
+- Topic searching
+- Entry sorting options
+- View topic, entry and author
 - Gündem and debe page support
-- Optioanl dispay author nickname
+- Optioanl dispaying author nickname
 - Ad-free, simple and fast
-- Light and dark theme support
+- 8 different theme support
 - Responsive support for small screens
 
-## Installing
+## Installing and Running
 ```
 git clone https://github.com/beucismis/ozgursozluk
 cd ozgursozluk/
@@ -26,15 +27,15 @@ gunicorn # or gunicorn --bind 0.0.0.0:3131
 ```
 
 ## Preview
-<p>
-  <img src="https://user-images.githubusercontent.com/40023234/234410466-fe1b77fc-875f-4e28-b11e-872c362fb3ae.png" width="400">
-  <img src="https://user-images.githubusercontent.com/40023234/234410618-c7bc4ba0-e375-4d49-b86a-231f2536d828.png" width="400">
-</p>
+<table>
+  <tbody>
+    <tr>
+      <td><img src="https://user-images.githubusercontent.com/40023234/234684246-de064e97-bd44-49b8-93ab-6c13706d6c3b.png"></td>
+      <td><img src="https://user-images.githubusercontent.com/40023234/234684344-e77b4b1b-6aeb-44c4-840c-4cb4d01cd96e.png"></td>
+      <td><img src="https://user-images.githubusercontent.com/40023234/234684430-092d27f0-7eed-4e7b-8ffc-78e916f7dc71.png"></td>
+    </tr>
+  </tbody>
+</table>
 
-## ToDo
-- [ ] API endpoint
-- [ ] Docker support
-- [x] Page support for debe
-- [x] Display optional author nickname
-- [ ] Sorthing for entries today and all
-- [ ] URL change support for alternative front-ends (e.g: twitter to nitter)
+## License
+This project lisanced under WTFPL for details check [LICENSE](LICENSE) file.
