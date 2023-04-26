@@ -49,6 +49,17 @@ class Entry:
 
 
 @dataclass
+class Author:
+    nickname: str
+    level: str
+    biography: str
+    entry_total_count: int
+    user_follower_count: int
+    user_following_count: int
+    avatar_link: str
+
+
+@dataclass
 class Topic:
     id: str
     title: str
@@ -102,8 +113,12 @@ class Eksi:
             self._get_entrys(soup),
         )
 
-    def get_topic(self, title: str, page: int = 1) -> Topic:
-        response = self._get(f"/{title}", {"p": page})
+    def get_topic(self, title: str, page: int = 1, a: str = None) -> Topic:
+        if a is None:
+            response = self._get(f"/{title}", {"p": page})
+        else:
+            response = self._get(f"/{title}", {"a": a, "p": page})
+
         soup = BeautifulSoup(response.content, "html.parser")
         h1 = soup.find("h1", id="title")
         pager = soup.find("div", class_="pager")
@@ -152,6 +167,22 @@ class Eksi:
                 topic.find("span", class_="caption").text,
                 topic["href"],
             )
+
+    def get_author(self, nickname: str) -> Author:
+        response = self._get(f"/biri/{nickname}")
+        soup = BeautifulSoup(response.content, "html.parser")
+        muted = soup.find("p", class_="muted")
+        biography = soup.find("div", id="profile-biography")
+
+        return Author(
+            nickname,
+            "" if muted is None else muted.text,
+            "" if biography is None else biography.find("div"),
+            soup.find("span", id="entry-count-total").text,
+            soup.find("span", id="user-follower-count").text,
+            soup.find("span", id="user-following-count").text,
+            soup.find("img", class_="logo avatar").attrs["src"],
+        )
 
 
 def _unicode_tr(text: str) -> str:

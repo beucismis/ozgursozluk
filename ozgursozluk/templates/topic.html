@@ -4,18 +4,33 @@
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
         <div class="info">
-            <div><p>{{ topic.title }}</p></div>
             <div>
-                {% if p > 1 %}
-                    <a href="/{{ topic.title_id() }}?p={{ p-1 }}">previous</a>
-                    {% if p < topic.pagecount %}/{% endif %}
-                {% endif %}
-                {% if p < topic.pagecount %}
-                    <a href="/{{ topic.title_id() }}?p={{ p+1 }}">next</a>
-                {% endif %}
-                {% if topic.pagecount > 1 %}
-                    -
-                    <a href="/{{ topic.title_id() }}?p={{ topic.pagecount }}">last page</a>
+                <p>
+                    {{ topic.title }} - şükela:
+                    <a href="{{ url_for('topic', title=topic.title_id(), p=p, a='nice') }}">nice</a>
+                </p>
+            </div>
+            <div>
+                {% if a is none %}
+                    {% if p > 1 %}
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=p-1) }}">previous</a>
+                        {% if p < topic.pagecount %}/{% endif %}
+                    {% endif %}
+                    {% if p < topic.pagecount %}<a href="{{ url_for('topic', title=topic.title_id(), p=p+1) }}">next</a>{% endif %}
+                    {% if topic.pagecount > 1 %}
+                        -
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=topic.pagecount) }}">last page</a>
+                    {% endif %}
+                {% else %}
+                    {% if p > 1 %}
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=p-1, a=a) }}">previous</a>
+                        {% if p < topic.pagecount %}/{% endif %}
+                    {% endif %}
+                    {% if p < topic.pagecount %}<a href="{{ url_for('topic', title=topic.title_id(), p=p+1, a=a) }}">next</a>{% endif %}
+                    {% if topic.pagecount > 1 %}
+                        -
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=topic.pagecount, a=a) }}">last page</a>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -24,11 +39,15 @@
                 {{ entry.content|safe }}
                 </br>
                 <div style="text-align: right;">
-                    {% if request.cookies.get('display_author_nickname') == 'True' %}
-                        <small>{{ entry.author }}</small>
+                    {% if request.cookies.get('display_author_nickname') == 'true' %}
+                        <small>
+                            <a href="{{ url_for('author', nickname=entry.author) }}">{{ entry.author }}</a>
+                        </small>
                         -
                     {% endif %}
-                    <small>{{ entry.datetime }}</small>
+                    <small>
+                        <a href="{{ url_for('entry', id=entry.id) }}">{{ entry.datetime }}</a>
+                    </small>
                 </div>
             </div>
         {% endfor %}

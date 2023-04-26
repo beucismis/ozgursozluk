@@ -49,24 +49,25 @@ def index():
 def search(q: str):
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template("topic.html", topic=eksi.search_topic(q), p=1)
+    return flask.render_template("topic.html", topic=eksi.search_topic(q), p=1, a=None)
 
 
 @ozgursozluk.app.route("/<title>")
 def topic(title: str):
     p = request.args.get("p", default=1, type=int)
+    a = request.args.get("a", default=None, type=str)
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-    result = eksi.get_topic(title, p)
 
-    return flask.render_template("topic.html", topic=result, p=p)
+    return flask.render_template(
+        "topic.html", topic=eksi.get_topic(title, p, a), p=p, a=a
+    )
 
 
 @ozgursozluk.app.route("/debe")
 def debe():
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-    debe = eksi.get_debe()
 
-    return flask.render_template("debe.html", debe=debe)
+    return flask.render_template("debe.html", debe=eksi.get_debe())
 
 
 @ozgursozluk.app.route("/entry/<int:id>")
@@ -76,37 +77,33 @@ def entry(id: int):
     return flask.render_template("topic.html", topic=eksi.get_entry(id), p=1)
 
 
+@ozgursozluk.app.route("/biri/<nickname>")
+def author(nickname: str):
+    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
+
+    return flask.render_template("author.html", author=eksi.get_author(nickname))
+
+
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
 def settings():
-    theme = request.cookies.get("theme", DEFAULT_THEME)
-    eksi_base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-    display_author_nickname = request.cookies.get(
-        "display_author_nickname", DEFAULT_DISPLAY_AUTHOR_NICKNAME
-    )
-
     if request.method == "POST":
-        response = flask.make_response(
-            flask.render_template(
-                "settings.html",
-                theme=theme,
-                eksi_base_url=eksi_base_url,
-                display_author_nickname=display_author_nickname,
-            )
-        )
+        response = flask.redirect(flask.url_for("settings"))
         response.set_cookie("theme", flask.request.form["theme"])
-        response.set_cookie("eksi_base_url", flask.request.form["eksi_base_url"])
         response.set_cookie(
             "display_author_nickname",
             flask.request.form["display_author_nickname"],
         )
+        response.set_cookie("eksi_base_url", flask.request.form["eksi_base_url"])
 
         return response
 
     return flask.render_template(
         "settings.html",
-        theme=theme,
-        eksi_base_url=eksi_base_url,
-        display_author_nickname=display_author_nickname,
+        theme=request.cookies.get("theme", DEFAULT_THEME),
+        display_author_nickname=request.cookies.get(
+            "display_author_nickname", DEFAULT_DISPLAY_AUTHOR_NICKNAME
+        ),
+        eksi_base_url=request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL),
     )
 
 

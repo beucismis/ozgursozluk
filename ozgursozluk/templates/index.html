@@ -4,20 +4,16 @@
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
         <div class="info">
-            <div>
-                <p>gündem - <a href="/debe">debe</a></p>
-            </div>
+            <div><p>gündem - <a href="/debe">debe</a></p></div>
             <div>
                 {% if p > 1 %}
-                    <a href="/?p={{ p-1 }}">previous</a>
+                    <a href="{{ url_for('index', p=p-1) }}">previous</a>
                     {% if p < 3 %}/{% endif %}
                 {% endif %}
-                {% if p < 3 %}
-                    <a href="/?p={{ p+1 }}">next</a>
-                {% endif %}
+                {% if p < 3 %}<a href="{{ url_for('index', p=p+1) }}">next</a>{% endif %}
                 {% if 3 > 1 %}
                     -
-                    <a href="/?p={{ 3 }}">last page</a>
+                    <a href="{{ url_for('index', p=3) }}">last page</a>
                 {% endif %}
             </div>
         </div>
@@ -25,14 +21,10 @@
             <div class="entry">
                 <div style="display: flex; justify-content: space-between;">
                     <div>
-                        <a style="text-decoration: none;" href="{{ topic.permalink }}">
-                            {{ topic.title }}
-                        </a>
+                        <a style="text-decoration: none;" href="{{ topic.permalink }}">{{ topic.title }}</a>
                     </div>
                     <div>
-                        {% if topic.pinned %}
-                            <small style="opacity: 0.5;">pinned</small>
-                        {% endif %}
+                        {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
                         {{ topic.views|safe }}
                     </div>
                 </div>
