@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}özgürsözlük - user: {{ author.nickname }}{% endblock %}
+{% block main %}
+    <nav>{% include "navigation.html" %}</nav>
+    <div class="author">
+        <div style="display: flex;">
+            <img class="avatar" src="{{ author.avatar_link }}">
+            <div>
+                {{ author.nickname }}
+                {% if author.level != "" %}
+                    -
+                    <span style="opacity: 0.5;">{{ author.level }}</span>
+                {% endif %}
+                </br></br>
+                {% if author.biography != "" %}
+                    biography:
+                    </br>
+                    <small>{{ author.biography|safe }}</small>
+                    </br>
+                {% endif %}
+                <small>{{ author.entry_total_count }} entry</small>
+                -
+                <small>{{ author.user_follower_count }} follower</small>
+                -
+                <small>{{ author.user_following_count }} following</small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
