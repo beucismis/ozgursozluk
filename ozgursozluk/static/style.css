@@ -1,29 +1,34 @@
-:root {
-    --text-color: #000000;
-    --title-color: #81C14B;
-    --background-color: #FFFFFF;
-    --entry-link-color: #81C14B;
-    --entry-background-color: #EEEEEE;
-    color-scheme: light;
-}
-
-.dark {
-    --text-color: #E8E6E3;
-    --title-color: #81C14B;
-    --background-color: #181A1B;
-    --entry-link-color: #81C14B;
-    --entry-background-color: #222426;
-    color-scheme: dark;
-}
-
-body {
+html {
     font-family: sans-serif;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: var(--main-fg);
+    background-color: var(--main-bg);
 }
 
 a {
-    color: var(--text-color);
+    color: var(--main-fg);
+}
+
+h1 a {
+    color: black;
+    text-decoration: none;
+}
+
+small {
+    opacity: 0.5;
+    color: var(--main-fg);
+}
+
+small a {
+    text-decoration: none;
+}
+
+input, button, select {
+    outline: none;
+    padding: 0.5rem;
+}
+
+button {
+    cursor: pointer;
 }
 
 header div {
@@ -53,30 +58,45 @@ nav a {
     display: inline-block;
 }
 
+form {
+    padding-top: 0.5rem;
+}
+
+form .settings-group {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+
+form .settings-group > :last-child {
+    margin-left: auto;
+}
+
+form input, form select {
+    width: 35%;
+}
+
+form input, form select, form button {
+    color: inherit;
+    border: 1px solid var(--border);
+    background-color: var(--button-bg);
+}
+
 .title {
     text-align: center;
     font-weight: normal;
 }
 
-h1 a {
-    color: black;
-    text-decoration: none;
-}
-
-small {
-    opacity: 0.5;
-    color: var(--text-color);
-}
-
 .ozgur {
-    color: var(--text-color);
+    color: var(--main-fg);
 }
 
 .sozluk {
-    color: var(--title-color);
+    color: var(--title-fg);
 }
 
 .description {
+    margin-top: -15px;
     text-align: center;
 }
 
@@ -88,7 +108,7 @@ small {
 .topic > .entry {
     margin: 1rem;
     padding: 0.5rem;
-    background-color: var(--entry-background-color);
+    background-color: var(--entry-bg);
 }
 
 .content {
@@ -98,7 +118,7 @@ small {
 
 .content .b, .content .url {
     text-decoration: none;
-    color: var(--entry-link-color);
+    color: var(--entry-link-fg);
 }
 
 .entry-datetime {
@@ -119,46 +139,57 @@ small {
     padding: 0;    
 }
 
+.author {
+    width: 50%;
+    padding: 0.5rem;
+    margin: 3rem auto;
+    background-color: var(--entry-bg);
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0.2rem;
+    align-items: center;
+    margin-right: 0.8rem;
+}
+
 .settings {
     width: 35%;
     margin: 0 auto;
     padding-top: 3rem;
 }
 
-form {
-    padding-top: 0.5rem;
+@media screen and (width <= 1380px) {
+    main, nav, .topic, .author, .settings {
+        width: 60%;
+    }
+
+    form input, form select {
+        width: 50%;
+    }
 }
 
-form .settings-group {
-    display: flex;
-    align-items: center;
-    padding-bottom: 0.5rem;
+@media screen and (width <= 1180px) {
+    main, nav, .topic, .author, .settings {
+        width: 80%;
+    }
+
+    form input, form select {
+        width: 50%;
+    }
 }
 
-form .settings-group > :last-child {
-    margin-left: auto;
-}
-
-form input, form select {
-    width: 50%;
-    padding: 0.5rem;
-}
-
-form button {
-    padding: 0.5rem;
-}
-
-form input[type='checkbox'] {
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-@media only screen and (max-width: 768px) {
-    main, nav, .topic, .settings {
+@media screen and (width <= 800px) {
+    main, nav, .topic, .author, .settings {
         width: 100%;
     }
 
     nav, .title, .description {
         text-align: left;
+    }
+
+    form input, form select {
+        width: 50%;
     }
 }
