@@ -1,5 +1,6 @@
-import flask
-from flask import request
+from datetime import datetime, timedelta
+
+from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.api import Eksi
@@ -18,6 +19,10 @@ def _last_commit() -> str:
         return file.read()
 
 
+def _expires() -> datetime:
+    return datetime.now() + timedelta(days=365)
+
+
 @ozgursozluk.app.context_processor
 def context_processor():
     return dict(
@@ -34,22 +39,22 @@ def index():
     p = request.args.get("p", default=1, type=int)
 
     if q is not None:
-        return flask.redirect(flask.url_for("search", q=q))
+        return redirect(url_for("search", q=q))
 
     if request.method == "POST":
-        return flask.redirect(flask.url_for("search", q=request.form["q"]))
+        return redirect(url_for("search", q=request.form["q"]))
 
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
     gundem = eksi.get_gundem(p)
 
-    return flask.render_template("index.html", gundem=gundem, p=p)
+    return render_template("index.html", gundem=gundem, p=p)
 
 
 @ozgursozluk.app.route("/search/<q>")
 def search(q: str):
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template("topic.html", topic=eksi.search_topic(q), p=1, a=None)
+    return render_template("topic.html", topic=eksi.search_topic(q), p=1, a=None)
 
 
 @ozgursozluk.app.route("/<title>")
@@ -58,7 +63,7 @@ def topic(title: str):
     a = request.args.get("a", default=None, type=str)
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template(
+    return render_template(
         "topic.html", topic=eksi.get_topic(title, p, a), p=p, a=a
     )
 
@@ -67,46 +72,59 @@ def topic(title: str):
 def debe():
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template("debe.html", debe=eksi.get_debe())
+    return render_template("debe.html", debe=eksi.get_debe())
 
 
 @ozgursozluk.app.route("/entry/<int:id>")
 def entry(id: int):
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template("topic.html", topic=eksi.get_entry(id), p=1)
+    return render_template("topic.html", topic=eksi.get_entry(id), p=1)
 
 
 @ozgursozluk.app.route("/biri/<nickname>")
 def author(nickname: str):
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
-    return flask.render_template("author.html", author=eksi.get_author(nickname))
+    return render_template("author.html", author=eksi.get_author(nickname))
 
 
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
 def settings():
     if request.method == "POST":
-        response = flask.redirect(flask.url_for("settings"))
-        response.set_cookie("theme", flask.request.form["theme"])
+        response = redirect(url_for("settings"))
+        response.set_cookie(
+            "theme",
+            request.form["theme"],
+            expires=_expires(),
+        )
         response.set_cookie(
             "display_author_nickname",
-            flask.request.form["display_author_nickname"],
+            request.form["display_author_nickname"],
+            expires=_expires(),
         )
-        response.set_cookie("eksi_base_url", flask.request.form["eksi_base_url"])
+        response.set_cookie(
+            "eksi_base_url",
+            request.form["eksi_base_url"],
+            expires=_expires(),
+        )
 
         return response
 
-    return flask.render_template(
+    return render_template(
         "settings.html",
-        theme=request.cookies.get("theme", DEFAULT_THEME),
+        theme=request.cookies.get(
+            "theme", DEFAULT_THEME
+        ),
         display_author_nickname=request.cookies.get(
             "display_author_nickname", DEFAULT_DISPLAY_AUTHOR_NICKNAME
         ),
-        eksi_base_url=request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL),
+        eksi_base_url=request.cookies.get(
+            "eksi_base_url", DEFAULT_EKSI_BASE_URL
+        ),
     )
 
 
 @ozgursozluk.app.errorhandler(404)
-def page_not_found(e):
-    return flask.render_template("404.html"), 404
+def page_not_found(error):
+    return render_template("404.html", error=error), 404
