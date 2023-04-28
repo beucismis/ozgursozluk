@@ -3,27 +3,26 @@
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
     <div class="author">
-        <div style="display: flex;">
+        <div style="display: flex; padding: 0.5rem;">
             <img class="avatar" src="{{ author.avatar_link }}">
-            <div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center;">
                 {{ author.nickname }}
                 {% if author.level != "" %}
-                    -
+                    -&nbsp;
                     <span style="opacity: 0.5;">{{ author.level }}</span>
                 {% endif %}
-                </br></br>
-                {% if author.biography != "" %}
-                    biography:
-                    </br>
-                    <small>{{ author.biography|safe }}</small>
-                    </br>
-                {% endif %}
-                <small>{{ author.entry_total_count }} entry</small>
-                -
-                <small>{{ author.user_follower_count }} follower</small>
-                -
-                <small>{{ author.user_following_count }} following</small>
             </div>
+        </div>
+        <div style="padding: 0.5rem; padding-top: 1.3rem;">
+            {% if author.biography != "" %}
+                <small>{{ author.biography|safe }}</small>
+                </br>
+            {% endif %}
+            <small>{{ author.entry_total_count }} entry</small>
+            -
+            <small>{{ author.user_follower_count }} follower</small>
+            -
+            <small>{{ author.user_following_count }} following</small>
         </div>
     </div>
 {% endblock %}
