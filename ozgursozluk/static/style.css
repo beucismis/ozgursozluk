@@ -144,8 +144,9 @@ form input, form select, form button {
 }
 
 .author {
-    width: 50%;
-    margin: 3rem auto;
+    width: 45%;
+    text-align: center;
+    margin: 3rem auto 1rem auto;
     background-color: var(--entry-bg);
 }
 
@@ -154,7 +155,7 @@ form input, form select, form button {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-right: 0.5rem;
+    padding-top: 0.5rem;
 }
 
 .settings {
@@ -178,7 +179,7 @@ form input, form select, form button {
         width: 100%;
     }
 
-    nav, .title, .description {
+    nav, .title, .description, .author {
         text-align: left;
     }
 
