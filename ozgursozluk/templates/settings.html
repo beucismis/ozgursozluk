@@ -9,33 +9,25 @@
                     <option value="light" {% if theme == 'light' %}selected{% endif %}>light</option>
                     <option value="dark" {% if theme == 'dark' %}selected{% endif %}>dark</option>
                     <option value="amoled" {% if theme == 'amoled' %}selected{% endif %}>amoled</option>
+                    <option value="violet" {% if theme == 'violet' %}selected{% endif %}>violet</option>
                     <option value="gruvbox" {% if theme == 'gruvbox' %}selected{% endif %}>gruvbox</option>
                     <option value="gruvboxlight" {% if theme == 'gruvboxlight' %}selected{% endif %}>gruvboxlight</option>
                     <option value="discord" {% if theme == 'discord' %}selected{% endif %}>discord</option>
                     <option value="startpage" {% if theme == 'startpage' %}selected{% endif %}>startpage</option>
-                    <option value="violet" {% if theme == 'violet' %}selected{% endif %}>violet</option>
                 </select>
             </div>
             <div class="settings-group">
                 display author nickname:
                 <select name="display_author_nickname">
-                    <option value="false"
-                            {% if display_author_nickname == 'false' %}selected{% endif %}>no</option>
-                    <option value="true"
-                            {% if display_author_nickname == 'true' %}selected{% endif %}>yes</option>
+                    <option value="false" {% if display_author_nickname == 'false' %}selected{% endif %}>no</option>
+                    <option value="true" {% if display_author_nickname == 'true' %}selected{% endif %}>yes</option>
                 </select>
             </div>
             <div class="settings-group">
                 ekşi base url:
                 <select name="eksi_base_url">
-                    <option value="https://eksisozluk.com"
-                            {% if eksi_base_url == 'https://eksisozluk.com' %} selected {% endif %}>
-                        eksisozluk.com
-                    </option>
-                    <option value="https://eksisozluk2023.com"
-                            {% if eksi_base_url == 'https://eksisozluk2023.com' %} selected {% endif %}>
-                        eksisozluk2023.com
-                    </option>
+                    <option value="https://eksisozluk.com" {% if eksi_base_url == 'https://eksisozluk.com' %} selected {% endif %}>eksisozluk.com</option>
+                    <option value="https://eksisozluk2023.com" {% if eksi_base_url == 'https://eksisozluk2023.com' %} selected {% endif %}>eksisozluk2023.com</option>
                 </select>
             </div>
             <div style="text-align: right; padding-top: 2rem;">
