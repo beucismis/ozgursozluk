@@ -1,12 +1,12 @@
-import flask
+from flask import Flask
 
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 __author__ = "beucismis"
 __source__ = "https://github.com/beucismis/ozgursozluk"
 __description__ = "free alternative simple ekşi sözlük front-end"
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 app.config.from_object("ozgursozluk.config")
 
 

@@ -1,8 +1,8 @@
 from typing import Iterator
 from dataclasses import dataclass
 
-import flask
 import requests
+from flask import abort
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
@@ -82,7 +82,7 @@ class Eksi:
         )
 
         if response.status_code != 200:
-            flask.abort(response.status_code)
+            abort(response.status_code)
 
         return response
 
