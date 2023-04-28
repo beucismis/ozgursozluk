@@ -73,7 +73,11 @@ form .settings-group > :last-child {
 }
 
 form input, form select {
-    width: 35%;
+    min-width: 35%;
+    box-sizing:content-box;
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box; 
 }
 
 form input, form select, form button {
@@ -106,8 +110,8 @@ form input, form select, form button {
 }
 
 .topic > .entry {
-    margin: 1rem;
     padding: 0.5rem;
+    margin: 1rem 0 1rem 0;
     background-color: var(--entry-bg);
 }
 
@@ -127,10 +131,10 @@ form input, form select, form button {
 }
 
 .info {
-    margin: 1rem;
     display: flex;
     padding-top: 1rem;
     align-items: center;
+    margin: 1rem 0 1rem 0;
     justify-content: space-between;
 }
 
@@ -141,33 +145,22 @@ form input, form select, form button {
 
 .author {
     width: 50%;
-    padding: 0.5rem;
     margin: 3rem auto;
     background-color: var(--entry-bg);
 }
 
 .avatar {
+    border: 0;
     width: 100px;
     height: 100px;
-    margin: 0.2rem;
-    align-items: center;
-    margin-right: 0.8rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
 }
 
 .settings {
-    width: 35%;
+    width: 50%;
     margin: 0 auto;
     padding-top: 3rem;
-}
-
-@media screen and (width <= 1380px) {
-    main, nav, .topic, .author, .settings {
-        width: 60%;
-    }
-
-    form input, form select {
-        width: 50%;
-    }
 }
 
 @media screen and (width <= 1180px) {
@@ -176,7 +169,7 @@ form input, form select, form button {
     }
 
     form input, form select {
-        width: 50%;
+        width: 30%;
     }
 }
 
@@ -190,6 +183,6 @@ form input, form select, form button {
     }
 
     form input, form select {
-        width: 50%;
+        width: 30%;
     }
 }
