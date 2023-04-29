@@ -1,6 +1,6 @@
 ## ToDo
 - [ ] API endpoint
-- [ ] Docker support
+- [x] Docker support
 - [x] Page support for debe
 - [ ] Author page and last entrys
 - [ ] Optioanl displaying for pinned

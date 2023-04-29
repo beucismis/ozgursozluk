@@ -9,21 +9,34 @@ Free alternative simple ekşi sözlük front-end. Offical instance: http://ozgur
 
 ## Features
 - No JavaScript
+- Docker support
 - Topic searching
 - Entry sorting options
 - View topic, entry and author
 - Gündem and debe page support
 - Optioanl dispaying author nickname
-- Ad-free, simple and fast
 - 8 different theme support
+- Self-hosted, ad-free, simple and fast
 - Responsive support for small screens
 
 ## Installing and Running
+Clone the repository:
 ```
 git clone https://github.com/beucismis/ozgursozluk
 cd ozgursozluk/
+```
+
+Normal running:
+```
 pip3 install -r requirements.txt
-gunicorn # or gunicorn --bind 0.0.0.0:3131
+gunicorn
+```
+Deploy using a different port: `gunicorn --bind 0.0.0.0:3131`
+
+Running with Docker:
+```
+docker build -t ozgursozluk .
+docker run -p 3131:80 ozgursozluk
 ```
 
 ## Preview
