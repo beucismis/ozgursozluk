@@ -5,9 +5,8 @@
 ![](https://img.shields.io/github/license/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml)
-![](https://img.shields.io/website?url=http%3A%2F%2Fozgursozluk.freedns.rocks)
 
-Free alternative simple ekşi sözlük front-end. Offical instance: https://ozgursozluk.freedns.rocks
+A free and open source alternative Ekşi Sözlük front-end. Offical instance: https://ozgursozluk.freedns.rocks
 
 ## Features
 - No JavaScript
