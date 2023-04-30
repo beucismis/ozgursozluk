@@ -66,6 +66,7 @@ class Topic:
     pagecount: int
     permalink: str
     entrys: Iterator[Entry]
+    nice: bool | None = None
 
     def title_id(self) -> str:
         return _unicode_tr(f"{self.title}--{self.id}")
@@ -129,6 +130,7 @@ class Eksi:
             int(pager.attrs["data-pagecount"]) if pager is not None else 0,
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
+            a == "nice",
         )
 
     def get_entry(self, id: str) -> Topic:
