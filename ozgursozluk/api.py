@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Union
 from dataclasses import dataclass
 
 import requests
@@ -66,7 +66,7 @@ class Topic:
     pagecount: int
     permalink: str
     entrys: Iterator[Entry]
-    nice: bool | None = None
+    nice: Union[bool, None] = None
 
     def title_id(self) -> str:
         return _unicode_tr(f"{self.title}--{self.id}")
