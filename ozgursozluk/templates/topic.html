@@ -6,8 +6,14 @@
         <div class="info">
             <div>
                 <p>
-                    {{ topic.title }} - şükela:
+                  {{ topic.title }} - şükela:
+                    {% if topic.nice %}
+                      <a href="{{ url_for('topic', title=topic.title_id()) }}">
+                        <b>nice</b>
+                      </a>
+                  {% else %}
                     <a href="{{ url_for('topic', title=topic.title_id(), p=p, a='nice') }}">nice</a>
+                  {% endif %}
                 </p>
             </div>
             <div>
