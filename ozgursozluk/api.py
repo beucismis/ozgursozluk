@@ -28,9 +28,9 @@ CHARMAP = {
 @dataclass
 class Gundem:
     title: str
-    views: str
     pinned: bool
     permalink: str
+    views: Union[str, None] = None
 
 
 @dataclass
@@ -51,21 +51,21 @@ class Entry:
 @dataclass
 class Author:
     nickname: str
-    level: str
-    biography: str
     entry_total_count: int
     user_follower_count: int
     user_following_count: int
     avatar_link: str
+    level: Union[str, None] = None
+    biography: Union[str, None] = None
 
 
 @dataclass
 class Topic:
     id: str
     title: str
-    pagecount: int
     permalink: str
     entrys: Iterator[Entry]
+    pagecount: int = 0
     nice: Union[bool, None] = None
 
     def title_id(self) -> str:
@@ -79,7 +79,7 @@ class Eksi:
 
     def _get(self, endpoint: str = "/", params: dict = {}) -> dict:
         response = requests.get(
-            f"{self.base_url}{endpoint}", params=params, headers=self.headers
+            f"{self.base_url}{endpoint}", params=params, headers=self.headers, verify=False
         )
 
         if response.status_code != 200:
@@ -109,9 +109,9 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
-            int(pager.attrs["data-pagecount"]) if pager is not None else 0,
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
+            int(pager.attrs["data-pagecount"]) if pager is not None else 0,
         )
 
     def get_topic(self, title: str, page: int = 1, a: str = None) -> Topic:
@@ -127,9 +127,9 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
-            int(pager.attrs["data-pagecount"]) if pager is not None else 0,
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
+            int(pager.attrs["data-pagecount"]) if pager is not None else 0,
             a == "nice",
         )
 
@@ -141,7 +141,6 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
-            0,
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
         )
@@ -154,9 +153,9 @@ class Eksi:
         for topic in topic_list:
             yield Gundem(
                 topic.contents[0],
-                "" if len(topic.contents) < 2 else topic.contents[1],
                 topic.has_attr("class"),
                 topic["href"],
+                None if len(topic.contents) < 2 else topic.contents[1],
             )
 
     def get_debe(self) -> Iterator[Debe]:
@@ -178,12 +177,12 @@ class Eksi:
 
         return Author(
             nickname,
-            "" if muted is None else muted.text,
-            "" if biography is None else biography.find("div"),
             soup.find("span", id="entry-count-total").text,
             soup.find("span", id="user-follower-count").text,
             soup.find("span", id="user-following-count").text,
             soup.find("img", class_="logo avatar").attrs["src"],
+            None if muted is None else muted.text,
+            None if biography is None else biography.find("div"),
         )
 
 
