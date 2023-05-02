@@ -6,7 +6,7 @@
         <img class="avatar" src="{{ author.avatar_link }}">
         <div style="padding: 0 0.5rem 0.5rem 0.5rem;">
             {{ author.nickname }}
-            {% if author.level != "" %}
+            {% if author.level %}
                 -
                 <span style="opacity: 0.5;">{{ author.level }}</span>
             {% endif %}
@@ -18,7 +18,7 @@
             <small>{{ author.user_following_count }} following</small>
         </div>
     </div>
-    {% if author.biography != "" %}
+    {% if author.biography %}
         <div class="author" style="margin: 0 auto;">
             <div style="padding: 0.5rem; text-align: left;">
                 {{ author.biography|safe }}

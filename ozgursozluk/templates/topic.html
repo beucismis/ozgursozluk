@@ -6,23 +6,25 @@
         <div class="info">
             <div>
                 <p>
-                  {{ topic.title }} - şükela:
+                    {{ topic.title }} - şükela:
                     {% if topic.nice %}
-                      <a href="{{ url_for('topic', title=topic.title_id()) }}">
-                        <b>nice</b>
-                      </a>
-                  {% else %}
-                    <a href="{{ url_for('topic', title=topic.title_id(), p=p, a='nice') }}">nice</a>
-                  {% endif %}
+                        <a href="{{ url_for('topic', title=topic.title_id()) }}">
+                            <b>nice</b>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=p, a='nice') }}">nice</a>
+                    {% endif %}
                 </p>
             </div>
             <div>
-                {% if a is none %}
+                {% if a %}
                     {% if p > 1 %}
                         <a href="{{ url_for('topic', title=topic.title_id(), p=p-1) }}">previous</a>
                         {% if p < topic.pagecount %}/{% endif %}
                     {% endif %}
-                    {% if p < topic.pagecount %}<a href="{{ url_for('topic', title=topic.title_id(), p=p+1) }}">next</a>{% endif %}
+                    {% if p < topic.pagecount %}
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=p+1) }}">next</a>
+                    {% endif %}
                     {% if topic.pagecount > 1 %}
                         -
                         <a href="{{ url_for('topic', title=topic.title_id(), p=topic.pagecount) }}">last page</a>
@@ -32,7 +34,9 @@
                         <a href="{{ url_for('topic', title=topic.title_id(), p=p-1, a=a) }}">previous</a>
                         {% if p < topic.pagecount %}/{% endif %}
                     {% endif %}
-                    {% if p < topic.pagecount %}<a href="{{ url_for('topic', title=topic.title_id(), p=p+1, a=a) }}">next</a>{% endif %}
+                    {% if p < topic.pagecount %}
+                        <a href="{{ url_for('topic', title=topic.title_id(), p=p+1, a=a) }}">next</a>
+                    {% endif %}
                     {% if topic.pagecount > 1 %}
                         -
                         <a href="{{ url_for('topic', title=topic.title_id(), p=topic.pagecount, a=a) }}">last page</a>

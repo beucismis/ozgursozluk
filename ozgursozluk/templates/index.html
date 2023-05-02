@@ -25,7 +25,7 @@
                     </div>
                     <div>
                         {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
-                        {{ topic.views|safe }}
+                        {% if topic.views %}{{ topic.views|safe }}{% endif %}
                     </div>
                 </div>
             </div>
