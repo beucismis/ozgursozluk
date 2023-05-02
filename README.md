@@ -15,7 +15,7 @@ A free and open source alternative Ekşi Sözlük front-end. Offical instance: h
 - Entry sorting options
 - View topic, entry and author
 - Gündem and debe page support
-- Optioanl dispaying author nickname
+- Optional displaying author nickname
 - 8 different theme support
 - Self-hosted, ad-free, simple and fast
 - Responsive support for small screens
