@@ -30,5 +30,19 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="info" style="padding-top: 0;">
+            <div></div>
+            <div>
+                {% if p > 1 %}
+                    <a href="{{ url_for('index', p=p-1) }}">previous</a>
+                    {% if p < 3 %}/{% endif %}
+                {% endif %}
+                {% if p < 3 %}<a href="{{ url_for('index', p=p+1) }}">next</a>{% endif %}
+                {% if 3 > 1 %}
+                    -
+                    <a href="{{ url_for('index', p=3) }}">last page</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}
