@@ -1,5 +1,6 @@
-from typing import Iterator, Union
 from dataclasses import dataclass
+from urllib.parse import urlparse
+from typing import Iterator, Union
 
 import requests
 from flask import abort
@@ -7,22 +8,6 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 from ozgursozluk.config import DEFAULT_EKSI_BASE_URL
-
-
-CHARMAP = {
-    " ": "-",
-    ".": "-",
-    "'": "",
-    "(": "",
-    ")": "",
-    "+": "-",
-    "ç": "c",
-    "ı": "i",
-    "ğ": "g",
-    "ö": "o",
-    "ş": "s",
-    "ü": "u",
-}
 
 
 @dataclass
@@ -63,13 +48,11 @@ class Author:
 class Topic:
     id: str
     title: str
+    path: str
     permalink: str
     entrys: Iterator[Entry]
     pagecount: int = 0
     nice: Union[bool, None] = None
-
-    def title_id(self) -> str:
-        return _unicode_tr(f"{self.title}--{self.id}")
 
 
 class Eksi:
@@ -79,7 +62,7 @@ class Eksi:
 
     def _get(self, endpoint: str = "/", params: dict = {}) -> dict:
         response = requests.get(
-            f"{self.base_url}{endpoint}", params=params, headers=self.headers, verify=False
+            f"{self.base_url}{endpoint}", params=params, headers=self.headers,
         )
 
         if response.status_code != 200:
@@ -109,6 +92,7 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
+            urlparse(response.url).path[1:],
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
             int(pager.attrs["data-pagecount"]) if pager is not None else 0,
@@ -127,6 +111,7 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
+            urlparse(response.url).path[1:],
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
             int(pager.attrs["data-pagecount"]) if pager is not None else 0,
@@ -141,6 +126,7 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
+            urlparse(response.url).path[1:],
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
         )
@@ -184,10 +170,3 @@ class Eksi:
             None if muted is None else muted.text,
             None if biography is None else biography.find("div"),
         )
-
-
-def _unicode_tr(text: str) -> str:
-    for key, value in CHARMAP.items():
-        text = text.replace(key, value)
-
-    return text
