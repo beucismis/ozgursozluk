@@ -2,7 +2,6 @@
 
 ![](https://img.shields.io/badge/python-3.8%2B-blue)
 ![](https://img.shields.io/badge/style-black-black)
-![](https://img.shields.io/github/license/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml)
 
@@ -13,7 +12,7 @@ A free and open source alternative Ekşi Sözlük front-end. Offical instance: h
 - Docker support
 - Topic searching
 - Entry sorting options
-- View topic, entry and author
+- Viewing topic, entry and author
 - Gündem and debe page support
 - Optional displaying author nickname
 - 8 different theme support
