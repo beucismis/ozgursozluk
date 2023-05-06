@@ -126,7 +126,7 @@ class Eksi:
         return Topic(
             h1.attrs["data-id"],
             h1.attrs["data-title"],
-            urlparse(response.url).path[1:],
+            h1.find("a")["href"][1:],
             self.base_url + h1.find("a", href=True)["href"],
             self._get_entrys(soup),
         )
