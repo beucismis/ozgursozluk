@@ -24,13 +24,18 @@ def _expires() -> datetime:
 
 
 @ozgursozluk.app.context_processor
-def context_processor():
+def global_template_variables():
     return dict(
         version=ozgursozluk.__version__,
         source=ozgursozluk.__source__,
         description=ozgursozluk.__description__,
         last_commit=_last_commit(),
     )
+
+
+@ozgursozluk.app.before_request
+def before_request():
+    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
 
 @ozgursozluk.app.route("/", methods=["GET", "POST"])
@@ -44,7 +49,6 @@ def index():
     if request.method == "POST":
         return redirect(url_for("search", q=request.form["q"]))
 
-    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
     gundem = eksi.get_gundem(p)
 
     return render_template("index.html", gundem=gundem, p=p)
@@ -52,8 +56,6 @@ def index():
 
 @ozgursozluk.app.route("/search/<q>")
 def search(q: str):
-    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-
     return render_template("topic.html", topic=eksi.search_topic(q), p=1, a=None)
 
 
@@ -61,7 +63,6 @@ def search(q: str):
 def topic(title: str):
     p = request.args.get("p", default=1, type=int)
     a = request.args.get("a", default=None, type=str)
-    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
     return render_template(
         "topic.html", topic=eksi.get_topic(title, p, a), p=p, a=a
@@ -70,22 +71,16 @@ def topic(title: str):
 
 @ozgursozluk.app.route("/debe")
 def debe():
-    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-
     return render_template("debe.html", debe=eksi.get_debe())
 
 
 @ozgursozluk.app.route("/entry/<int:id>")
 def entry(id: int):
-    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-
     return render_template("topic.html", topic=eksi.get_entry(id), p=1)
 
 
 @ozgursozluk.app.route("/biri/<nickname>")
 def author(nickname: str):
-    eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
-
     return render_template("author.html", author=eksi.get_author(nickname))
 
 
