@@ -6,7 +6,8 @@ import ozgursozluk
 from ozgursozluk.api import Eksi
 from ozgursozluk.config import (
     DEFAULT_THEME,
-    DEFAULT_DISPLAY_AUTHOR_NICKNAME,
+    DEFAULT_DISPLAY_PINNED_TOPICS,
+    DEFAULT_DISPLAY_AUTHOR_NICKNAMES,
     DEFAULT_EKSI_BASE_URL,
 )
 
@@ -94,8 +95,13 @@ def settings():
             expires=_expires(),
         )
         response.set_cookie(
-            "display_author_nickname",
-            request.form["display_author_nickname"],
+            "display_pinned_topics",
+            request.form["display_pinned_topics"],
+            expires=_expires(),
+        )
+        response.set_cookie(
+            "display_author_nicknames",
+            request.form["display_author_nicknames"],
             expires=_expires(),
         )
         response.set_cookie(
@@ -109,13 +115,16 @@ def settings():
     return render_template(
         "settings.html",
         theme=request.cookies.get(
-            "theme", DEFAULT_THEME
+            "theme", DEFAULT_THEME,
         ),
-        display_author_nickname=request.cookies.get(
-            "display_author_nickname", DEFAULT_DISPLAY_AUTHOR_NICKNAME
+        display_pinned_topics=request.cookies.get(
+            "display_pinned_topics", DEFAULT_DISPLAY_PINNED_TOPICS,
+        ),
+        display_author_nicknames=request.cookies.get(
+            "display_author_nicknames", DEFAULT_DISPLAY_AUTHOR_NICKNAMES,
         ),
         eksi_base_url=request.cookies.get(
-            "eksi_base_url", DEFAULT_EKSI_BASE_URL
+            "eksi_base_url", DEFAULT_EKSI_BASE_URL,
         ),
     )
 

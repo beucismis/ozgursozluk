@@ -27,7 +27,7 @@
                 {{ entry.content|safe }}
                 </br>
                 <div style="text-align: right;">
-                    {% if request.cookies.get('display_author_nickname') == 'true' %}
+                    {% if request.cookies.get('display_author_nicknames') == 'true' %}
                         <small>
                             <a href="{{ url_for('author', nickname=entry.author) }}">{{ entry.author }}</a>
                         </small>

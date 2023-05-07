@@ -18,17 +18,36 @@
             </div>
         </div>
         {% for topic in gundem %}
-            <div class="entry">
-                <div style="display: flex; justify-content: space-between;">
-                    <div>
-                        <a style="text-decoration: none;" href="{{ topic.permalink }}">{{ topic.title }}</a>
-                    </div>
-                    <div>
-                        {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
-                        {% if topic.views %}{{ topic.views|safe }}{% endif %}
+            {% if request.cookies.get('display_pinned_topics') == 'true' %}
+                <div class="entry">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <a style="text-decoration: none;" href="{{ topic.permalink }}">
+                                {{ topic.title }}
+                            </a>
+                        </div>
+                        <div>
+                            {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
+                            {% if topic.views %}{{ topic.views|safe }}{% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% else %}
+                {% if not topic.pinned %}
+                    <div class="entry">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div>
+                                <a style="text-decoration: none;" href="{{ topic.permalink }}">
+                                    {{ topic.title }}
+                                </a>
+                            </div>
+                            <div>
+                                {% if topic.views %}{{ topic.views|safe }}{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% endfor %}
         <div class="info" style="padding-top: 0;">
             <div></div>
