@@ -145,7 +145,7 @@ form input, form select, form button {
 }
 
 .author {
-    width: 45%;
+    width: 50%;
     text-align: center;
     margin: 3rem auto 1rem auto;
     background-color: var(--entry-bg);
@@ -162,22 +162,12 @@ form input, form select, form button {
 }
 
 .settings {
-    width: 40%;
+    width: 50%;
     margin: 0 auto;
     padding-top: 3rem;
 }
 
-@media screen and (width <= 1180px) {
-    main, nav, .topic, .author {
-        width: 80%;
-    }
-
-    form input, form select {
-        width: 30%;
-    }
-}
-
-@media screen and (width <= 800px) {
+@media screen and (max-width: 992px) {
     main, nav, .topic, .author, .settings {
         width: 100%;
     }
