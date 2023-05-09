@@ -2,7 +2,7 @@
 - [ ] API endpoint
 - [x] Docker support
 - [x] Page support for debe
-- [ ] Author page and last entrys
+- [x] Author page and ~~last entrys~~
 - [x] Optioanl displaying for pinned
 - [x] Optional displaying author nickname
 - [x] Sorthing for entries ~~today~~ and nice
