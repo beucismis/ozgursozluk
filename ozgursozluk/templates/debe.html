@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block title %}özgürsözlük - debe{% endblock %}
+{% block title %}debe - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="debe - özgürsözlük">
+    <meta name="description" content="{{ description }}">
+{% endblock %}
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
@@ -8,7 +12,9 @@
             <div class="entry">
                 <div style="display: flex; justify-content: space-between;">
                     <div>
-                        <a style="text-decoration: none;" href="{{ entry.permalink }}">{{ entry.title }}</a>
+                        <a style="text-decoration: none;" href="{{ url_for('entry', id=entry.id) }}">
+                            {{ entry.title }}
+                        </a>
                     </div>
                 </div>
             </div>

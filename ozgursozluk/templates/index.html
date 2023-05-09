@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block title %}özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="özgürsözlük">
+    <meta name="description" content="{{ description }}">
+{% endblock %}
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
@@ -22,13 +26,15 @@
                 <div class="entry">
                     <div style="display: flex; justify-content: space-between;">
                         <div>
-                            <a style="text-decoration: none;" href="{{ topic.permalink }}">
+                            <a style="text-decoration: none;" href="{{ url_for('topic', path=topic.path, a='popular') }}">
                                 {{ topic.title }}
                             </a>
                         </div>
                         <div>
                             {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
-                            {% if topic.views %}{{ topic.views|safe }}{% endif %}
+                            {% if topic.entry_count %}
+                                <small style="opacity: 0.5;">{{ topic.entry_count }}</small>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -37,12 +43,14 @@
                     <div class="entry">
                         <div style="display: flex; justify-content: space-between;">
                             <div>
-                                <a style="text-decoration: none;" href="{{ topic.permalink }}">
+                                <a style="text-decoration: none;" href="{{ url_for('topic', path=topic.path, a='popular') }}">
                                     {{ topic.title }}
                                 </a>
                             </div>
                             <div>
-                                {% if topic.views %}{{ topic.views|safe }}{% endif %}
+                                {% if topic.entry_count %}
+                                    <small style="opacity: 0.5;">{{ topic.entry_count }}</small>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

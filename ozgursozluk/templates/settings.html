@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block title %}özgürsözlük - settings{% endblock %}
+{% block title %}settings - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="settings - özgürsözlük">
+    <meta name="description" content="{{ description }}">
+{% endblock %}
 {% block main %}
     <div class="settings">
         <form method="POST" action="/settings">
@@ -42,14 +46,14 @@
             </div>
         </form>
         <div style="text-align: center;">
-            note: settings are saved in browser cookies. clearing your cookies will reset them.
+            note: settings are saved in browser cookies.</br>clearing your cookies will reset them.
             </br></br>
             v{{ version }}
             -
             last commit:
             <a href="{{ source }}/commit/{{ last_commit }}" target="_blank">{{ last_commit[:8] }}</a>
             -
-            made with <3 on the <a href="{{ url_for('topic', title='thinkpad-t61--1883047') }}">t61</a>
+            made with <3 on the <a href="{{ url_for('topic', path='thinkpad-t61--1883047') }}">t61</a>
         </div>
     </div>
 {% endblock %}

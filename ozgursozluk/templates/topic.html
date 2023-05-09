@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block title %}özgürsözlük - {{ topic.title }}{% endblock %}
+{% block title %}{{ topic.title }} {% if p > 1 %}- page: {{ p }}{% endif %} - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="özgürsözlük">
+    <meta name="description" content="topic: {{ topic.title }}">
+{% endblock %}
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
@@ -8,15 +12,11 @@
                 <p>
                     {{ topic.title }} - şükela:
                     {% if topic.nice %}
-                        <a href="{{ url_for('topic', title=topic.path) }}">
-                            <b>nice</b>
-                        </a>
+                        <a href="{{ url_for('topic', path=topic.path) }}"><b>nice</b></a>
                     {% else %}
-                        <a href="{{ url_for('topic', title=topic.path, a='nice') }}">nice</a>
-                    {% endif %}
-                    {% if not topic.pagecount %}
-                        |
-                        <a href="{{ url_for('topic', title=topic.path) }}">all</a>
+                        <a href="{{ url_for('topic', path=topic.path, a='nice') }}">
+                            nice
+                        </a>
                     {% endif %}
                 </p>
             </div>
@@ -24,17 +24,21 @@
         </div>
         {% for entry in topic.entrys %}
             <div class="entry">
-                {{ entry.content|safe }}
+                {{ entry.content_html|safe }}
                 </br>
                 <div style="text-align: right;">
                     {% if request.cookies.get('display_author_nicknames') == 'true' %}
                         <small>
-                            <a href="{{ url_for('author', nickname=entry.author) }}">{{ entry.author }}</a>
+                            <a href="{{ url_for('author', nickname=entry.author) }}">
+                                {{ entry.author }}
+                            </a>
                         </small>
                         -
                     {% endif %}
                     <small>
-                        <a href="{{ url_for('entry', id=entry.id) }}">{{ entry.datetime }}</a>
+                        <a href="{{ url_for('entry', id=entry.id) }}">
+                            {{ entry.datetime }}
+                        </a>
                     </small>
                 </div>
             </div>
