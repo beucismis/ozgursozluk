@@ -4,40 +4,36 @@ from ozgursozluk.api import Eksi
 
 
 eksi = Eksi()
-result_1 = eksi.search_topic("linux")
-result_2 = eksi.get_entry("6934605")
+topic = eksi.search_topic("linux")
+entry = eksi.get_entry(1)
 
 
 class TestTopic(unittest.TestCase):
-    def test_id(self):
-        self.assertEqual(result_1.id, "32084")
+    def test_topic_id(self):
+        self.assertEqual(topic.id, 32084)
 
-    def test_title(self):
-        self.assertEqual(result_1.title, "linux")
+    def test_topic_title(self):
+        self.assertEqual(topic.title, "linux")
 
-    def test_permalink(self):
-        self.assertEqual(result_1.permalink, "https://eksisozluk.com/linux--32084")
+    def test_topic_path(self):
+        self.assertEqual(topic.path, "linux--32084")
 
 
 class TestEntry(unittest.TestCase):
-    def test_title(self):
-        self.assertEqual(result_2.title, "debian")
+    def test_topic_id(self):
+        self.assertEqual(entry.topic_id, 31782)
 
-    def test_content(self):
-        for entry in result_2.entrys:
-            self.assertEqual(entry.content, "en iyi dağıtımdır.")
+    def test_topic_title(self):
+        self.assertEqual(entry.topic_title, "pena")
 
-    def test_author(self):
-        for entry in result_2.entrys:
-            self.assertEqual(entry.author, "carmack")
+    def test_topic_path(self):
+        self.assertEqual(entry.topic_path, "pena--31782")
 
-    def test_datetime(self):
-        for entry in result_2.entrys:
-            self.assertEqual(entry.datetime, "22.02.2005 04:18")
+    def test_entry_author(self):
+        self.assertEqual(entry.author, "ssg")
 
-    def test_permalink(self):
-        for entry in result_2.entrys:
-            self.assertEqual(entry.permalink, "https://eksisozluk.com/entry/6934605")
+    def test_entry_datetime(self):
+        self.assertEqual(entry.datetime, "15.02.1999")
 
 
 if __name__ == "__main__":
