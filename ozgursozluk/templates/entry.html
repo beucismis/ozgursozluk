@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ entry.topic_title }} - #{{ entry.id }} - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="özgürsözlük">
+    <meta name="description" content="entry: #{{ entry.id }}">
+{% endblock %}
+{% block main %}
+    <nav>{% include "navigation.html" %}</nav>
+    <div class="topic">
+        <div class="info">
+            <div>
+                <p>
+                    {{ entry.topic_title }} - şükela:
+                    <a href="{{ url_for('topic', path=entry.topic_path, a='nice') }}">nice</a>
+                    |
+                    <a href="{{ url_for('topic', path=entry.topic_path) }}">all</a>
+                </p>
+            </div>
+        </div>
+        <div class="entry">
+            {{ entry.content_html|safe }}
+            </br>
+            <div style="text-align: right;">
+                {% if request.cookies.get('display_author_nicknames') == 'true' %}
+                    <small>
+                        <a href="{{ url_for('author', nickname=entry.author) }}">
+                            {{ entry.author }}
+                        </a>
+                    </small>
+                    -
+                {% endif %}
+                <small>{{ entry.datetime }}</small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
