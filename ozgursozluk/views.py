@@ -1,9 +1,8 @@
-from datetime import datetime, timedelta
-
 from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.api import Eksi
+from ozgursozluk.utils import last_commit, expires
 from ozgursozluk.config import (
     DEFAULT_THEME,
     DEFAULT_DISPLAY_PINNED_TOPICS,
@@ -15,32 +14,29 @@ from ozgursozluk.config import (
 eksi = Eksi()
 
 
-def _last_commit() -> str:
-    with open(".git/refs/heads/main") as file:
-        return file.read()
-
-
-def _expires() -> datetime:
-    return datetime.now() + timedelta(days=365)
-
-
 @ozgursozluk.app.context_processor
 def global_template_variables():
+    """Return the gloabal template variables."""
+
     return dict(
         version=ozgursozluk.__version__,
         source=ozgursozluk.__source__,
         description=ozgursozluk.__description__,
-        last_commit=_last_commit(),
+        last_commit=last_commit(),
     )
 
 
 @ozgursozluk.app.before_request
 def before_request():
+    """Set base URL before request."""
+
     eksi.base_url = request.cookies.get("eksi_base_url", DEFAULT_EKSI_BASE_URL)
 
 
 @ozgursozluk.app.route("/", methods=["GET", "POST"])
 def index():
+    """Index route."""
+
     q = request.args.get("q", default=None, type=str)
     p = request.args.get("p", default=1, type=int)
 
@@ -55,59 +51,71 @@ def index():
     return render_template("index.html", gundem=gundem, p=p)
 
 
-@ozgursozluk.app.route("/search/<q>")
-def search(q: str):
-    return render_template("topic.html", topic=eksi.search_topic(q), p=1, a=None)
+@ozgursozluk.app.route("/<path>")
+def topic(path: str):
+    """Topic route."""
 
-
-@ozgursozluk.app.route("/<title>")
-def topic(title: str):
     p = request.args.get("p", default=1, type=int)
     a = request.args.get("a", default=None, type=str)
 
     return render_template(
-        "topic.html", topic=eksi.get_topic(title, p, a), p=p, a=a
+        "topic.html", topic=eksi.get_topic(path, p, a), p=p, a=a
     )
-
-
-@ozgursozluk.app.route("/debe")
-def debe():
-    return render_template("debe.html", debe=eksi.get_debe())
 
 
 @ozgursozluk.app.route("/entry/<int:id>")
 def entry(id: int):
-    return render_template("topic.html", topic=eksi.get_entry(id), p=1)
+    """Entry route."""
+
+    return render_template("entry.html", entry=eksi.get_entry(id))
 
 
 @ozgursozluk.app.route("/biri/<nickname>")
 def author(nickname: str):
+    """Author route."""
+
     return render_template("author.html", author=eksi.get_author(nickname))
+
+
+@ozgursozluk.app.route("/debe")
+def debe():
+    """Debe route."""
+
+    return render_template("debe.html", debe=eksi.get_debe())
+
+
+@ozgursozluk.app.route("/search/<q>")
+def search(q: str):
+    """Search route."""
+
+    return render_template("topic.html", topic=eksi.search_topic(q), p=1, a=None)
 
 
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
 def settings():
+    """Settings route."""
+
     if request.method == "POST":
         response = redirect(url_for("settings"))
         response.set_cookie(
             "theme",
             request.form["theme"],
-            expires=_expires(),
+            expires=expires(),
         )
         response.set_cookie(
             "display_pinned_topics",
             request.form["display_pinned_topics"],
-            expires=_expires(),
+            expires=expires(),
         )
         response.set_cookie(
             "display_author_nicknames",
             request.form["display_author_nicknames"],
-            expires=_expires(),
+            expires=expires(),
         )
         response.set_cookie(
             "eksi_base_url",
             request.form["eksi_base_url"],
-            expires=_expires(),
+            expires=expires(),
         )
 
         return response
@@ -131,4 +139,6 @@ def settings():
 
 @ozgursozluk.app.errorhandler(404)
 def page_not_found(error):
+    """Error handler."""
+
     return render_template("404.html", error=error), 404
