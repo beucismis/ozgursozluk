@@ -1,6 +1,4 @@
-from dataclasses import dataclass
-from urllib.parse import urlparse
-from typing import Iterator, Union
+from typing import Iterator, Optional
 
 import requests
 from flask import abort
@@ -8,165 +6,143 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 from ozgursozluk.config import DEFAULT_EKSI_BASE_URL
-
-
-@dataclass
-class Gundem:
-    title: str
-    pinned: bool
-    permalink: str
-    views: Union[str, None] = None
-
-
-@dataclass
-class Debe:
-    title: str
-    permalink: str
-
-
-@dataclass
-class Entry:
-    id: str
-    content: str
-    author: str
-    datetime: str
-    permalink: str
-
-
-@dataclass
-class Author:
-    nickname: str
-    entry_total_count: int
-    user_follower_count: int
-    user_following_count: int
-    avatar_link: str
-    level: Union[str, None] = None
-    biography: Union[str, None] = None
-
-
-@dataclass
-class Topic:
-    id: str
-    title: str
-    path: str
-    permalink: str
-    entrys: Iterator[Entry]
-    pagecount: int = 0
-    nice: Union[bool, None] = None
+from ozgursozluk.models import Entry, EntryTopic, Topic, Author, Gundem, Debe
 
 
 class Eksi:
-    def __init__(self, base_url: str = DEFAULT_EKSI_BASE_URL) -> None:
+    def __init__(
+        self, base_url: str = DEFAULT_EKSI_BASE_URL, headers: Optional[dict] = None,
+    ) -> None:
         self.base_url = base_url
-        self.headers = {"User-Agent": UserAgent().random}
+        self.session = requests.Session()
+        headers = headers or {"User-Agent": UserAgent().random}
+        self.session.headers.update(headers)
 
-    def _get(self, endpoint: str = "/", params: dict = {}) -> dict:
-        response = requests.get(
-            f"{self.base_url}{endpoint}", params=params, headers=self.headers,
+    def request(self, method: str, path: str = "/", **params) -> BeautifulSoup:
+        """Make a request."""
+
+        response = self.session.request(
+            method, f"{self.base_url}/{path}", params=params,
         )
 
         if response.status_code != 200:
             abort(response.status_code)
 
-        return response
+        return BeautifulSoup(response.content, "html.parser")
 
-    def _get_entrys(self, soup: BeautifulSoup) -> Iterator[Entry]:
-        entry_items = soup.find_all("li", id="entry-item")
+    def entrys(self, response: BeautifulSoup) -> Iterator[Entry]:
+        """Get entrys for the given topic."""
+
+        entry_items = response.find_all("li", id="entry-item")
 
         for entry in entry_items:
-            a = entry.find("a", class_="entry-date permalink", href=True)
             yield Entry(
-                entry.attrs["data-id"],
+                int(entry.attrs["data-id"]),
+                entry.find("div", class_="content").text,
                 entry.find("div", class_="content"),
                 entry.find("a", class_="entry-author").text,
-                a.text,
-                self.base_url + a["href"],
+                entry.find("a", class_="entry-date permalink", href=True).text,
             )
 
-    def search_topic(self, q: str) -> Topic:
-        response = self._get("/", {"q": q})
-        soup = BeautifulSoup(response.content, "html.parser")
-        h1 = soup.find("h1", id="title")
-        pager = soup.find("div", class_="pager")
+    def search_topic(self, query: str) -> Topic:
+        """Search topic for the given query."""
+
+        response = self.request("GET", q=query)
+        h1 = response.find("h1", id="title")
+        pager = response.find("div", class_="pager")
 
         return Topic(
-            h1.attrs["data-id"],
+            int(h1.attrs["data-id"]),
             h1.attrs["data-title"],
-            urlparse(response.url).path[1:],
-            self.base_url + h1.find("a", href=True)["href"],
-            self._get_entrys(soup),
-            int(pager.attrs["data-pagecount"]) if pager is not None else 0,
+            h1.find("a")["href"][1:],
+            self.entrys(response),
+            int(pager.attrs["data-pagecount"]) if pager else 0,
         )
 
-    def get_topic(self, title: str, page: int = 1, a: str = None) -> Topic:
-        if a is None:
-            response = self._get(f"/{title}", {"p": page})
-        else:
-            response = self._get(f"/{title}", {"a": a, "p": page})
+    def get_topic(self, path: str, page: int = 1, a: Optional[str] = None) -> Topic:
+        """Get topic for the given path."""
 
-        soup = BeautifulSoup(response.content, "html.parser")
-        h1 = soup.find("h1", id="title")
-        pager = soup.find("div", class_="pager")
+        if a is None:
+            response = self.request("GET", f"/{path}", p=page)
+        else:
+            response = self.request("GET", f"/{path}", p=page, a=a)
+
+        h1 = response.find("h1", id="title")
+        pager = response.find("div", class_="pager")
 
         return Topic(
-            h1.attrs["data-id"],
+            int(h1.attrs["data-id"]),
             h1.attrs["data-title"],
-            urlparse(response.url).path[1:],
-            self.base_url + h1.find("a", href=True)["href"],
-            self._get_entrys(soup),
-            int(pager.attrs["data-pagecount"]) if pager is not None else 0,
+            h1.find("a")["href"][1:],
+            self.entrys(response),
+            int(pager.attrs["data-pagecount"]) if pager else 0,
             a == "nice",
         )
 
-    def get_entry(self, id: str) -> Topic:
-        response = self._get(f"/entry/{id}")
-        soup = BeautifulSoup(response.content, "html.parser")
-        h1 = soup.find("h1", id="title")
+    def get_entry(self, id: int) -> EntryTopic:
+        """Get entry for the given ID."""
 
-        return Topic(
-            h1.attrs["data-id"],
+        response = self.request("GET", f"/entry/{id}")
+        h1 = response.find("h1", id="title")
+        entry = response.find("li", id="entry-item")
+
+        return EntryTopic(
+            int(entry.attrs["data-id"]),
+            entry.find("div", class_="content").text,
+            entry.find("div", class_="content"),
+            entry.find("a", class_="entry-author").text,
+            entry.find("a", class_="entry-date permalink", href=True).text,
+            int(h1.attrs["data-id"]),
             h1.attrs["data-title"],
             h1.find("a")["href"][1:],
-            self.base_url + h1.find("a", href=True)["href"],
-            self._get_entrys(soup),
+        )
+
+    def get_author(self, nickname: str) -> Author:
+        """Get author for the give nickname."""
+
+        response = self.request("GET", f"/biri/{nickname}")
+        muted = response.find("p", class_="muted")
+        biography = response.find("div", id="profile-biography")
+
+        return Author(
+            nickname,
+            int(response.find("span", id="entry-count-total").text),
+            int(response.find("span", id="user-follower-count").text),
+            int(response.find("span", id="user-following-count").text),
+            response.find("img", class_="logo avatar").attrs["src"],
+            muted.text if muted else None,
+            biography.find("div").text if biography else None,
+            biography.find("div") if biography else None,
         )
 
     def get_gundem(self, page: int = 1) -> Iterator[Gundem]:
-        response = self._get("/basliklar/gundem", {"p": page})
-        soup = BeautifulSoup(response.content, "html.parser")
-        topic_list = soup.find("ul", class_="topic-list").find_all("a", href=True)
+        """
+        Get gündem page.
+        https://eksisozluk.com/basliklar/gundem
+        """
+
+        response = self.request("GET", "/basliklar/gundem", p=page)
+        topic_list = response.find("ul", class_="topic-list").find_all("a", href=True)
 
         for topic in topic_list:
             yield Gundem(
                 topic.contents[0],
+                topic["href"].split("?")[0][1:],
                 topic.has_attr("class"),
-                topic["href"],
-                None if len(topic.contents) < 2 else topic.contents[1],
+                None if len(topic.contents) < 2 else topic.contents[1].text,
             )
 
     def get_debe(self) -> Iterator[Debe]:
-        response = self._get("/debe")
-        soup = BeautifulSoup(response.content, "html.parser")
-        topic_list = soup.find("ul", class_="topic-list").find_all("a", href=True)
+        """
+        Get debe page.
+        https://eksisozluk.com/debe
+        """
+
+        response = self.request("GET", "/debe")
+        topic_list = response.find("ul", class_="topic-list").find_all("a", href=True)
 
         for topic in topic_list:
             yield Debe(
+                int(topic["href"].split("/")[-1]),
                 topic.find("span", class_="caption").text,
-                topic["href"],
             )
-
-    def get_author(self, nickname: str) -> Author:
-        response = self._get(f"/biri/{nickname}")
-        soup = BeautifulSoup(response.content, "html.parser")
-        muted = soup.find("p", class_="muted")
-        biography = soup.find("div", id="profile-biography")
-
-        return Author(
-            nickname,
-            soup.find("span", id="entry-count-total").text,
-            soup.find("span", id="user-follower-count").text,
-            soup.find("span", id="user-following-count").text,
-            soup.find("img", class_="logo avatar").attrs["src"],
-            None if muted is None else muted.text,
-            None if biography is None else biography.find("div"),
-        )
