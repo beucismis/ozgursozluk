@@ -5,7 +5,7 @@
 ![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
 
-A free and open source alternative Ekşi Sözlük front-end. Offical instance: https://ozgursozluk.freedns.rocks
+A free and open source alternative Ekşi Sözlük front-end. Does not use the API, only scrapes the web. Offical instance: https://ozgursozluk.freedns.rocks
 
 ## Features
 - No JavaScript
@@ -42,9 +42,9 @@ docker run -p 3131:80 ozgursozluk
 <table>
   <tbody>
     <tr>
-      <td><img src="https://user-images.githubusercontent.com/40023234/236811059-a328bda0-78e7-44ba-b125-3d782ad9582c.png"></td>
-      <td><img src="https://user-images.githubusercontent.com/40023234/236811259-474f43ce-fd4b-4fcb-bf1e-7b241f9a9384.png"></td>
-      <td><img src="https://user-images.githubusercontent.com/40023234/236811430-aae679cb-211c-4ac5-a67c-e69550295460.png"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/b3505c9f-61f9-4596-89dc-ebfafcfbb373"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/f4821a5c-8522-4ffb-8cf5-01620924ef1a"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/11516669-da4b-4732-9413-d77e889167a0"></td>
     </tr>
   </tbody>
 </table>
