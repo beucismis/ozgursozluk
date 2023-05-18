@@ -6,4 +6,5 @@
 - [x] Optioanl displaying for pinned
 - [x] Optional displaying author nickname
 - [x] Sorthing for entries ~~today~~ and nice
+- [ ] Feedback and donate page
 - [ ] URL replace support for alternative front-ends (e.g: twitter to nitter)
