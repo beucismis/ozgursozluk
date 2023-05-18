@@ -7,6 +7,12 @@
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic" style="text-align: center; padding-top: 3rem;">
-        <p>{{ error }}</p>
+        <p>
+            page not found
+            </br>
+            what you were looking for is just not there
+            </br></br>
+            <a href="{{ url_for('search', q='404') }}">go somewhere nice</a>
+        </p>
     </div>
 {% endblock %}

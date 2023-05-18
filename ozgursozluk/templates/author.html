@@ -20,6 +20,10 @@
             <small>{{ author.user_follower_count }} follower</small>
             -
             <small>{{ author.user_following_count }} following</small>
+            </br></br>
+            <a href="{{ url_for('search', q=author.nickname) }}">
+                if available go author topic
+            </a>
         </div>
     </div>
     {% if author.biography %}

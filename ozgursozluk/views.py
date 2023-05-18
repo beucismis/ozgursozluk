@@ -141,4 +141,4 @@ def settings():
 def page_not_found(error):
     """Error handler."""
 
-    return render_template("404.html", error=error), 404
+    return render_template("404.html"), 404
