@@ -38,6 +38,17 @@ docker build -t ozgursozluk .
 docker run -p 3131:80 ozgursozluk
 ```
 
+## Redirection
+[Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
+```
+Description: Ekşi Sözlük to özgürsözlük
+Example URL: https://eksisozluk.com/linux--32084
+Include pattern: ^https?://(?:.*\.)*(?<!link.)eksisozluk\.com(/.*)?$
+Redirect to: https://ozgursozluk.freedns.rocks$1
+Pattern type: Regular Expression
+Example result: https://ozgursozluk.freedns.rocks/linux--32084
+```
+
 ## Preview
 <table>
   <tbody>
