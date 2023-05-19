@@ -1,7 +1,7 @@
 from flask import Flask
 
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 __author__ = "beucismis"
 __source__ = "https://github.com/beucismis/ozgursozluk"
 __description__ = "a free and open source alternative ekşi sözlük front-end"
