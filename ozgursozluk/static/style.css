@@ -1,6 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
-    font-family: sans-serif;
     color: var(--main-fg);
+    font-family: sans-serif;
     background-color: var(--main-bg);
 }
 
@@ -110,8 +114,8 @@ form input, form select, form button {
 
 .topic {
     width: 100%;
-    max-width: 900px;
     margin: 0 auto;
+    max-width: 900px;
 }
 
 .topic > .entry {
