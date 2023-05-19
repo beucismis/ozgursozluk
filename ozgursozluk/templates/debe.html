@@ -7,13 +7,18 @@
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
     <div class="topic">
-        <div class="info"><div><p>debe - <a href="/">gündem</a></p></div></div>
+        <div class="info">
+            <div>
+                <p>debe - <a href="/">gündem</a></p>
+            </div>
+            <div></div>
+        </div>
         {% for entry in debe %}
             <div class="entry">
-                <div style="display: flex; justify-content: space-between;">
+                <div>
                     <div>
                         <a style="text-decoration: none;" href="{{ url_for('entry', id=entry.id) }}">
-                            {{ entry.title }}
+                            {{ entry.title[:50] }}{% if entry.title|length > 50%}...{% endif %}
                         </a>
                     </div>
                 </div>
