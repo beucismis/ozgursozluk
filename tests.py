@@ -1,11 +1,11 @@
 import unittest
 
-from ozgursozluk.api import Eksi
+from ozgursozluk.api import EksiSozluk
 
 
-eksi = Eksi()
-topic = eksi.search_topic("linux")
-entry = eksi.get_entry(1)
+es = EksiSozluk()
+topic = es.search_topic("linux")
+entry = es.get_entry(1)
 
 
 class TestTopic(unittest.TestCase):

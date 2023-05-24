@@ -10,36 +10,45 @@
             <div class="settings-group">
                 theme:
                 <select name="theme">
-                    <option value="light" {% if theme == 'light' %}selected{% endif %}>light</option>
-                    <option value="dark" {% if theme == 'dark' %}selected{% endif %}>dark</option>
-                    <option value="amoled" {% if theme == 'amoled' %}selected{% endif %}>amoled</option>
-                    <option value="violet" {% if theme == 'violet' %}selected{% endif %}>violet</option>
-                    <option value="gruvbox" {% if theme == 'gruvbox' %}selected{% endif %}>gruvbox</option>
-                    <option value="gruvboxlight" {% if theme == 'gruvboxlight' %}selected{% endif %}>gruvboxlight</option>
-                    <option value="discord" {% if theme == 'discord' %}selected{% endif %}>discord</option>
-                    <option value="startpage" {% if theme == 'startpage' %}selected{% endif %}>startpage</option>
+                    {% for theme in themes %}
+                        <option value="{{ theme }}"
+                            {% if default_theme == theme %}selected{% endif %}>
+                            {{ theme }}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="settings-group">
                 display pinned topics:
                 <select name="display_pinned_topics">
-                    <option value="true" {% if display_pinned_topics == 'true' %}selected{% endif %}>yes</option>
-                    <option value="false" {% if display_pinned_topics == 'false' %}selected{% endif %}>no</option>
+                    {% for status in ['true', 'false'] %}
+                        <option value="{{ status }}"
+                            {% if default_display_pinned_topics == status %}selected{% endif %}>
+                            {{ status }}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="settings-group">
                 display author nicknames:
                 <select name="display_author_nicknames">
-                    <option value="true" {% if display_author_nicknames == 'true' %}selected{% endif %}>yes</option>
-                    <option value="false" {% if display_author_nicknames == 'false' %}selected{% endif %}>no</option>
+                    {% for status in ['true', 'false'] %}
+                        <option value="{{ status }}"
+                            {% if  default_display_author_nicknames == status %}selected{% endif %}>
+                            {{ status }}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="settings-group">
-                ekşi base url:
-                <select name="eksi_base_url">
-                    <option value="https://eksisozluk.com" {% if eksi_base_url == 'https://eksisozluk.com' %} selected {% endif %}>eksisozluk.com</option>
-                    <option value="https://eksisozluk1923.com" {% if eksi_base_url == 'https://eksisozluk1923.com' %} selected {% endif %}>eksisozluk1923.com</option>
-                    <option value="https://eksisozluk2023.com" {% if eksi_base_url == 'https://eksisozluk2023.com' %} selected {% endif %}>eksisozluk2023.com</option>
+                ekşi sözlük base url:
+                <select name="eksi_sozluk_base_url">
+                    {% for url in eksi_sozluk_base_urls %}
+                        <option value="{{ url }}"
+                            {% if default_eksi_sozluk_base_url == url %}selected{% endif %}>
+                            {{ url[8:] }}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
             <div style="text-align: right; padding-top: 2rem; padding-bottom: 2rem;">

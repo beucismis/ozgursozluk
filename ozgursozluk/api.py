@@ -5,13 +5,15 @@ from flask import abort
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-from ozgursozluk.config import DEFAULT_EKSI_BASE_URL
+from ozgursozluk.configs import DEFAULT_EKSI_SOZLUK_BASE_URL
 from ozgursozluk.models import Entry, EntryTopic, Topic, Author, Gundem, Debe
 
 
-class Eksi:
+class EksiSozluk:
     def __init__(
-        self, base_url: str = DEFAULT_EKSI_BASE_URL, headers: Optional[dict] = None,
+        self,
+        base_url: str = DEFAULT_EKSI_SOZLUK_BASE_URL,
+        headers: Optional[dict] = None,
     ) -> None:
         self.base_url = base_url
         self.session = requests.Session()
