@@ -44,6 +44,7 @@ class EksiSozluk:
                 entry.find("div", class_="content"),
                 entry.find("a", class_="entry-author").text,
                 entry.find("a", class_="entry-date permalink", href=True).text,
+                int(entry.attrs["data-favorite-count"])
             )
 
     def search_topic(self, query: str) -> Topic:
@@ -94,9 +95,10 @@ class EksiSozluk:
             entry.find("div", class_="content"),
             entry.find("a", class_="entry-author").text,
             entry.find("a", class_="entry-date permalink", href=True).text,
+            int(entry.attrs["data-favorite-count"]),
             int(h1.attrs["data-id"]),
             h1.attrs["data-title"],
-            h1.find("a")["href"][1:],
+            h1.find("a")["href"][1:]
         )
 
     def get_author(self, nickname: str) -> Author:

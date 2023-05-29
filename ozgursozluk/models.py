@@ -9,15 +9,11 @@ class Entry:
     content_html: str
     author: str
     datetime: str
+    favorite_count: int
 
 
 @dataclass
-class EntryTopic:
-    id: int
-    content: str
-    content_html: str
-    author: str
-    datetime: str
+class EntryTopic(Entry):
     topic_id: int
     topic_title: str
     topic_path: str

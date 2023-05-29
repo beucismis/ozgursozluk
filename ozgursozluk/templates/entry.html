@@ -17,20 +17,8 @@
                 </p>
             </div>
         </div>
-        <div class="entry">
-            {{ entry.content_html|safe }}
-            </br>
-            <div style="text-align: right;">
-                {% if request.cookies.get('display_author_nicknames') == 'true' %}
-                    <small>
-                        <a href="{{ url_for('author', nickname=entry.author) }}">
-                            {{ entry.author }}
-                        </a>
-                    </small>
-                    -
-                {% endif %}
-                <small>{{ entry.datetime }}</small>
-            </div>
-        </div>
+        {% from "entry_macro.html" import render_entry %}
+        {{ render_entry(entry, False) }}
     </div>
 {% endblock %}
+

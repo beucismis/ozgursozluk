@@ -1,0 +1,31 @@
+{% macro render_entry(entry, clickable_date) %}
+<div class="entry">
+    {{ entry.content_html|safe }}
+    </br>
+    <div style="text-align: right;">
+        {% if request.cookies.get('display_entry_favorite_count') == 'true' %}
+            <small>
+                {{ entry.favorite_count }} favorites
+            </small>
+            -
+        {% endif %}
+        {% if request.cookies.get('display_author_nicknames') == 'true' %}
+            <small>
+                <a href="{{ url_for('author', nickname=entry.author) }}">
+                    {{ entry.author }}
+                </a>
+            </small>
+            -
+        {% endif %}
+        <small>    
+            {% if clickable_date %}
+                <a href="{{ url_for('entry', id=entry.id) }}">
+                    {{ entry.datetime }}
+                </a>
+            {% else %}
+                {{ entry.datetime }}
+            {% endif %}
+        </small>
+    </div>
+</div>
+{% endmacro %}
