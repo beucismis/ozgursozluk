@@ -1,5 +1,5 @@
 <div>
-    {% if a %}
+    {% if not a %}
         {% if p > 1 %}
             <a href="{{ url_for('topic', path=topic.path, p=p-1) }}">previous</a>
             {% if p < topic.page_count %}/{% endif %}
