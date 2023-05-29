@@ -9,6 +9,13 @@ DEFAULT_DISPLAY_PINNED_TOPICS: Final = "true"
 DEFAULT_DISPLAY_AUTHOR_NICKNAMES: Final = "false"
 DEFAULT_EKSI_SOZLUK_BASE_URL: Final = "https://eksisozluk.com"
 
+DEFAULT_COOKIES: Final = {
+    "theme": DEFAULT_THEME,
+    "display_pinned_topics": DEFAULT_DISPLAY_PINNED_TOPICS,
+    "display_author_nicknames": DEFAULT_DISPLAY_AUTHOR_NICKNAMES,
+    "eksi_sozluk_base_url": DEFAULT_EKSI_SOZLUK_BASE_URL
+}
+
 themes: Final = [
    "light",
    "dark",

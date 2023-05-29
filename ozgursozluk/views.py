@@ -6,10 +6,8 @@ from ozgursozluk.utils import last_commit, expires
 from ozgursozluk.configs import (
     themes,
     eksi_sozluk_base_urls,
-    DEFAULT_THEME,
-    DEFAULT_DISPLAY_PINNED_TOPICS,
-    DEFAULT_DISPLAY_AUTHOR_NICKNAMES,
-    DEFAULT_EKSI_SOZLUK_BASE_URL,
+    DEFAULT_COOKIES,
+    DEFAULT_EKSI_SOZLUK_BASE_URL
 )
 
 
@@ -103,43 +101,20 @@ def settings():
 
     if request.method == "POST":
         response = redirect(url_for("settings"))
-        response.set_cookie(
-            "theme",
-            request.form["theme"],
-            expires=expires(),
-        )
-        response.set_cookie(
-            "display_pinned_topics",
-            request.form["display_pinned_topics"],
-            expires=expires(),
-        )
-        response.set_cookie(
-            "display_author_nicknames",
-            request.form["display_author_nicknames"],
-            expires=expires(),
-        )
-        response.set_cookie(
-            "eksi_sozluk_base_url",
-            request.form["eksi_sozluk_base_url"],
-            expires=expires(),
-        )
+        for cookie in DEFAULT_COOKIES:
+            response.set_cookie(
+                cookie,
+                request.form[cookie],
+                expires=expires()
+            )
 
         return response
 
     return render_template(
         "settings.html",
-        default_theme=request.cookies.get(
-            "theme", DEFAULT_THEME,
-        ),
-        default_display_pinned_topics=request.cookies.get(
-            "display_pinned_topics", DEFAULT_DISPLAY_PINNED_TOPICS,
-        ),
-        default_display_author_nicknames=request.cookies.get(
-            "display_author_nicknames", DEFAULT_DISPLAY_AUTHOR_NICKNAMES,
-        ),
-        default_eksi_sozluk_base_url=request.cookies.get(
-            "eksi_sozluk_base_url", DEFAULT_EKSI_SOZLUK_BASE_URL,
-        ),
+        # Unpack DEFAULT_COOKIES variable to the template
+        **{f"default_{cookie}": request.cookies.get(cookie, DEFAULT_COOKIES[cookie])
+           for cookie in DEFAULT_COOKIES}
     )
 
 
