@@ -41,6 +41,17 @@
                 </select>
             </div>
             <div class="settings-group">
+                display entry favorite count:
+                <select name="display_entry_favorite_count">
+                    {% for status in ['true', 'false'] %}
+                        <option value="{{ status }}"
+                            {% if  default_display_entry_favorite_count == status %}selected{% endif %}>
+                            {{ status }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="settings-group">
                 ekşi sözlük base url:
                 <select name="eksi_sozluk_base_url">
                     {% for url in eksi_sozluk_base_urls %}
