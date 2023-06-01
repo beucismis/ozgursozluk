@@ -51,17 +51,6 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="settings-group">
-                ekşi sözlük base url:
-                <select name="eksi_sozluk_base_url">
-                    {% for url in eksi_sozluk_base_urls %}
-                        <option value="{{ url }}"
-                            {% if default_eksi_sozluk_base_url == url %}selected{% endif %}>
-                            {{ url[8:] }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
             <div style="text-align: right; padding-top: 2rem; padding-bottom: 2rem;">
                 <button style="width: 100%;" type="submit">save</button>
             </div>
@@ -76,6 +65,12 @@
             <a href="{{ source }}/commit/{{ last_commit }}" target="_blank">{{ last_commit[:8] }}</a>
             -
             made with <3 on the <a href="{{ url_for('topic', path='thinkpad-t61--1883047') }}">t61</a>
+            </br></br>
+            contributors:
+            {% for contributor in contributors %}
+                <a href="https://github.com/{{ contributor['username'] }}">{{ contributor['username'] }}</a>
+                ({{ contributor['commit'] }})
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

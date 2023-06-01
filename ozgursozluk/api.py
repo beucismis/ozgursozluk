@@ -5,14 +5,14 @@ from flask import abort
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-from ozgursozluk.configs import DEFAULT_EKSI_SOZLUK_BASE_URL
+from ozgursozluk.configs import EKSI_SOZLUK_BASE_URL
 from ozgursozluk.models import Entry, EntryTopic, Topic, Author, Gundem, Debe
 
 
 class EksiSozluk:
     def __init__(
         self,
-        base_url: str = DEFAULT_EKSI_SOZLUK_BASE_URL,
+        base_url: str = EKSI_SOZLUK_BASE_URL,
         headers: Optional[dict] = None,
     ) -> None:
         self.base_url = base_url
@@ -24,7 +24,9 @@ class EksiSozluk:
         """Make a request."""
 
         response = self.session.request(
-            method, f"{self.base_url}/{path}", params=params,
+            method,
+            f"{self.base_url}/{path}",
+            params=params,
         )
 
         if response.status_code != 200:
@@ -44,7 +46,7 @@ class EksiSozluk:
                 entry.find("div", class_="content"),
                 entry.find("a", class_="entry-author").text,
                 entry.find("a", class_="entry-date permalink", href=True).text,
-                int(entry.attrs["data-favorite-count"])
+                int(entry.attrs["data-favorite-count"]),
             )
 
     def search_topic(self, query: str) -> Topic:
@@ -98,7 +100,7 @@ class EksiSozluk:
             int(entry.attrs["data-favorite-count"]),
             int(h1.attrs["data-id"]),
             h1.attrs["data-title"],
-            h1.find("a")["href"][1:]
+            h1.find("a")["href"][1:],
         )
 
     def get_author(self, nickname: str) -> Author:

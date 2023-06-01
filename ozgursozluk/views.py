@@ -2,13 +2,8 @@ from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.api import EksiSozluk
-from ozgursozluk.utils import last_commit, expires
-from ozgursozluk.configs import (
-    themes,
-    eksi_sozluk_base_urls,
-    DEFAULT_COOKIES,
-    DEFAULT_EKSI_SOZLUK_BASE_URL
-)
+from ozgursozluk.utils import last_commit, expires, contributors
+from ozgursozluk.configs import EKSI_SOZLUK_BASE_URL, DEFAULT_COOKIES, THEMES
 
 
 es = EksiSozluk()
@@ -19,12 +14,12 @@ def global_template_variables():
     """Return the gloabal template variables."""
 
     return dict(
+        themes=THEMES,
+        last_commit=last_commit(),
+        contributors=contributors(),
         version=ozgursozluk.__version__,
         source=ozgursozluk.__source__,
         description=ozgursozluk.__description__,
-        last_commit=last_commit(),
-        themes=themes,
-        eksi_sozluk_base_urls=eksi_sozluk_base_urls,
     )
 
 
@@ -32,9 +27,7 @@ def global_template_variables():
 def before_request():
     """Set base URL before request."""
 
-    es.base_url = request.cookies.get(
-        "eksi_sozluk_base_url", DEFAULT_EKSI_SOZLUK_BASE_URL
-    )
+    es.base_url = request.cookies.get("eksi_sozluk_base_url", EKSI_SOZLUK_BASE_URL)
 
 
 @ozgursozluk.app.route("/", methods=["GET", "POST"])
@@ -62,9 +55,7 @@ def topic(path: str):
     p = request.args.get("p", default=1, type=int)
     a = request.args.get("a", default=None, type=str)
 
-    return render_template(
-        "topic.html", topic=es.get_topic(path, p, a), p=p, a=a
-    )
+    return render_template("topic.html", topic=es.get_topic(path, p, a), p=p, a=a)
 
 
 @ozgursozluk.app.route("/entry/<int:id>")
@@ -101,20 +92,19 @@ def settings():
 
     if request.method == "POST":
         response = redirect(url_for("settings"))
+
         for cookie in DEFAULT_COOKIES:
-            response.set_cookie(
-                cookie,
-                request.form[cookie],
-                expires=expires()
-            )
+            response.set_cookie(cookie, request.form[cookie], expires=expires())
 
         return response
 
     return render_template(
         "settings.html",
         # Unpack DEFAULT_COOKIES variable to the template
-        **{f"default_{cookie}": request.cookies.get(cookie, DEFAULT_COOKIES[cookie])
-           for cookie in DEFAULT_COOKIES}
+        **{
+            f"default_{cookie}": request.cookies.get(cookie, DEFAULT_COOKIES[cookie])
+            for cookie in DEFAULT_COOKIES
+        },
     )
 
 
