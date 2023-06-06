@@ -5,7 +5,7 @@
 ![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
 
-A free and open source alternative Ekşi Sözlük front-end. Does not use the API, only scrapes the web. Offical instance: https://ozgursozluk.freedns.rocks
+A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web. Offical instance: https://ozgursozluk.freedns.rocks
 
 ## Features
 - No JavaScript
@@ -41,9 +41,9 @@ docker run -p 3131:80 ozgursozluk
 ## Redirection
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
 ```
-Description: Ekşi Sözlük to özgürsözlük
+Description: ekşi sözlük to özgürsözlük
 Example URL: https://eksisozluk.com/linux--32084
-Include pattern: ^https?://(?:.*\.)*(?<!link.)eksisozluk\.com(/.*)?$
+Include pattern: ^https?://(?:.*\.)*(?<!link.)eksisozluk(.*)\.com(/.*)?$
 Redirect to: https://ozgursozluk.freedns.rocks$1
 Pattern type: Regular Expression
 Example result: https://ozgursozluk.freedns.rocks/linux--32084
