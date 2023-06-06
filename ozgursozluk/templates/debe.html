@@ -18,7 +18,7 @@
                 <div>
                     <div>
                         <a style="text-decoration: none;" href="{{ url_for('entry', id=entry.id) }}">
-                            {{ entry.title[:50] }}{% if entry.title|length > 50%}...{% endif %}
+                            {{ entry.title }}
                         </a>
                     </div>
                 </div>

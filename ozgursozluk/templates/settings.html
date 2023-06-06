@@ -30,22 +30,33 @@
                 </select>
             </div>
             <div class="settings-group">
-                display author nicknames:
-                <select name="display_author_nicknames">
+                display entry favorite count:
+                <select name="display_entry_favorite_count">
                     {% for status in ['true', 'false'] %}
                         <option value="{{ status }}"
-                            {% if  default_display_author_nicknames == status %}selected{% endif %}>
+                            {% if  default_display_entry_favorite_count == status %}selected{% endif %}>
                             {{ status }}
                         </option>
                     {% endfor %}
                 </select>
             </div>
             <div class="settings-group">
-                display entry favorite count:
-                <select name="display_entry_favorite_count">
+                display entry author:
+                <select name="display_entry_author">
                     {% for status in ['true', 'false'] %}
                         <option value="{{ status }}"
-                            {% if  default_display_entry_favorite_count == status %}selected{% endif %}>
+                            {% if  default_display_entry_author == status %}selected{% endif %}>
+                            {{ status }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="settings-group">
+                display entry datetime:
+                <select name="display_entry_datetime">
+                    {% for status in ['true', 'false'] %}
+                        <option value="{{ status }}"
+                            {% if  default_display_entry_datetime == status %}selected{% endif %}>
                             {{ status }}
                         </option>
                     {% endfor %}
@@ -69,7 +80,7 @@
             contributors:
             {% for contributor in contributors %}
                 <a href="https://github.com/{{ contributor['username'] }}">{{ contributor['username'] }}</a>
-                ({{ contributor['commit'] }})
+                ({{ contributor['total-commit'] }})
             {% endfor %}
         </div>
     </div>

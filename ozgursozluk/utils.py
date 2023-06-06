@@ -24,4 +24,4 @@ def contributors() -> list:
     )
 
     for contributor in request.json():
-        yield {"username": contributor["login"], "commit": contributor["contributions"]}
+        yield {"username": contributor["login"], "total-commit": contributor["contributions"]}

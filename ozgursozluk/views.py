@@ -1,9 +1,11 @@
+from random import randint
+
 from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.api import EksiSozluk
 from ozgursozluk.utils import last_commit, expires, contributors
-from ozgursozluk.configs import EKSI_SOZLUK_BASE_URL, DEFAULT_COOKIES, THEMES
+from ozgursozluk.configs import THEMES, DEFAULT_COOKIES
 
 
 es = EksiSozluk()
@@ -21,13 +23,6 @@ def global_template_variables():
         source=ozgursozluk.__source__,
         description=ozgursozluk.__description__,
     )
-
-
-@ozgursozluk.app.before_request
-def before_request():
-    """Set base URL before request."""
-
-    es.base_url = request.cookies.get("eksi_sozluk_base_url", EKSI_SOZLUK_BASE_URL)
 
 
 @ozgursozluk.app.route("/", methods=["GET", "POST"])
@@ -84,6 +79,11 @@ def search(q: str):
     """Search route."""
 
     return render_template("topic.html", topic=es.search_topic(q), p=1, a=None)
+
+
+@ozgursozluk.app.route("/random")
+def random():
+	return redirect(url_for("entry", id=randint(1, 500_000_000)))
 
 
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
