@@ -1,4 +1,4 @@
-# ozgursozluk
+<img src="https://github.com/beucismis/ozgursozluk/assets/40023234/4f145030-2376-4d2d-acb0-39167212793f" width="380">
 
 ![](https://img.shields.io/badge/python-3.8%2B-blue)
 ![](https://img.shields.io/badge/code%20style-black-black)
@@ -53,9 +53,9 @@ Example result: https://ozgursozluk.freedns.rocks/linux--32084
 <table>
   <tbody>
     <tr>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/b3505c9f-61f9-4596-89dc-ebfafcfbb373"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/f4821a5c-8522-4ffb-8cf5-01620924ef1a"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/11516669-da4b-4732-9413-d77e889167a0"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/620558a0-f518-42c8-9b2a-cc67067f63f3"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/2c4d2fc7-d5dc-4a20-bc09-03b8ea36caad"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/8dfd442c-cddb-41cd-ac3c-d95f0436e2e5"></td>
     </tr>
   </tbody>
 </table>
