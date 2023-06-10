@@ -3,7 +3,7 @@ from typing import Final
 
 
 SECRET_KEY: Final = environ.get("OZGURSOZLUK_SECRET_KEY", "some string")
-EKSI_SOZLUK_BASE_URL: Final = "https://eksisozluk.com"
+EKSI_SOZLUK_BASE_URL: Final = "https://eksisozluk1923.com"
 
 DEFAULT_THEME: Final = "light"
 DEFAULT_DISPLAY_PINNED_TOPICS: Final = "true"
