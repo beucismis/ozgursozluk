@@ -119,6 +119,8 @@ form input, form select, form button {
 }
 
 .topic > .entry {
+    display: block;
+    text-decoration: none;
     padding: 0.5rem;
     margin: 1rem 0 1rem 0;
     background-color: var(--entry-bg);
