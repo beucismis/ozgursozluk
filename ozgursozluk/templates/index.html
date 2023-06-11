@@ -25,12 +25,10 @@
         </div>
         {% for topic in gundem %}
             {% if request.cookies.get('display_pinned_topics') == 'true' %}
-                <div class="entry">
+                <a href="{{ url_for('topic', path=topic.path, a='popular') }}" class="entry">
                     <div style="display: flex; justify-content: space-between;">
                         <div>
-                            <a style="text-decoration: none;" href="{{ url_for('topic', path=topic.path, a='popular') }}">
-                                {{ topic.title }}
-                            </a>
+                            {{ topic.title }}
                         </div>
                         <div>
                             {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
@@ -42,12 +40,10 @@
                 </div>
             {% else %}
                 {% if not topic.pinned %}
-                    <div class="entry">
+                    <a href="{{ url_for('topic', path=topic.path, a='popular') }}" class="entry">
                         <div style="display: flex; justify-content: space-between;">
                             <div>
-                                <a style="text-decoration: none;" href="{{ url_for('topic', path=topic.path, a='popular') }}">
-                                    {{ topic.title }}
-                                </a>
+                                {{ topic.title }}
                             </div>
                             <div>
                                 {% if topic.entry_count %}
@@ -55,7 +51,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
+                    </a>
                 {% endif %}
             {% endif %}
         {% endfor %}
