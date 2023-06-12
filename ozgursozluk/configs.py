@@ -2,8 +2,8 @@ from os import environ
 from typing import Final
 
 
-SECRET_KEY: Final = environ.get("OZGURSOZLUK_SECRET_KEY", "some string")
-EKSI_SOZLUK_BASE_URL: Final = "https://eksisozluk1923.com"
+SECRET_KEY: Final = environ.get("OZGURSOZLUK_SECRET_KEY", "")
+EKSI_SOZLUK_BASE_URL: Final = environ.get("EKSI_SOZLUK_BASE_URL", "https://eksisozluk1923.com")
 
 DEFAULT_THEME: Final = "light"
 DEFAULT_DISPLAY_PINNED_TOPICS: Final = "true"
