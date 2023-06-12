@@ -23,35 +23,13 @@
                 {% endif %}
             </div>
         </div>
+        {% from "macros.html" import render_gundem %}
         {% for topic in gundem %}
             {% if request.cookies.get('display_pinned_topics') == 'true' %}
-                <a href="{{ url_for('topic', path=topic.path, a='popular') }}" class="entry">
-                    <div style="display: flex; justify-content: space-between;">
-                        <div>
-                            {{ topic.title }}
-                        </div>
-                        <div>
-                            {% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
-                            {% if topic.entry_count %}
-                                <small style="opacity: 0.5;">{{ topic.entry_count }}</small>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+                {{ render_gundem(topic) }}
             {% else %}
                 {% if not topic.pinned %}
-                    <a href="{{ url_for('topic', path=topic.path, a='popular') }}" class="entry">
-                        <div style="display: flex; justify-content: space-between;">
-                            <div>
-                                {{ topic.title }}
-                            </div>
-                            <div>
-                                {% if topic.entry_count %}
-                                    <small style="opacity: 0.5;">{{ topic.entry_count }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </a>
+                    {{ render_gundem(topic) }}
                 {% endif %}
             {% endif %}
         {% endfor %}

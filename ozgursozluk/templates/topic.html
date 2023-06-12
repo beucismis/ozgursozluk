@@ -23,7 +23,7 @@
             {% include "paginate.html" %}
         </div>
         {% for entry in topic.entrys %}
-            {% from "entry_macro.html" import render_entry %}
+            {% from "macros.html" import render_entry %}
             {{ render_entry(entry, True) }}
         {% endfor %}
         <div class="info" style="padding-top: 0;">
