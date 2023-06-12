@@ -70,10 +70,10 @@ form .settings-group > :last-child {
 
 form input, form select {
     min-width: 35%;
-    box-sizing:content-box;
-    -ms-box-sizing:content-box;
-    -moz-box-sizing:content-box;
-    -webkit-box-sizing:content-box; 
+    box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; 
 }
 
 form input, form select, form button {
@@ -120,9 +120,9 @@ form input, form select, form button {
 
 .topic > .entry {
     display: block;
-    text-decoration: none;
     padding: 0.5rem;
     margin: 1rem 0 1rem 0;
+    text-decoration: none;
     background-color: var(--entry-bg);
 }
 
@@ -189,7 +189,7 @@ form input, form select, form button {
         width: 100%;
     }
 
-    nav, .title, .description, .author {
+    nav, .title, .description {
         text-align: left;
     }
 
