@@ -5,7 +5,7 @@
 ![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
 
-A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web. Offical instance: https://ozgursozluk.freedns.rocks
+A free and open source alternative for ekşi sözlük front-end. Does not use the API, only scrapes the web. Official instance: https://ozgursozluk.freedns.rocks
 
 ## Features
 - No JavaScript
@@ -61,4 +61,4 @@ Example result: https://ozgursozluk.freedns.rocks/linux--32084
 </table>
 
 ## License
-This project lisanced under WTFPL for details check [LICENSE](LICENSE) file.
+This project is licensed under WTFPL for details, check [LICENSE](LICENSE) file.
