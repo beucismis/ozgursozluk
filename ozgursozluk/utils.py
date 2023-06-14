@@ -3,17 +3,20 @@ from datetime import datetime, timedelta
 import requests
 
 
-def last_commit() -> str:
-    """Return the last commit ID."""
-
-    with open(".git/refs/heads/main") as file:
-        return file.read()
-
-
 def expires() -> datetime:
     """One year later."""
 
     return datetime.now() + timedelta(days=365)
+
+
+def last_commit() -> str:
+    """Return the last commit ID."""
+
+    request = requests.get(
+        "https://api.github.com/repos/beucismis/ozgursozluk/commits"
+    )
+
+    return request.json()[0]["sha"]
 
 
 def contributors() -> list:
