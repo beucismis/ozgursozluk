@@ -22,7 +22,8 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [tool.poetry]
-readme = "README.md"
+long_description = "README.md"
+long_description_content_type = "text/markdown"
 include = [
     "ozgursozluk/static/*", "ozgursozluk/templates/*",
 ]
