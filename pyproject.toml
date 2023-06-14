@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ozgursozluk"
+authors = [
+    {name = "beucismis", email = "beucismis@tutamail.com"},
+]
+description = "A free and open source alternative ekşi sözlük front-end"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = [
+    "alternative", "flask", "front-end", "eksisozluk", "self-hosted",
+    "beautifulsoup", "eksi", "sozluk", "debe", "gundem", "sukela",
+]
+classifiers = [
+    "Topic :: Internet",
+    "Framework :: Flask",
+    "Programming Language :: Python",
+]
+dynamic = ["version", "dependencies"]
+
+[tool.poetry]
+include = [
+    "ozgursozluk/static/*", "ozgursozluk/templates/*",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "ozgursozluk.__version__"}
+dependencies = {file = ["requirements.txt"]}
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+[project.urls]
+homepage = "https://github.com/beucismis/ozgursozluk"
+repository = "https://github.com/beucismis/ozgursozluk"
+documentation = "https://github.com/beucismis/ozgursozluk/blob/main/README.md"
+changelog = "https://github.com/beucismis/ozgursozluk/blob/main/CHANGELOG.md"
