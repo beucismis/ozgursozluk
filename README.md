@@ -5,7 +5,7 @@
 ![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
 
-A free and open source alternative for ekşi sözlük front-end. Does not use the API, only scrapes the web. Official instance: https://ozgursozluk.freedns.rocks
+A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web. Official instance: https://ozgursozluk.freedns.rocks
 
 ## Features
 - No JavaScript
@@ -37,6 +37,13 @@ Running with Docker:
 docker build -t ozgursozluk .
 docker run -p 3131:80 ozgursozluk
 ```
+
+### Environment Variables
+
+| Key | Type | Default Value |
+| - | - | - |
+| `SECRET_KEY` | `str` |  |
+| `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk1923.com` |
 
 ## Redirection
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
