@@ -21,6 +21,8 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [tool.poetry]
+long_description = "README.md"
+long_description_content_type = "text/markdown"
 include = [
     "ozgursozluk/static/*", "ozgursozluk/templates/*",
 ]
@@ -28,10 +30,9 @@ include = [
 [tool.setuptools.dynamic]
 version = {attr = "ozgursozluk.__version__"}
 dependencies = {file = ["requirements.txt"]}
-readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [project.urls]
 Homepage = "https://github.com/beucismis/ozgursozluk"
 Repository = "https://github.com/beucismis/ozgursozluk"
+Changelog = "https://github.com/beucismis/ozgursozluk/releases"
 Documentation = "https://github.com/beucismis/ozgursozluk/blob/main/README.md"
-Changelog = "https://github.com/beucismis/ozgursozluk/blob/main/CHANGELOG.md"
