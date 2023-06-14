@@ -9,7 +9,6 @@ authors = [
 ]
 description = "A free and open source alternative ekşi sözlük front-end"
 requires-python = ">=3.8"
-license = {file = "LICENSE"}
 keywords = [
     "alternative", "flask", "front-end", "eksisozluk", "self-hosted",
     "beautifulsoup", "eksi", "sozluk", "debe", "gundem", "sukela",
@@ -22,8 +21,6 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [tool.poetry]
-long_description = "README.md"
-long_description_content_type = "text/markdown"
 include = [
     "ozgursozluk/static/*", "ozgursozluk/templates/*",
 ]
@@ -31,9 +28,10 @@ include = [
 [tool.setuptools.dynamic]
 version = {attr = "ozgursozluk.__version__"}
 dependencies = {file = ["requirements.txt"]}
+readme = {file = ["README.md"], content-type = "text/markdown"}
 
 [project.urls]
-homepage = "https://github.com/beucismis/ozgursozluk"
-repository = "https://github.com/beucismis/ozgursozluk"
-documentation = "https://github.com/beucismis/ozgursozluk/blob/main/README.md"
-changelog = "https://github.com/beucismis/ozgursozluk/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/beucismis/ozgursozluk"
+Repository = "https://github.com/beucismis/ozgursozluk"
+Documentation = "https://github.com/beucismis/ozgursozluk/blob/main/README.md"
+Changelog = "https://github.com/beucismis/ozgursozluk/blob/main/CHANGELOG.md"
