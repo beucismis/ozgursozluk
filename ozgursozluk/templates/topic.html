@@ -2,7 +2,7 @@
 {% block title %}{{ topic.title }} {% if p > 1 %}- page: {{ p }}{% endif %} - özgürsözlük{% endblock %}
 {% block meta %}
     <meta name="title" content="özgürsözlük">
-    <meta name="description" content="topic: {{ topic.title }}">
+    <meta name="description" content="{{ topic.title }}">
 {% endblock %}
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>

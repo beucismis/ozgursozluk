@@ -2,7 +2,7 @@
 {% block title %}author: {{ author.nickname }} - özgürsözlük{% endblock %}
 {% block meta %}
     <meta name="title" content="özgürsözlük">
-    <meta name="description" content="author: {{ author.nickname }}">
+    <meta name="description" content="{{ author.nickname }} {% if author.level %}({{ author.level }}){% endif %}">
 {% endblock %}
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
