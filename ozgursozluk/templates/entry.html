@@ -2,7 +2,7 @@
 {% block title %}{{ entry.topic_title }} - #{{ entry.id }} - özgürsözlük{% endblock %}
 {% block meta %}
     <meta name="title" content="özgürsözlük">
-    <meta name="description" content="entry: #{{ entry.id }}">
+    <meta name="description" content="{{ entry.topic_title }} - #{{ entry.id }}">
 {% endblock %}
 {% block main %}
     <nav>{% include "navigation.html" %}</nav>
