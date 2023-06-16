@@ -19,9 +19,10 @@ classifiers = [
     "Framework :: Flask",
     "Programming Language :: Python",
 ]
-dynamic = ["version", "readme", "dependencies"]
+dynamic = ["version", "dependencies"]
 
 [tool.poetry]
+readme = "README.md"
 include = [
     "ozgursozluk/static/*", "ozgursozluk/templates/*",
 ]
