@@ -180,7 +180,7 @@ form input, form select, form button {
     padding-top: 1rem;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1000px) {
     nav {
         max-width: none;
     }
@@ -191,6 +191,10 @@ form input, form select, form button {
 
     nav, .title, .description {
         text-align: left;
+    }
+
+    header a, .info a, .settings a {
+        font-size: larger;
     }
 
     form input, form select {
