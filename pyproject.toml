@@ -13,16 +13,15 @@ keywords = [
     "alternative", "flask", "front-end", "eksisozluk", "self-hosted",
     "beautifulsoup", "eksi", "sozluk", "debe", "gundem", "sukela",
 ]
+license = {text = "WTFPL", file = "LICENSE"}
 classifiers = [
     "Topic :: Internet",
     "Framework :: Flask",
     "Programming Language :: Python",
 ]
-dynamic = ["version", "dependencies"]
+dynamic = ["version", "readme", "dependencies"]
 
 [tool.poetry]
-long_description = "README.md"
-long_description_content_type = "text/markdown"
 include = [
     "ozgursozluk/static/*", "ozgursozluk/templates/*",
 ]
