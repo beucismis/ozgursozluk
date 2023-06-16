@@ -13,7 +13,7 @@ keywords = [
     "alternative", "flask", "front-end", "eksisozluk", "self-hosted",
     "beautifulsoup", "eksi", "sozluk", "debe", "gundem", "sukela",
 ]
-license = {text = "WTFPL", file = "LICENSE"}
+license = {file = "LICENSE"}
 classifiers = [
     "Topic :: Internet",
     "Framework :: Flask",
