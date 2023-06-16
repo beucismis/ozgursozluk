@@ -86,6 +86,11 @@ def random():
 	return redirect(url_for("entry", id=randint(1, 500_000_000)))
 
 
+@ozgursozluk.app.route("/donate")
+def donate():
+	return render_template("donate.html")
+
+
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
 def settings():
     """Settings route."""

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}donate - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="donate - özgürsözlük">
+    <meta name="description" content="{{ description }}">
+{% endblock %}
+{% block main %}
+    <nav>{% include "navigation.html" %}</nav>
+    <div class="topic" style="max-width: 500px; text-align: center; padding-top: 3rem; word-wrap: break-word;">
+        <p>
+            donate to the developer
+            </br></br></br>
+            <b>bitcoin (btc):</b>
+            </br>
+            bc1q7gfc2azv79a9ttvreumkcfmdeyfqgc369m0xq2
+            </br></br>
+            <img src="{{ url_for('static', filename='btc.png') }}" width="150">
+            </br></br>
+            <b>monero (xmr):</b>
+            </br>
+            48Z3KoMWRPq7i185KKKjiXNkDgTQScUJH479BmEWkFjfPwFLtaxuxhPaSYTJrq3XhKTnWayTQCod78T16gTXyhNR625XLsH
+            </br></br>
+            <img src="{{ url_for('static', filename='xmr.png') }}" width="150">
+        </p>
+    </div>
+{% endblock %}
