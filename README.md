@@ -38,6 +38,8 @@ docker build -t ozgursozluk .
 docker run -p 3131:80 ozgursozluk
 ```
 
+See also, https://github.com/beucismis/ozgursozluk/wiki/Main
+
 ### Environment Variables
 
 | Key | Type | Default Value |
