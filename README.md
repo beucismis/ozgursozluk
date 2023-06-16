@@ -1,11 +1,15 @@
 <img src="https://github.com/beucismis/ozgursozluk/assets/40023234/4f145030-2376-4d2d-acb0-39167212793f" width="380">
 
 ![](https://img.shields.io/badge/python-3.8%2B-blue)
+![](https://img.shields.io/pypi/v/ozgursozluk)
+![](https://img.shields.io/pypi/dm/ozgursozluk)
 ![](https://img.shields.io/badge/code%20style-black-black)
-![](https://img.shields.io/github/v/release/beucismis/ozgursozluk)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
+![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml?label=publish)
 
 A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web. Official instance: https://ozgursozluk.freedns.rocks
+
+Donate: https://ozgursozluk.freedns.rocks/donate
 
 ## Features
 - No JavaScript
@@ -18,34 +22,47 @@ A free and open source alternative ekşi sözlük front-end. Does not use the AP
 - Self-hosted, ad-free, simple and fast
 - Responsive support for small screens
 
-## Installing and Running
-Clone the repository:
+## Installation
+Install from the `pip`:
+```
+pip3 install ozgursozluk
+```
+Install from the repo:
+```
+pip3 install git+https://github.com/beucismis/ozgursozluk.git
+```
+Updating:
+```
+pip3 install ozgursozluk --upgrade
+```
+Alternatively, with Docker:
 ```
 git clone https://github.com/beucismis/ozgursozluk
-cd ozgursozluk/
-```
-
-Normal running:
-```
-pip3 install -r requirements.txt
-gunicorn
-```
-Deploy using a different port: `gunicorn --bind 127.0.0.1:3131`
-
-Running with Docker:
-```
+cd ozgursozluk
 docker build -t ozgursozluk .
 docker run -p 3131:80 ozgursozluk
 ```
 
+## Usage
+```
+flask --app ozgursozluk run
+# or
+gunicorn ozgursozluk:app
+```
 See also, https://github.com/beucismis/ozgursozluk/wiki/Main
 
 ### Environment Variables
-
 | Key | Type | Default Value |
 | - | - | - |
 | `SECRET_KEY` | `str` |  |
 | `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk1923.com` |
+
+Flask:
+| Key | Type | Default Value |
+| - | - | - |
+| `FLASK_RUN_HOST` | `str` | `127.0.0.1` |
+| `FLASK_RUN_PORT` | `str` | `5000` |
+
 
 ## Redirection
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
