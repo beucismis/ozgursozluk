@@ -7,8 +7,9 @@
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml?label=publish)
 
-A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web. Official instance: https://ozgursozluk.freedns.rocks
+A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web.
 
+Official instance: https://ozgursozluk.freedns.rocks
 Donate: https://ozgursozluk.freedns.rocks/donate
 
 ## Features
@@ -51,18 +52,13 @@ gunicorn ozgursozluk:app
 ```
 See also, https://github.com/beucismis/ozgursozluk/wiki/Main
 
-### Environment Variables
+## Environment Variables
 | Key | Type | Default Value |
 | - | - | - |
 | `SECRET_KEY` | `str` |  |
-| `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk1923.com` |
-
-Flask:
-| Key | Type | Default Value |
-| - | - | - |
 | `FLASK_RUN_HOST` | `str` | `127.0.0.1` |
 | `FLASK_RUN_PORT` | `str` | `5000` |
-
+| `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk1923.com` |
 
 ## Redirection
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
