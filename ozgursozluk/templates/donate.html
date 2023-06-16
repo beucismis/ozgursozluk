@@ -5,11 +5,7 @@
     <meta name="description" content="{{ description }}">
 {% endblock %}
 {% block main %}
-    <nav>{% include "navigation.html" %}</nav>
-    <div class="topic" style="max-width: 500px; text-align: center; padding-top: 3rem; word-wrap: break-word;">
-        <p>
-            donate to the developer
-            </br></br></br>
+    <div class="topic" style="max-width: 600px; text-align: center; padding-top: 1rem; word-wrap: break-word;">
             <b>bitcoin (btc):</b>
             </br>
             bc1q7gfc2azv79a9ttvreumkcfmdeyfqgc369m0xq2
@@ -21,6 +17,7 @@
             48Z3KoMWRPq7i185KKKjiXNkDgTQScUJH479BmEWkFjfPwFLtaxuxhPaSYTJrq3XhKTnWayTQCod78T16gTXyhNR625XLsH
             </br></br>
             <img src="{{ url_for('static', filename='xmr.png') }}" width="150">
-        </p>
+            </br></br></br>
+            donate to the developer <3
     </div>
 {% endblock %}
