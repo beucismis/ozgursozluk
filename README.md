@@ -9,10 +9,11 @@
 
 A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web.
 
-Official instance: https://ozgursozluk.freedns.rocks
+Official instance: https://ozgursozluk.freedns.rocks</br>
 Donate: https://ozgursozluk.freedns.rocks/donate
 
 ## Features
+
 - No JavaScript
 - Docker support
 - Topic searching
@@ -24,35 +25,42 @@ Donate: https://ozgursozluk.freedns.rocks/donate
 - Responsive support for small screens
 
 ## Installation
+
 Install from the `pip`:
 ```
 pip3 install ozgursozluk
 ```
+
 Install from the repo:
 ```
 pip3 install git+https://github.com/beucismis/ozgursozluk.git
 ```
+
 Updating:
 ```
 pip3 install ozgursozluk --upgrade
 ```
-Alternatively, with Docker:
-```
-git clone https://github.com/beucismis/ozgursozluk
-cd ozgursozluk
-docker build -t ozgursozluk .
-docker run -p 3131:80 ozgursozluk
-```
 
-## Usage
+## Deploying
+
 ```
 flask --app ozgursozluk run
 # or
 gunicorn ozgursozluk:app
 ```
+
+Alternatively, with Docker:
+```
+git clone https://github.com/beucismis/ozgursozluk
+cd ozgursozluk
+docker build -t ozgursozluk .
+docker run -p 8080:80 ozgursozluk
+```
+
 See also, https://github.com/beucismis/ozgursozluk/wiki/Main
 
 ## Environment Variables
+
 | Key | Type | Default Value |
 | - | - | - |
 | `SECRET_KEY` | `str` |  |
@@ -61,6 +69,7 @@ See also, https://github.com/beucismis/ozgursozluk/wiki/Main
 | `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk1923.com` |
 
 ## Redirection
+
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
 ```
 Description: ekşi sözlük to özgürsözlük
@@ -72,6 +81,7 @@ Example result: https://ozgursozluk.freedns.rocks/linux--32084
 ```
 
 ## Preview
+
 <table>
   <tbody>
     <tr>
@@ -83,4 +93,5 @@ Example result: https://ozgursozluk.freedns.rocks/linux--32084
 </table>
 
 ## License
+
 This project is licensed under WTFPL for details, check [LICENSE](LICENSE) file.
