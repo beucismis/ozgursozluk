@@ -4,10 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ozgursozluk"
-authors = [
-    {name = "beucismis", email = "beucismis@tutamail.com"},
-]
+authors = [{name = "beucismis", email = "beucismis@tutamail.com"}]
 description = "A free and open source alternative ekşi sözlük front-end"
+readme = "README.md"
 requires-python = ">=3.8"
 keywords = [
     "alternative", "flask", "front-end", "eksisozluk", "self-hosted",
@@ -22,10 +21,7 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [tool.poetry]
-readme = "README.md"
-include = [
-    "ozgursozluk/static/*", "ozgursozluk/templates/*",
-]
+include = ["ozgursozluk/static/*", "ozgursozluk/templates/*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "ozgursozluk.__version__"}
