@@ -193,7 +193,7 @@ form input, form select, form button {
         text-align: left;
     }
 
-    header a, .info a, .settings a {
+    header a, .author a, .info a, .settings a {
         font-size: larger;
     }
 
