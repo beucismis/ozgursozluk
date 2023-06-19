@@ -4,7 +4,7 @@ from ozgursozluk.api import EksiSozluk
 
 
 es = EksiSozluk()
-topic = es.search_topic("linux")
+topic = es.get_topic("linux--32084")
 entry = es.get_entry(1)
 
 
