@@ -20,7 +20,7 @@ def global_template_variables():
         last_commit=last_commit(),
         contributors=contributors(),
         version=ozgursozluk.__version__,
-        source=ozgursozluk.__source__,
+        source_code=ozgursozluk.__source_code__,
         description=ozgursozluk.__description__,
     )
 
@@ -36,7 +36,7 @@ def index():
         return redirect(url_for("search", q=q))
 
     if request.method == "POST":
-        return redirect(url_for("search", q=request.form["q"]))
+        return redirect(url_for("search", q=request.form["q"] or None))
 
     gundem = es.get_gundem(p)
 
@@ -74,16 +74,21 @@ def debe():
     return render_template("debe.html", debe=es.get_debe())
 
 
-@ozgursozluk.app.route("/search/<q>")
-def search(q: str):
+@ozgursozluk.app.route("/search")
+def search():
     """Search route."""
 
-    return render_template("topic.html", topic=es.search_topic(q), p=1, a=None)
+    q = request.args.get("q", default=None, type=str)
+
+    if q is None or not bool(len(q)):
+        return render_template("404.html"), 404
+
+    return render_template("search.html", search_result=es.search_topic(q), q=q)
 
 
 @ozgursozluk.app.route("/random")
 def random():
-	return redirect(url_for("entry", id=randint(1, 500_000_000)))
+	return redirect(url_for("entry", id=randint(1, 300_000_000)))
 
 
 @ozgursozluk.app.route("/donate")

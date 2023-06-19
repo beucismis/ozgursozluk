@@ -53,3 +53,9 @@ class Gundem:
 class Debe:
     id: int
     title: str
+
+@dataclass
+class SearchResult:
+    title: str
+    path: str
+    entry_count: Union[str, None] = None
