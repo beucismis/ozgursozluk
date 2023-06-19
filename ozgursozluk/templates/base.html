@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
+        <meta content="origin" name="referrer">
         {% block meta %}{% endblock %}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
@@ -12,9 +13,7 @@
             {% set filename = '{}.css'.format(request.cookies.get('theme')) %}
             <link rel="stylesheet" href="{{ url_for('static', filename=filename) }}">
         {% endif %}
-        <title>
-            {% block title %}{% endblock %}
-        </title>
+        <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
         <header>
@@ -22,7 +21,7 @@
 				<a href="{{ url_for('random') }}">random</a>
                 <a href="{{ url_for('donate') }}">donate</a>
                 <a href="{{ url_for('settings') }}">settings</a>
-                <a href="{{ source }}" target="_blank">source code</a>
+                <a href="{{ source_code }}" target="_blank">source code</a>
             </div>
         </header>
         <main>

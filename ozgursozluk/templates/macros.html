@@ -39,9 +39,7 @@
 {% macro render_gundem(topic) %}
 <a href="{{ url_for('topic', path=topic.path, a='popular') }}" class="entry">
 	<div style="display: flex; justify-content: space-between;">
-		<div>
-			{{ topic.title }}
-		</div>
+		<div>{{ topic.title }}</div>
 		<div>
 			{% if topic.pinned %}<small style="opacity: 0.5;">pinned</small>{% endif %}
 			{% if topic.entry_count %}
