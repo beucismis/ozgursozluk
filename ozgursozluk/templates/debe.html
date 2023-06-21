@@ -13,12 +13,14 @@
             </div>
             <div></div>
         </div>
-        {% for entry in debe %}
-            <a class="entry" style="text-decoration: none;" href="{{ url_for('entry', id=entry.id) }}">
-                <div>
-                    <div>{{ entry.title }}</div>
-                </div>
-            </a>
-        {% endfor %}
+        <div class="entry_wrapper">
+            {% for entry in debe %}
+                <a class="entry" style="text-decoration: none;" href="{{ url_for('entry', id=entry.id) }}">
+                    <div>
+                        <div>{{ entry.title }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
