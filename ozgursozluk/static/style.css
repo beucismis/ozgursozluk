@@ -118,7 +118,17 @@ form input, form select, form button {
     max-width: 900px;
 }
 
-.topic > .entry {
+.entry_wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.entry_wrapper .entry {
+    margin: 0;
+}
+
+.entry {
     display: block;
     padding: 0.5rem;
     margin: 1rem 0 1rem 0;
@@ -199,5 +209,9 @@ form input, form select, form button {
 
     form input, form select {
         width: 30%;
+    }
+
+    .entry_wrapper {
+        grid-template-columns: none;
     }
 }
