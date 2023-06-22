@@ -1,6 +1,6 @@
 import unittest
 
-from ozgursozluk.api import EksiSozluk
+from ozgursozluk.scraper import EksiSozluk
 
 
 es = EksiSozluk()
