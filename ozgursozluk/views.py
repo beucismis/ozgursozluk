@@ -3,7 +3,7 @@ from random import randint
 from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
-from ozgursozluk.api import EksiSozluk
+from ozgursozluk.scraper import EksiSozluk
 from ozgursozluk.utils import last_commit, expires, contributors
 from ozgursozluk.configs import THEMES, DEFAULT_COOKIES
 
@@ -88,12 +88,16 @@ def search():
 
 @ozgursozluk.app.route("/random")
 def random():
-	return redirect(url_for("entry", id=randint(1, 300_000_000)))
+    """Random entry route."""
+
+    return redirect(url_for("entry", id=randint(1, 300_000_000)))
 
 
 @ozgursozluk.app.route("/donate")
 def donate():
-	return render_template("donate.html")
+    """Donate route."""
+
+    return render_template("donate.html")
 
 
 @ozgursozluk.app.route("/settings", methods=["GET", "POST"])
@@ -120,6 +124,6 @@ def settings():
 
 @ozgursozluk.app.errorhandler(404)
 def page_not_found(error):
-    """Error handler."""
+    """Error handler route."""
 
     return render_template("404.html"), 404

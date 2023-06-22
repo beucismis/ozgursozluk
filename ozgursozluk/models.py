@@ -54,6 +54,7 @@ class Debe:
     id: int
     title: str
 
+
 @dataclass
 class SearchResult:
     title: str

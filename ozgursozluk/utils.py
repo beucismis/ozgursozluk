@@ -12,9 +12,7 @@ def expires() -> datetime:
 def last_commit() -> str:
     """Return the last commit ID."""
 
-    request = requests.get(
-        "https://api.github.com/repos/beucismis/ozgursozluk/commits"
-    )
+    request = requests.get("https://api.github.com/repos/beucismis/ozgursozluk/commits")
 
     return request.json()[0]["sha"]
 
@@ -27,4 +25,7 @@ def contributors() -> list:
     )
 
     for contributor in request.json():
-        yield {"username": contributor["login"], "total-commit": contributor["contributions"]}
+        yield {
+            "username": contributor["login"],
+            "total-commit": contributor["contributions"],
+        }
