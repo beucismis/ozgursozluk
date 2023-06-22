@@ -24,7 +24,9 @@ class EksiSozluk:
         """Make a request."""
 
         response = self.session.request(
-            method, f"{self.base_url}{path}", params=params,
+            method,
+            f"{self.base_url}{path}",
+            params=params,
         )
 
         if response.status_code != 200:
@@ -33,7 +35,7 @@ class EksiSozluk:
         return BeautifulSoup(response.content, "html.parser")
 
     def entrys(self, response: BeautifulSoup) -> Iterator[Entry]:
-        """Get entrys for the given topic."""
+        """Get entrys with given topic."""
 
         entry_items = response.find_all("li", id="entry-item")
 
@@ -48,7 +50,7 @@ class EksiSozluk:
             )
 
     def search_topic(self, keywords: str) -> Iterator[SearchResult]:
-        """Search topic for the given keywords."""
+        """Return titles that match the query parameters."""
 
         payload = {
             "SearchForm.Keywords": keywords,
@@ -66,7 +68,7 @@ class EksiSozluk:
             )
 
     def get_topic(self, path: str, page: int = 1, a: Optional[str] = None) -> Topic:
-        """Get topic for the given path."""
+        """Get topic with given path."""
 
         if a is None:
             response = self.request("GET", f"/{path}", {"p": page})
@@ -86,7 +88,7 @@ class EksiSozluk:
         )
 
     def get_entry(self, id: int) -> EntryTopic:
-        """Get entry for the given ID."""
+        """Get entry with given ID."""
 
         response = self.request("GET", f"/entry/{id}")
         h1 = response.find("h1", id="title")
@@ -105,7 +107,7 @@ class EksiSozluk:
         )
 
     def get_author(self, nickname: str) -> Author:
-        """Get author for the give nickname."""
+        """Get author with given nickname."""
 
         response = self.request("GET", f"/biri/{nickname}")
         muted = response.find("p", class_="muted")
@@ -124,7 +126,7 @@ class EksiSozluk:
 
     def get_gundem(self, page: int = 1) -> Iterator[Gundem]:
         """
-        Get gündem page.
+        Return latest news titles.
         https://eksisozluk.com/basliklar/gundem
         """
 
@@ -141,7 +143,7 @@ class EksiSozluk:
 
     def get_debe(self) -> Iterator[Debe]:
         """
-        Get debe page.
+        Return highly rated titles from yesterday.
         https://eksisozluk.com/debe
         """
 
