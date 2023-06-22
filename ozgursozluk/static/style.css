@@ -119,9 +119,9 @@ form input, form select, form button {
 }
 
 .entry_wrapper {
+    gap: 1rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
 }
 
 .entry_wrapper .entry {
