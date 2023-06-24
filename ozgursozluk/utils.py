@@ -9,10 +9,10 @@ def expires() -> datetime:
     return datetime.now() + timedelta(days=365)
 
 
-def last_commit() -> str:
+async def last_commit() -> str:
     """Return the last commit ID."""
 
-    request = requests.get("https://api.github.com/repos/beucismis/ozgursozluk/commits")
+    request = await requests.get("https://api.github.com/repos/beucismis/ozgursozluk/commits")
 
     return request.json()[0]["sha"]
 
