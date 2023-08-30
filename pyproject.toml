@@ -20,7 +20,6 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [tool.poetry]
-readme = "README.md"
 include = ["ozgursozluk/static/*", "ozgursozluk/templates/*"]
 
 [tool.setuptools.dynamic]
