@@ -58,16 +58,6 @@ form {
     padding-top: 0.5rem;
 }
 
-form .settings-group {
-    display: flex;
-    align-items: center;
-    padding-bottom: 0.5rem;
-}
-
-form .settings-group > :last-child {
-    margin-left: auto;
-}
-
 form input, form select {
     min-width: 35%;
     box-sizing: content-box;
@@ -95,6 +85,7 @@ form input, form select, form button {
 }
 
 .title {
+    padding-top: 2rem;
     text-align: center;
     font-weight: normal;
 }
@@ -175,19 +166,40 @@ form input, form select, form button {
 
 .avatar {
     border: 0;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    margin: 0.5rem;
     border-radius: 50%;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
 }
 
 .settings {
     width: 100%;
-    margin: 0 auto;
     max-width: 600px;
-    padding-top: 1rem;
+    margin: 2rem auto 1rem auto;
+    background-color: var(--entry-bg);
+}
+
+form .settings-group {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+}
+
+form .settings-group > :last-child {
+    margin-left: auto;
+}
+
+.donate {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.5rem;
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+    background-color: var(--entry-bg);
+}
+
+.donate p {
+    margin-top: 0;
 }
 
 @media screen and (max-width: 1000px) {
@@ -215,3 +227,4 @@ form input, form select, form button {
         grid-template-columns: none;
     }
 }
+
