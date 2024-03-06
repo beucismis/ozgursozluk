@@ -58,6 +58,11 @@ class EksiSozluk:
             "SearchForm.SortOrder": "Count",
         }
         response = self.request("GET", "/basliklar/ara", payload)
+        total_topic = response.find("p", class_="topic-list-description")
+
+        if not bool(int(total_topic.text.split(" ")[0])):
+            abort(404)
+
         topic_list = response.find("ul", class_="topic-list").find_all("a", href=True)
 
         for topic in topic_list:
@@ -152,6 +157,6 @@ class EksiSozluk:
 
         for topic in topic_list:
             yield Debe(
-                int(topic["href"].split("/")[-1]),
+                int(topic["href"].split("/")[-1].split("?")[0]),
                 topic.find("span", class_="caption").text,
             )

@@ -4,7 +4,7 @@ from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.scraper import EksiSozluk
-from ozgursozluk.utils import last_commit, expires, contributors
+from ozgursozluk.utils import last_commit, expires
 from ozgursozluk.configs import THEMES, DEFAULT_COOKIES
 
 
@@ -18,7 +18,6 @@ def global_template_variables():
     return dict(
         themes=THEMES,
         last_commit=last_commit(),
-        contributors=contributors(),
         version=ozgursozluk.__version__,
         source_code=ozgursozluk.__source_code__,
         description=ozgursozluk.__description__,

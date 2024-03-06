@@ -1,7 +1,13 @@
 {% macro render_entry(entry, clickable_date) %}
 <div class="entry">
     {{ entry.content_html|safe }}
-    </br>
+		{% if 
+			(request.cookies.get('display_entry_favorite_count') == 'true') or
+			(request.cookies.get('display_entry_author') == 'true') or
+			(request.cookies.get('display_entry_datetime') == 'true')
+		%}
+		    </br>
+		{% endif %}
     <div style="text-align: right;">
         {% if request.cookies.get('display_entry_favorite_count') == 'true' %}
             <small>{{ entry.favorite_count }} favorites</small>

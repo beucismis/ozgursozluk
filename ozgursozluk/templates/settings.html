@@ -62,26 +62,24 @@
                     {% endfor %}
                 </select>
             </div>
-            <div style="text-align: right; padding-top: 2rem; padding-bottom: 2rem;">
+            <div style="text-align: right; padding: 2rem 0.5rem 2rem 0.5rem;">
                 <button style="width: 100%;" type="submit">save</button>
             </div>
         </form>
-        <div style="text-align: center;">
-            note: settings are saved in browser cookies, clearing your cookies will reset them.
+        <div style="text-align: center; padding-bottom: 0.5rem;">
+            <b>note:</b> settings are saved in browser cookies, clearing your cookies will reset them.
             also this website does not have an official affiliation with eksisozluk.com.
             </br></br>
-            v{{ version }}
+            <b>v{{ version }}</b>
             -
-            last commit:
-            <a href="{{ source_code }}/commit/{{ last_commit }}" target="_blank">{{ last_commit[:8] }}</a>
+            last commit(s):
+            {% if last_commit == None %}
+                <a href="{{ source_code }}/commits" target="_blank">go</a>
+            {% else %}
+                <a href="{{ source_code }}/commit/{{ last_commit }}" target="_blank">{{ last_commit[:8] }}</a>
+            {% endif %}
             -
             made with <3 on the <a href="{{ url_for('topic', path='thinkpad-t61--1883047') }}">t61</a>
-            </br></br>
-            contributors:
-            {% for contributor in contributors %}
-                <a href="https://github.com/{{ contributor['username'] }}">{{ contributor['username'] }}</a>
-                ({{ contributor['total-commit'] }})
-            {% endfor %}
         </div>
     </div>
 {% endblock %}
