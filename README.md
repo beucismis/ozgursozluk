@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&labelColor=black&color=%237FBE4A)
 ![](https://img.shields.io/pypi/v/ozgursozluk?style=flat-square&labelColor=black&color=%237FBE4A)
-![](https://img.shields.io/badge/code%20style-black-black?style=flat-square&labelColor=black&color=%237FBE4A))
+![](https://img.shields.io/badge/code%20style-black-black?style=flat-square&labelColor=black&color=%237FBE4A)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests&style=flat-square&labelColor=black&color=%237FBE4A)
 ![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml?label=publish&style=flat-square&labelColor=black&color=%237FBE4A)
 
