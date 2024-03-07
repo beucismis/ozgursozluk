@@ -6,7 +6,15 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 from ozgursozluk.configs import EKSI_SOZLUK_BASE_URL
-from ozgursozluk.models import Entry, EntryTopic, Topic, Author, Gundem, Debe, SearchResult
+from ozgursozluk.models import (
+    Entry,
+    EntryTopic,
+    Topic,
+    Author,
+    Gundem,
+    Debe,
+    SearchResult,
+)
 
 
 class EksiSozluk:
