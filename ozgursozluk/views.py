@@ -4,11 +4,12 @@ from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.scraper import EksiSozluk
-from ozgursozluk.utils import last_commit, expires
+from ozgursozluk.utils import expires, last_commit
 from ozgursozluk.configs import THEMES, DEFAULT_COOKIES
 
 
 es = EksiSozluk()
+last_commit = last_commit()
 
 
 @ozgursozluk.app.context_processor
@@ -17,11 +18,18 @@ def global_template_variables():
 
     return dict(
         themes=THEMES,
-        last_commit=last_commit(),
+        last_commit=last_commit,
         version=ozgursozluk.__version__,
         source_code=ozgursozluk.__source_code__,
         description=ozgursozluk.__description__,
     )
+
+
+@ozgursozluk.app.errorhandler(404)
+def page_not_found(error):
+    """Error handler route."""
+
+    return render_template("404.html"), 404
 
 
 @ozgursozluk.app.route("/", methods=["GET", "POST"])
@@ -40,6 +48,13 @@ def index():
     gundem = es.get_gundem(p)
 
     return render_template("index.html", gundem=gundem, p=p)
+
+
+@ozgursozluk.app.route("/debe")
+def debe():
+    """Debe route."""
+
+    return render_template("debe.html", debe=es.get_debe())
 
 
 @ozgursozluk.app.route("/<path>")
@@ -66,13 +81,6 @@ def author(nickname: str):
     return render_template("author.html", author=es.get_author(nickname))
 
 
-@ozgursozluk.app.route("/debe")
-def debe():
-    """Debe route."""
-
-    return render_template("debe.html", debe=es.get_debe())
-
-
 @ozgursozluk.app.route("/search")
 def search():
     """Search route."""
@@ -87,7 +95,7 @@ def search():
 
 @ozgursozluk.app.route("/random")
 def random():
-    """Random entry route."""
+    """Random entry route. Experimental!"""
 
     return redirect(url_for("entry", id=randint(1, 300_000_000)))
 
@@ -119,10 +127,3 @@ def settings():
             for cookie in DEFAULT_COOKIES
         },
     )
-
-
-@ozgursozluk.app.errorhandler(404)
-def page_not_found(error):
-    """Error handler route."""
-
-    return render_template("404.html"), 404
