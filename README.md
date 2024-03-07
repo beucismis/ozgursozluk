@@ -1,16 +1,15 @@
-<img src="https://github.com/beucismis/ozgursozluk/assets/40023234/4f145030-2376-4d2d-acb0-39167212793f" width="380">
+<img src="https://github.com/beucismis/ozgursozluk/assets/40023234/4f145030-2376-4d2d-acb0-39167212793f" width="350">
 
-![](https://img.shields.io/badge/python-3.8%2B-blue)
-![](https://img.shields.io/pypi/v/ozgursozluk)
-![](https://img.shields.io/pypi/dm/ozgursozluk)
-![](https://img.shields.io/badge/code%20style-black-black)
-![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests)
-![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml?label=publish)
+![](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&labelColor=black&color=%237FBE4A)
+![](https://img.shields.io/pypi/v/ozgursozluk?style=flat-square&labelColor=black&color=%237FBE4A)
+![](https://img.shields.io/badge/code%20style-black-black?style=flat-square&labelColor=black&color=%237FBE4A))
+![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests&style=flat-square&labelColor=black&color=%237FBE4A)
+![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml?label=publish&style=flat-square&labelColor=black&color=%237FBE4A)
 
 A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web.
 
-Official instance: https://ozgursozluk.freedns.rocks</br>
-Donate: https://ozgursozluk.freedns.rocks/donate
+Official instance: (offline) https://ozgursozluk.freedns.rocks </br>
+Donate: (offline) https://ozgursozluk.freedns.rocks/donate
 
 ## Features
 
@@ -63,10 +62,24 @@ See also, https://github.com/beucismis/ozgursozluk/wiki/Main
 
 | Key | Type | Default Value |
 | - | - | - |
-| `SECRET_KEY` | `str` |  |
+| `SECRET_KEY` | `str` |  random |
 | `FLASK_RUN_HOST` | `str` | `127.0.0.1` |
 | `FLASK_RUN_PORT` | `str` | `5000` |
-| `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk1923.com` |
+| `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk.com` |
+
+## Preview
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/47ba12c6-e67c-43c7-9f99-652769db7c88"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/7bbe9de7-0165-4bc4-aba3-b2b306396372"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/d7621df4-9f74-4186-b633-d801a676176d"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/bc444a11-4b89-4ef0-9fc6-4d5f6318b626"></td>
+      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/78fde617-b634-4bb0-adf8-193159709c25"></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Redirection
 
@@ -79,18 +92,6 @@ Redirect to: https://ozgursozluk.freedns.rocks$1
 Pattern type: Regular Expression
 Example result: https://ozgursozluk.freedns.rocks/linux--32084
 ```
-
-## Preview
-
-<table>
-  <tbody>
-    <tr>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/620558a0-f518-42c8-9b2a-cc67067f63f3"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/2c4d2fc7-d5dc-4a20-bc09-03b8ea36caad"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/8dfd442c-cddb-41cd-ac3c-d95f0436e2e5"></td>
-    </tr>
-  </tbody>
-</table>
 
 ## License
 
