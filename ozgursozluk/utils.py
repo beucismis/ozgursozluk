@@ -1,9 +1,5 @@
 from datetime import datetime, timedelta
 
-import requests
-
-import ozgursozluk
-
 
 def expires() -> datetime:
     """One year later."""
@@ -12,12 +8,9 @@ def expires() -> datetime:
 
 
 def last_commit() -> str:
-    """Return the last commit ID."""
+    """Return the last commit hash."""
 
-    request = requests.get("https://api.github.com/repos/beucismis/ozgursozluk/commits")
+    with open(".git/refs/heads/main") as file:
+        hash = file.read()
 
-    if request.status_code == 403:
-        return None
-    
-    return request.json()[0]["sha"]
-
+    return hash
