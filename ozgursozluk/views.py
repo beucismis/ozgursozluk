@@ -4,12 +4,11 @@ from flask import url_for, redirect, request, render_template
 
 import ozgursozluk
 from ozgursozluk.scraper import EksiSozluk
-from ozgursozluk.utils import expires, last_commit
+from ozgursozluk.utils import expires
 from ozgursozluk.configs import THEMES, DEFAULT_COOKIES
 
 
 es = EksiSozluk()
-last_commit = last_commit()
 
 
 @ozgursozluk.app.context_processor
@@ -18,7 +17,6 @@ def global_template_variables():
 
     return dict(
         themes=THEMES,
-        last_commit=last_commit,
         version=ozgursozluk.__version__,
         source_code=ozgursozluk.__source_code__,
         description=ozgursozluk.__description__,
