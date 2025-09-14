@@ -1,2 +1,9 @@
+*.pyc
+*.pyo
+*.pyd
+.env
 .git
 .github
+.gitignore
+tests/
+__pycache__/
