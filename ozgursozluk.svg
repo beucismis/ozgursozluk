@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="264.58331mm"
+   height="60.569416mm"
+   viewBox="0 0 264.58331 60.569416"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="264.58331"
+       height="60.569416"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(304.172,-185.78127)">
+    <g
+       id="g2"
+       transform="matrix(0.43125088,0,0,0.43125088,57.665965,94.688032)">
+      <g
+         id="g6">
+        <g
+           id="g5"
+           transform="matrix(1.789736,0,0,1.789736,-35.521026,-87.186188)">
+          <g
+             id="g7"
+             transform="matrix(2.5934629,0,0,2.5934629,-562.21814,-117.63974)">
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4.5056;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.2;paint-order:stroke fill markers"
+               id="rect2"
+               width="132.17931"
+               height="30.258986"
+               x="43.670197"
+               y="109.65163"
+               ry="2.5904903" />
+            <text
+               xml:space="preserve"
+               style="font-size:26.4583px;font-family:FreeSerif;-inkscape-font-specification:FreeSerif;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#1a1a1a;stroke:none;stroke-width:2.64583;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3.2;paint-order:stroke fill markers"
+               x="47.371235"
+               y="130.93268"
+               id="text1"><tspan
+                 sodipodi:role="line"
+                 id="tspan1"
+                 style="fill:#1a1a1a;stroke:none;stroke-width:2.64583"
+                 x="47.371235"
+                 y="130.93268">özgür<tspan
+   style="fill:#7fbf4a;fill-opacity:1"
+   id="tspan2">sözlük</tspan></tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
