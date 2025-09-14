@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ author.nickname }} - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="{{ author.nickname }} - özgürsözlük">
+    <meta name="description"
+          content="{{ author.nickname }} {% if author.level %}({{ author.level }}){% endif %}">
+{% endblock %}
+{% block main %}
+    <div class="author-container">
+        <img class="author-avatar" src="{{ author.avatar_url }}">
+        <p class="author-nickname">{{ author.nickname }}</p>
+        <p class="author-rank">
+            {% if author.rank %}{{ author.rank.name }} ({{ author.rank.karma }}){% endif %}
+        </p>
+        <small class="author-record-date">{{ author.record_date }}</small>
+        -
+        <small class="author-total-entry">{{ author.total_entry }} Entry</small>
+        -
+        <small class="author-follower-count">{{ author.follower_count }} Follower</small>
+        -
+        <small class="author-following-count">{{ author.following_count }} Following</small>
+    </div>
+    {% if author.biography %}<div class="author-biography">{{ author.biography|safe }}</div>{% endif %}
+    Last Entrys:
+    <div class="author-last-entrys">
+        {% from "macros.html" import render_entry %}
+        {% for entry in author_last_entrys %}{{ render_entry(entry) }}{% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Not Found - özgürsözlük{% endblock %}
+{% block meta %}<meta name="title" content="Not Found - özgürsözlük">{% endblock %}
+{% block main %}
+    <div class="not-found-container">
+        <h3 class="not-found-title">Not Found</h3>
+        <p>
+            {{ description }}
+            <a href="{{ url_for('search', q='404') }}">Go somewhere nice...</a>
+        </p>
+    </div>
+{% endblock %}

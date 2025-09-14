@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}özgürsözlük - Free alternative front-end{% endblock %}
+{% block meta %}
+    <meta name="title" content="özgürsözlük" />
+    <meta name="description" content="Free alternative front-end" />
+{% endblock %}
+{% block main %}
+    <div class="topic-nav">
+        <div class="topic-nav-item">
+            <p>
+                Gündem - <a href="/debe">Debe</a>
+            </p>
+        </div>
+        <div class="topic-nav-item">
+            {% if p > 1 %}
+                <a href="{{ url_for('index', p=p-1) }}">Previous</a>
+                {% if p < 3 %}/{% endif %}
+            {% endif %}
+            {% if p < 3 %}<a href="{{ url_for('index', p=p+1) }}">Next</a>{% endif %}
+            {% if 3 > 1 %}
+                -
+                <a href="{{ url_for('index', p=3) }}">Last Page</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="topic-container">
+        {% from "macros.html" import render_agenda %}
+        {% for topic in agenda %}
+            {% if request.cookies.get('display_pinned_topics') == 'true' %}
+                {{ render_agenda(topic) }}
+            {% else %}
+                {% if not topic.pinned %}{{ render_agenda(topic) }}{% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="topic-nav" style="padding-top: 0">
+        <div class="topic-nav-item"></div>
+        <div class="topic-nav-item">
+            {% if p > 1 %}
+                <a href="{{ url_for('index', p=p-1) }}">Previous</a>
+                {% if p < 3 %}/{% endif %}
+            {% endif %}
+            {% if p < 3 %}<a href="{{ url_for('index', p=p+1) }}">Next</a>{% endif %}
+            {% if 3 > 1 %}
+                -
+                <a href="{{ url_for('index', p=3) }}">Last Page</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

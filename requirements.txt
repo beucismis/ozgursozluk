@@ -1,5 +1,0 @@
-flask==3.0.2
-gunicorn==21.2.0
-requests==2.31.0
-fake-useragent==1.4.0
-beautifulsoup4==4.12.3

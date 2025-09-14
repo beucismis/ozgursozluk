@@ -1,0 +1,48 @@
+{% macro render_entry(entry, clickable_date) %}
+    <div class="entry-container">
+        {{ entry.content|safe }}
+        {% if
+            (request.cookies.get('hide_entry_favorite_count') == 'True') or
+            (request.cookies.get('hide_entry_author') == 'True') or
+            (request.cookies.get('hide_entry_date') == 'True')
+            %}
+        </br>
+    {% endif %}
+    <div class="entry-container-items">
+        {% if request.cookies.get('hide_entry_favorite_count') == 'False' %}
+            <small class="entry-favorite-count">{{ entry.favorite_count }} favorites</small>
+        {% endif %}
+        {% if request.cookies.get('hide_entry_author') == 'False' %}
+            {% if request.cookies.get('hide_entry_favorite_count') == 'False' %}-{% endif %}
+            <small class="entry-author-nickname">
+                <a href="{{ url_for('author', nickname=entry.author_nickname) }}">{{ entry.author_nickname }}</a>
+            </small>
+        {% endif %}
+        {% if request.cookies.get('hide_entry_date') == 'False' %}
+            {% if request.cookies.get('hide_entry_author') == 'False' %}
+                -
+            {% elif request.cookies.get('hide_entry_favorite_count') == 'False' %}
+                -
+            {% endif %}
+            <small class="entry-date">
+                {% if clickable_date %}
+                    <a href="{{ url_for('entry', id=entry.id) }}">{{ entry.date }}</a>
+                {% else %}
+                    {{ entry.date }}
+                {% endif %}
+            </small>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+{% macro render_agenda(topic) %}
+    <div class="topic-item">
+        <div class="topic-title">
+            <a href="{{ url_for('topic', path=topic.path) }}">{{ topic.title }}</a>
+        </div>
+        <div clas="topic-entry-count">
+            <!-- {% if topic.pinned %}<small>pinned</small>{% endif %} -->
+            {% if topic.entry_count %}<small>{{ topic.entry_count }}</small>{% endif %}
+        </div>
+    </div>
+{% endmacro %}

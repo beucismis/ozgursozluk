@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Search - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="Search - özgürsözlük">
+    <meta name="description" content="{{ q }}">
+{% endblock %}
+{% block main %}
+    <div class="topic-nav">
+        <div class="topic-nav-item">
+            <p>Search keywords: {{ q }}</p>
+        </div>
+    </div>
+    <div class="topic-container">
+        {% for topic in search_result %}
+            <div class="topic-item">
+                <div class="topic-title">
+                    <a href="{{ url_for('topic', path=topic.path) }}">{{ topic.title }}</a>
+                </div>
+                <div clas="topic-entry-count">
+                    <!-- {% if topic.pinned %}<small>pinned</small>{% endif %} -->
+                    {% if topic.entry_count %}<small>{{ topic.entry_count }}</small>{% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

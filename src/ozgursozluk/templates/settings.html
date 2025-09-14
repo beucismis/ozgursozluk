@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Settings - özgürsözlük{% endblock %}
+{% block meta %}<meta name="title" content="Settings - özgürsözlük">{% endblock %}
+{% block main %}
+    <div class="settings-container">
+        <fieldset>
+            <form method="POST" action="/settings">
+                <div>
+                    <h3 class="setting-section-title" style="margin-top: 0;">Display</h3>
+                    <div class="settings-group settings-input">
+                        <label for="theme">Theme</label>
+                        <select name="theme">
+                            {% for theme in themes %}
+                                <option value="{{ theme }}"
+                                        {% if theme == selected_theme %}selected{% endif %}>{{ theme }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="settings-group checkbox-container">
+                        Hide pinned topics
+                        <input name="hide_pinned_topics"
+                               type="checkbox"
+                               {% if hide_pinned_topics == "True" %}checked{% endif %}>
+                        <span class="checkbox"></span>
+                    </label>
+                    <label class="settings-group checkbox-container">
+                        Hide entry favorite count
+                        <input name="hide_entry_favorite_count"
+                               type="checkbox"
+                               {% if hide_entry_favorite_count == "True" %}checked{% endif %}>
+                        <span class="checkbox"></span>
+                    </label>
+                    <label class="settings-group checkbox-container">
+                        Hide entry author
+                        <input name="hide_entry_author"
+                               type="checkbox"
+                               {% if hide_entry_author == "True" %}checked{% endif %}>
+                        <span class="checkbox"></span>
+                    </label>
+                    <label class="settings-group checkbox-container">
+                        Hide entry date
+                        <input name="hide_entry_date"
+                               type="checkbox"
+                               {% if hide_entry_date == "True" %}checked{% endif %}>
+                        <span class="checkbox"></span>
+                    </label>
+                    <h3 class="setting-section-title">
+                        Link Replacements <span style="opacity: 0.3;">(blank to disable)</span>
+                    </h3>
+                    Soon...
+                </div>
+                <div class="settings-note">Settings are stored client-side using cookies without any personal information.</div>
+                <button class="settings-submit" type="submit">Save settings</button>
+            </form>
+            <form class="settings-reset" method="post" action="/resetprefs">
+                <input name="settings-reset"" value="/" style="display: none;">
+                <button type="submit" disabled>Reset settings</button>
+            </form>
+        </fieldset>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ entry.topic_title }} - #{{ entry.id }} - özgürsözlük{% endblock %}
+{% block meta %}
+    <meta name="title" content="özgürsözlük">
+    <meta name="description"
+          content="{{ entry.topic_title }} - #{{ entry.id }}">
+{% endblock %}
+{% block main %}
+    <div class="topic-nav">
+        <div class="topic-nav-item">
+            <p>
+                {{ entry.topic_title }} - Şükela:
+                <a href="{{ url_for('topic', path=entry.topic_path, a='nice') }}">Nice</a>
+                |
+                <a href="{{ url_for('topic', path=entry.topic_path) }}">All</a>
+            </p>
+        </div>
+    </div>
+    <div class="topic-container">
+        {% from "macros.html" import render_entry %}
+        {{ render_entry(entry, False) }}
+    </div>
+{% endblock %}

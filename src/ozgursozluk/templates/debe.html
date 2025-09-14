@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Debe - özgürsözlük{% endblock %}
+{% block meta %}<meta name="title" content="Debe - özgürsözlük" />{% endblock %}
+{% block main %}
+    <div class="topic-nav">
+        <div class="topic-nav-item">
+            <p>
+                Debe - <a href="/">Gündem</a>
+            </p>
+        </div>
+        <div class="topic-nav-item"></div>
+    </div>
+    <div class="topic-container">
+        <div class="topic-container-entry-wrapper">
+            {% for entry in debe %}
+                <a class="debe-entry"
+                   style="text-decoration: none"
+                   href="{{ url_for('entry', id=entry.id) }}">
+                    <div>
+                        <div class="debe-entry-title">{{ entry.topic_title }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div>
+        {% endblock %}
