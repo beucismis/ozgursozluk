@@ -1,15 +1,8 @@
-<img src="https://github.com/beucismis/ozgursozluk/assets/40023234/4f145030-2376-4d2d-acb0-39167212793f" width="350">
+<p align="center" width="100%">
+<img height="128" src="https://github.com/user-attachments/assets/4893d92e-7077-4e2f-b1d4-ec809123d6ee" alt="ozgursozluk-logo" />
+</p>
 
-![](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&labelColor=black&color=%237FBE4A)
-![](https://img.shields.io/pypi/v/ozgursozluk?style=flat-square&labelColor=black&color=%237FBE4A)
-![](https://img.shields.io/badge/code%20style-black-black?style=flat-square&labelColor=black&color=%237FBE4A)
-![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/tests.yml?label=tests&style=flat-square&labelColor=black&color=%237FBE4A)
-![](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml?label=publish&style=flat-square&labelColor=black&color=%237FBE4A)
-
-A free and open source alternative ekşi sözlük front-end. Does not use the API, only scrapes the web.
-
-Official instance: (offline) https://ozgursozluk.freedns.rocks </br>
-Donate: (offline) https://ozgursozluk.freedns.rocks/donate
+This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. Contributions are most welcome!
 
 ## Features
 
@@ -23,74 +16,70 @@ Donate: (offline) https://ozgursozluk.freedns.rocks/donate
 - Self-hosted, ad-free, simple and fast
 - Responsive support for small screens
 
-## Installation
-
-Install from the `pip`:
-```
-pip3 install ozgursozluk
-```
-
-Install from the repo:
-```
-pip3 install git+https://github.com/beucismis/ozgursozluk.git
-```
-
-Updating:
-```
-pip3 install ozgursozluk --upgrade
-```
-
-## Deploying
-
-```
-flask --app ozgursozluk run
-# or
-gunicorn ozgursozluk:app
-```
-
-Alternatively, with Docker:
-```
-git clone https://github.com/beucismis/ozgursozluk
-cd ozgursozluk
-docker build -t ozgursozluk .
-docker run -p 8080:80 ozgursozluk
-```
-
-See also, https://github.com/beucismis/ozgursozluk/wiki/Main
-
-## Environment Variables
-
-| Key | Type | Default Value |
-| - | - | - |
-| `SECRET_KEY` | `str` |  random |
-| `FLASK_RUN_HOST` | `str` | `127.0.0.1` |
-| `FLASK_RUN_PORT` | `str` | `5000` |
-| `EKSI_SOZLUK_BASE_URL` | `str` | `https://eksisozluk.com` |
-
 ## Preview
 
 <table>
   <tbody>
     <tr>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/47ba12c6-e67c-43c7-9f99-652769db7c88"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/7bbe9de7-0165-4bc4-aba3-b2b306396372"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/d7621df4-9f74-4186-b633-d801a676176d"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/bc444a11-4b89-4ef0-9fc6-4d5f6318b626"></td>
-      <td><img src="https://github.com/beucismis/ozgursozluk/assets/40023234/78fde617-b634-4bb0-adf8-193159709c25"></td>
+      <td><img src="https://github.com/user-attachments/assets/9bd8801f-f66f-46ea-869f-160d5f927d3d"></td>
+      <td><img src="https://github.com/user-attachments/assets/8ce49590-1d76-4033-98ae-8778546fc2a0"></td>
+      <td><img src="https://github.com/user-attachments/assets/b3d8ab01-a36c-4077-913d-33c843a56389"></td>
+      <td><img src="https://github.com/user-attachments/assets/33f691a5-609c-46b2-bce1-7ba783a8a2b2"></td>
+      <td><img src="https://github.com/user-attachments/assets/93937a24-3e35-4aba-b291-4d4d53dcbfc4"></td>
     </tr>
   </tbody>
 </table>
+
+## Running
+
+```
+git clone https://github.com/beucismis/ozgursozluk
+cd ozgursozluk/
+pip install .
+flask --app metalstats.main:app run
+```
+
+## Running with Docker
+
+```
+git clone https://github.com/beucismis/ozgursozluk
+cd ozgursozluk/
+docker build -t ozgursozluk .
+docker run -p 5000:5000 ozgursozluk
+```
+
+See also, https://github.com/beucismis/ozgursozluk/wiki/Main
+
+## Usage
+
+Once the service is running, you can access the API at `http://localhost:5000`.
+
+## Environment Variables
+
+You **must set the following environment variables** before running the application (locally or in Docker):
+
+| Variable               | Default Value            |
+|------------------------|--------------------------|
+| `SECRET_KEY`           | `token_hex(24)`          |
+| `FLASK_RUN_HOST`       |  `127.0.0.1`             |
+| `FLASK_RUN_PORT`       | `5000`                   |
+| `EKSI_SOZLUK_BASE_URL` | `https://eksisozluk.com` |
+
+## Developer Notes
+
+- The ASGI app is defined as `app` in `src/ozgursozluk/main.py`.
+- When installed as a package, you can launch it using `uvicorn`, `hypercorn` or any compatible ASGI tool.
 
 ## Redirection
 
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
 ```
-Description: ekşi sözlük to özgürsözlük
+Description: Redirector
 Example URL: https://eksisozluk.com/linux--32084
 Include pattern: ^https?://(?:.*\.)*(?<!link.)eksisozluk(.*)\.com(/.*)?$
-Redirect to: https://ozgursozluk.freedns.rocks$1
+Redirect to: https://DOMAIN$1
 Pattern type: Regular Expression
-Example result: https://ozgursozluk.freedns.rocks/linux--32084
+Example result: https://DOMAIN/linux--32084
 ```
 
 ## License
