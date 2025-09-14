@@ -1,33 +1,50 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling", "hatch-fancy-pypi-readme"]
+build-backend = "hatchling.build"
 
 [project]
 name = "ozgursozluk"
-authors = [{name = "beucismis", email = "beucismis@tutamail.com"}]
-description = "A free and open source alternative ekşi sözlük front-end"
+dynamic = ["version", "readme"]
+description = "Free alternative Ekşi Sözlük front-end"
+authors = [
+  {name = "beucismis", email = "beucismis@tutamail.com"}
+]
 requires-python = ">=3.8"
-keywords = [
-    "alternative", "flask", "front-end", "eksisozluk", "self-hosted",
-    "beautifulsoup", "eksi", "sozluk", "debe", "gundem", "sukela",
-]
 license = {file = "LICENSE"}
+keywords = []
 classifiers = [
-    "Topic :: Internet",
-    "Framework :: Flask",
-    "Programming Language :: Python",
+  "Topic :: Internet",
+  "Framework :: Flask",
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dynamic = ["version", "dependencies"]
-
-[tool.poetry]
-include = ["ozgursozluk/static/*", "ozgursozluk/templates/*"]
-
-[tool.setuptools.dynamic]
-version = {attr = "ozgursozluk.__version__"}
-dependencies = {file = ["requirements.txt"]}
+dependencies = ["flask==3.1.2", "limoon"]
 
 [project.urls]
 Homepage = "https://github.com/beucismis/ozgursozluk"
 Repository = "https://github.com/beucismis/ozgursozluk"
 Changelog = "https://github.com/beucismis/ozgursozluk/releases"
 Documentation = "https://github.com/beucismis/ozgursozluk/blob/main/README.md"
+
+[tool.hatch.version]
+path = "src/limoon/__init__.py"
+
+[tool.poetry]
+include = ["ozgursozluk/static/*", "ozgursozluk/templates/*"]
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+[project.optional-dependencies]
+dev = ["black", "djlint"]
+
+[tool.hatch.envs.default.scripts]
+dev = "flask --app src.ozgursozluk.main run --debug"
+format = "black -l 120 . && djlint . --reformat --format-css"
