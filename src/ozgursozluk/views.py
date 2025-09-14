@@ -1,127 +1,143 @@
-from random import randint
+import random
+from datetime import datetime, timedelta
+from typing import NoReturn, Union
 
-from flask import url_for, redirect, request, render_template
+import flask
+import limoon
+import requests
+from limoon.__about__ import __version__ as limoon_version
 
-import ozgursozluk
-from ozgursozluk.scraper import EksiSozluk
-from ozgursozluk.utils import expires
-from ozgursozluk.configs import THEMES, DEFAULT_COOKIES
-
-
-es = EksiSozluk()
+from . import __version__, configs, main
 
 
-@ozgursozluk.app.context_processor
-def global_template_variables():
-    """Return the gloabal template variables."""
-
+@main.app.context_processor
+def global_template_variables() -> dict:
     return dict(
-        themes=THEMES,
-        version=ozgursozluk.__version__,
-        source_code=ozgursozluk.__source_code__,
-        description=ozgursozluk.__description__,
+        themes=configs.THEMES,
+        flask_version=flask.__version__,
+        app_version=__version__,
+        limoon_version=limoon_version,
     )
 
 
-@ozgursozluk.app.errorhandler(404)
-def page_not_found(error):
-    """Error handler route."""
+@main.app.errorhandler(requests.ConnectTimeout)
+@main.app.errorhandler(requests.ConnectionError)
+def handle_index_not_found(e) -> tuple[str, int]:
+    return flask.render_template("not_found.html", description="API connection error, please reload page!"), 404
 
-    return render_template("404.html"), 404
 
-
-@ozgursozluk.app.route("/", methods=["GET", "POST"])
-def index():
-    """Index route."""
-
-    q = request.args.get("q", default=None, type=str)
-    p = request.args.get("p", default=1, type=int)
+@main.app.route("/", methods=["GET", "POST"])
+def index() -> Union[str, flask.Response]:
+    q = flask.request.args.get("q", default=None, type=str)
+    p = flask.request.args.get("p", default=1, type=int)
 
     if q is not None:
-        return redirect(url_for("search", q=q))
+        return flask.redirect(flask.url_for("search", q=q))
 
-    if request.method == "POST":
-        return redirect(url_for("search", q=request.form["q"] or None))
+    if flask.request.method == "POST":
+        return flask.redirect(flask.url_for("search", q=flask.request.form["q"] or None))
 
-    gundem = es.get_gundem(p)
+    agenda = limoon.get_agenda()
 
-    return render_template("index.html", gundem=gundem, p=p)
-
-
-@ozgursozluk.app.route("/debe")
-def debe():
-    """Debe route."""
-
-    return render_template("debe.html", debe=es.get_debe())
+    return flask.render_template("index.html", agenda=agenda, p=p)
 
 
-@ozgursozluk.app.route("/<path>")
-def topic(path: str):
-    """Topic route."""
+@main.app.route("/debe")
+def debe() -> str:
+    debe = limoon.get_debe()
 
-    p = request.args.get("p", default=1, type=int)
-    a = request.args.get("a", default=None, type=str)
-
-    return render_template("topic.html", topic=es.get_topic(path, p, a), p=p, a=a)
+    return flask.render_template("debe.html", debe=debe)
 
 
-@ozgursozluk.app.route("/entry/<int:id>")
-def entry(id: int):
-    """Entry route."""
+@main.app.route("/<path>")
+def topic(path: str) -> str:
+    p = flask.request.args.get("p", default=1, type=int)
+    a = flask.request.args.get("a", default=None, type=str)
+    topic = limoon.get_topic(path, p)
 
-    return render_template("entry.html", entry=es.get_entry(id))
-
-
-@ozgursozluk.app.route("/biri/<nickname>")
-def author(nickname: str):
-    """Author route."""
-
-    return render_template("author.html", author=es.get_author(nickname))
+    return flask.render_template("topic.html", topic=topic, p=p, a=a)
 
 
-@ozgursozluk.app.route("/search")
-def search():
-    """Search route."""
+@main.app.errorhandler(limoon.EntryNotFound)
+def handle_entry_not_found(e) -> tuple[str, int]:
+    return flask.render_template("not_found.html", description=limoon.EntryNotFound.__doc__), 404
 
-    q = request.args.get("q", default=None, type=str)
+
+@main.app.route("/entry/<int:id>")
+def entry(id: int) -> str:
+    entry = limoon.get_entry(id)
+
+    return flask.render_template("entry.html", entry=entry)
+
+
+@main.app.errorhandler(AttributeError)
+def handle_author_not_found(e) -> tuple[str, int]:
+    return flask.render_template("not_found.html", description=limoon.AuthorNotFound.__doc__), 404
+
+
+@main.app.route("/biri/<nickname>")
+def author(nickname: str) -> str:
+    author = limoon.get_author(nickname)
+    author_last_entrys = limoon.get_author_last_entrys(nickname)
+
+    return flask.render_template("author.html", author=author, author_last_entrys=author_last_entrys)
+
+
+@main.app.errorhandler(AttributeError)
+def handle_search_result_not_found(e) -> tuple[str, int]:
+    return flask.render_template("not_found.html", description=limoon.SearchResultNotFound.__doc__), 404
+
+
+@main.app.route("/search")
+def search() -> Union[str, NoReturn]:
+    q = flask.request.args.get("q", default=None, type=str)
 
     if q is None or not bool(len(q)):
-        return render_template("404.html"), 404
+        return flask.abort(404, description=limoon.SearchResultNotFound.__doc__)
 
-    return render_template("search.html", search_result=es.search_topic(q), q=q)
+    search_result = limoon.get_search_topic(q)
 
-
-@ozgursozluk.app.route("/random")
-def random():
-    """Random entry route. Experimental!"""
-
-    return redirect(url_for("entry", id=randint(1, 300_000_000)))
+    return flask.render_template("search.html", search_result=search_result, q=q)
 
 
-@ozgursozluk.app.route("/donate")
-def donate():
-    """Donate route."""
-
-    return render_template("donate.html")
+@main.app.route("/rentry")
+def rentry() -> flask.Response:
+    return flask.redirect(flask.url_for("entry", id=random.randint(1, 300_000_000)))
 
 
-@ozgursozluk.app.route("/settings", methods=["GET", "POST"])
-def settings():
-    """Settings route."""
+@main.app.route("/about")
+def about() -> str:
+    return flask.render_template("about.html")
 
-    if request.method == "POST":
-        response = redirect(url_for("settings"))
 
-        for cookie in DEFAULT_COOKIES:
-            response.set_cookie(cookie, request.form[cookie], expires=expires())
+@main.app.route("/settings", methods=["GET", "POST"])
+def settings() -> Union[str, flask.Response]:
+    if flask.request.method == "POST":
+        response = flask.redirect(flask.url_for("settings"))
+
+        for cookie in configs.DEFAULT_COOKIES:
+            if cookie == "theme":
+                value = flask.request.form.get("theme", configs.DEFAULT_THEME)
+            else:
+                if flask.request.form.get(cookie) is not None:
+                    value = "True"
+                else:
+                    value = "False"
+
+            response.set_cookie(cookie, value, expires=datetime.now() + timedelta(days=365))
 
         return response
 
-    return render_template(
+    return flask.render_template(
         "settings.html",
-        # Unpack DEFAULT_COOKIES variable to the template
+        selected_theme=flask.request.cookies.get("theme", configs.DEFAULT_THEME),
         **{
-            f"default_{cookie}": request.cookies.get(cookie, DEFAULT_COOKIES[cookie])
-            for cookie in DEFAULT_COOKIES
+            cookie: flask.request.cookies.get(cookie, configs.DEFAULT_COOKIES[cookie])
+            for cookie in configs.DEFAULT_COOKIES
         },
     )
+
+
+@main.app.errorhandler(404)
+def not_found(error) -> tuple[str, int]:
+    return flask.render_template("not_found.html", description=error.description), 404
