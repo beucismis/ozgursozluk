@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta content="origin" name="referrer" />
-        {% block meta %}{% endblock %}
+        <meta name="theme-color" content="#000000">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% block meta %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="/static/fontello.css">
         <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
@@ -14,6 +15,7 @@
         {% endif %}
         {% set filename = theme|lower|replace(" ", "-") ~ ".css" %}
         <link rel="stylesheet" href="{{ url_for('static', filename=filename) }}" />
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
         <title>
             {% block title %}{% endblock %}
         </title>
