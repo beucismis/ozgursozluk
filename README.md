@@ -2,19 +2,19 @@
 <img height="128" src="https://github.com/user-attachments/assets/4893d92e-7077-4e2f-b1d4-ec809123d6ee" alt="ozgursozluk-logo" />
 </p>
 
-This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. Contributions are most welcome!
+This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. Made with <3 on the T61. Contributions are most welcome!
 
 ## Features
 
-- No JavaScript
-- Docker support
-- Topic searching
-- Viewing topic, entry and author
-- Gündem and debe page support
-- Optional displaying author nickname
-- 8 different theme support
-- Self-hosted, ad-free, simple and fast
-- Responsive support for small screens
+- No JavaScript Required – works perfectly without JS
+- Docker Support – easy deployment and setup
+- Topic Search – quickly find relevant discussions
+- View Topics, Entries & Authors – browse content and contributors
+- Gündem & Debe Page Support – full support for special pages
+- Hide Displaying – favorite count, author and entry date
+- 8 Built-in Themes – customize the look with 8 themes
+- Self-Hosted, Ad-Free & Lightweight – fast, simple, and private on your server
+- Responsive Design – optimized for mobile and small screens
 
 ## Preview
 
@@ -56,8 +56,6 @@ Once the service is running, you can access the API at `http://localhost:5000`.
 
 ## Environment Variables
 
-You **must set the following environment variables** before running the application (locally or in Docker):
-
 | Variable               | Default Value            |
 |------------------------|--------------------------|
 | `SECRET_KEY`           | `token_hex(24)`          |
@@ -68,7 +66,7 @@ You **must set the following environment variables** before running the applicat
 ## Developer Notes
 
 - The ASGI app is defined as `app` in `src/ozgursozluk/main.py`.
-- When installed as a package, you can launch it using `uvicorn`, `hypercorn` or any compatible ASGI tool.
+- When installed as a package, you can launch it using `gunicorn`, `uvicorn`, `hypercorn` or any compatible ASGI tool.
 
 ## Redirection
 
