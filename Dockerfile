@@ -11,4 +11,4 @@ RUN pip install hatchling
 RUN pip install .
 
 EXPOSE 5000
-CMD ["flask", "--app", "src.ozgursozluk.main", "run"]
+CMD ["flask", "--app", "ozgursozluk.main:app", "run"]
