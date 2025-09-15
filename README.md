@@ -4,6 +4,12 @@
 
 This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. Made with <3 on the T61. Contributions are most welcome!
 
+![PyPI - Version](https://img.shields.io/pypi/v/ozgursozluk)
+![PyPI - Version](https://img.shields.io/pypi/v/limoon?label=limoon)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ozgursozluk)
+![GitHub License](https://img.shields.io/github/license/beucismis/ozgursozluk)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml)
+
 ## Features
 
 - No JavaScript Required – works perfectly without JS
