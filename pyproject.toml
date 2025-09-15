@@ -34,7 +34,7 @@ Changelog = "https://github.com/beucismis/ozgursozluk/releases"
 Documentation = "https://github.com/beucismis/ozgursozluk/blob/main/README.md"
 
 [tool.hatch.version]
-path = "src/limoon/__init__.py"
+path = "src/ozgursozluk/__init__.py"
 
 [tool.poetry]
 include = ["ozgursozluk/static/*", "ozgursozluk/templates/*"]
