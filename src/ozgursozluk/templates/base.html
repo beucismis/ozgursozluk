@@ -12,7 +12,7 @@
         {% if theme not in themes %}
             {% set theme = "Light" %}
         {% endif %}
-        {% set filename = theme|lower|replace(" ", "_") ~ ".css" %}
+        {% set filename = theme|lower|replace(" ", "-") ~ ".css" %}
         <link rel="stylesheet" href="{{ url_for('static', filename=filename) }}" />
         <title>
             {% block title %}{% endblock %}
@@ -22,6 +22,8 @@
         <nav>
             <div class="inner-nav">
                 <div class="nav-item">
+                    <img class="site-logo"
+                         src="{{ url_for('static', filename='favicon.png') }}" />
                     <a class="site-name" href="/">
                         <span class="ozgur">özgür</span><span class="sozluk">sözlük</span>
                     </a>
