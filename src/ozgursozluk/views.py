@@ -23,7 +23,7 @@ def global_template_variables() -> dict:
 @main.app.errorhandler(requests.ConnectTimeout)
 @main.app.errorhandler(requests.ConnectionError)
 def handle_index_not_found(e) -> tuple[str, int]:
-    return flask.render_template("not_found.html", description="API connection error, please reload page!"), 404
+    return flask.render_template("not-found.html", description="API connection error, please reload page!"), 404
 
 
 @main.app.route("/", methods=["GET", "POST"])
@@ -60,7 +60,7 @@ def topic(path: str) -> str:
 
 @main.app.errorhandler(limoon.EntryNotFound)
 def handle_entry_not_found(e) -> tuple[str, int]:
-    return flask.render_template("not_found.html", description=limoon.EntryNotFound.__doc__), 404
+    return flask.render_template("not-found.html", description=limoon.EntryNotFound.__doc__), 404
 
 
 @main.app.route("/entry/<int:id>")
@@ -72,7 +72,7 @@ def entry(id: int) -> str:
 
 @main.app.errorhandler(AttributeError)
 def handle_author_not_found(e) -> tuple[str, int]:
-    return flask.render_template("not_found.html", description=limoon.AuthorNotFound.__doc__), 404
+    return flask.render_template("not-found.html", description=limoon.AuthorNotFound.__doc__), 404
 
 
 @main.app.route("/biri/<nickname>")
@@ -85,7 +85,7 @@ def author(nickname: str) -> str:
 
 @main.app.errorhandler(AttributeError)
 def handle_search_result_not_found(e) -> tuple[str, int]:
-    return flask.render_template("not_found.html", description=limoon.SearchResultNotFound.__doc__), 404
+    return flask.render_template("not-found.html", description=limoon.SearchResultNotFound.__doc__), 404
 
 
 @main.app.route("/search")
@@ -140,4 +140,4 @@ def settings() -> Union[str, flask.Response]:
 
 @main.app.errorhandler(404)
 def not_found(error) -> tuple[str, int]:
-    return flask.render_template("not_found.html", description=error.description), 404
+    return flask.render_template("not-found.html", description=error.description), 404
