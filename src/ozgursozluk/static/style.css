@@ -70,6 +70,13 @@ nav {
     color: var(--title-fg);
 }
 
+.site-logo {
+    height: 25px;
+    width: 25px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
 .container {
     margin: auto;
     /*display: flex;*/
@@ -367,4 +374,18 @@ button {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--main-bg);
+}
+
+.fake-button {
+    cursor: pointer;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 4px;
+    color: var(--main-fg);
+    text-decoration: none;
+    background-color: var(--button-bg);
+}
+
+.fake-button:hover {
+    opacity: 0.81;
 }
