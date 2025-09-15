@@ -36,7 +36,7 @@ This project is free alternative Ekşi Sözlük front-end focused on privacy and
 git clone https://github.com/beucismis/ozgursozluk
 cd ozgursozluk/
 pip install .
-flask --app metalstats.main:app run
+flask --app ozgursozluk.main:app run
 ```
 
 ## Running with Docker
