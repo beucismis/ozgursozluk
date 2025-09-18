@@ -389,3 +389,10 @@ button {
 .fake-button:hover {
     opacity: 0.81;
 }
+
+.code {
+    padding: 0.5rem;
+    font-family: monospace;
+    overflow-wrap: break-word;
+    border: 1px solid var(--main-bg);
+}
