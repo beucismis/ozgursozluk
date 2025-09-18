@@ -410,3 +410,17 @@ button {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 }
+
+/* Ekşi Sözlük Custom Class */
+
+a.url {
+    color: var(--entry-link-fg);
+}
+
+a.b {
+    color: var(--entry-link-fg);
+}
+
+sup.ab a {
+    color: var(--entry-link-fg);
+}
