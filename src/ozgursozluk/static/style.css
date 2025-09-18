@@ -395,3 +395,18 @@ button {
     overflow-wrap: break-word;
     border: 1px solid var(--main-bg);
 }
+
+@media (max-width: 768px) {
+    .site-logo {
+        display: none;
+    }
+
+    .panel-container {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .topic-container-entry-wrapper {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
