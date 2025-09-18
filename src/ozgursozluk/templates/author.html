@@ -20,7 +20,7 @@
         -
         <small class="author-following-count">{{ author.following_count }} Following</small>
     </div>
-    {% if author.biography %}<div class="author-biography">{{ author.biography|safe }}</div>{% endif %}
+    {% if author.biography_html %}<div class="author-biography">{{ author.biography_html|safe }}</div>{% endif %}
     Last Entrys:
     <div class="author-last-entrys">
         {% from "macros.html" import render_entry %}
