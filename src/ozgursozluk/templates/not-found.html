@@ -7,6 +7,19 @@
         <p>
             {{ description }}
             <a href="{{ url_for('search', q='404') }}">Go somewhere nice...</a>
+            {% if message and html %}
+                <br />
+                <br />
+                <br />
+                <div class="code">
+                    Error: {{ message }}
+                    <br />
+                    <br />
+                    HTML:
+                    <br />
+                    {{ html }}
+                </div>
+            {% endif %}
         </p>
     </div>
 {% endblock %}
