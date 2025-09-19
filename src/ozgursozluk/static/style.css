@@ -184,6 +184,22 @@ nav {
     text-decoration: none;
 }
 
+.entry-images-container {
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    display: grid;
+    border: 1px solid var(--main-bg);
+}
+
+.entry-image {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
 .author-container {
     width: 100%;
     margin: 1rem auto;
