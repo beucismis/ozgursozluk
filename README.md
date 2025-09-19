@@ -9,6 +9,7 @@ This project is free alternative Ekşi Sözlük front-end focused on privacy and
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ozgursozluk)
 ![GitHub License](https://img.shields.io/github/license/beucismis/ozgursozluk)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/beucismis/ozgursozluk/publish.yml)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fozgursozluk.org%2Fapi%2Fhealtcheck&query=status&label=offical%20instance)
 
 ## Features
 
@@ -18,6 +19,7 @@ This project is free alternative Ekşi Sözlük front-end focused on privacy and
 - View Topics, Entries & Authors – browse content and contributors
 - Gündem & Debe Page Support – full support for special pages
 - Hide Displaying – favorite count, author and entry date
+- Entry Images - display images directly from the source
 - 8 Built-in Themes – customize the look with 8 themes
 - Self-Hosted, Ad-Free & Lightweight – fast, simple, and private on your server
 - Responsive Design – optimized for mobile and small screens
