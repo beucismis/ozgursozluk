@@ -4,7 +4,6 @@ from typing import Final
 
 
 SECRET_KEY: Final = environ.get("OZGURSOZLUK_SECRET_KEY", secrets.token_hex(24))
-EKSI_SOZLUK_BASE_URL: Final = environ.get("EKSI_SOZLUK_BASE_URL", "https://eksisozluk.com")
 
 THEMES: Final = [
     "Light",
