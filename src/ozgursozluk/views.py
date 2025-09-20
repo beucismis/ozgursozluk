@@ -1,6 +1,6 @@
 import random
 from datetime import datetime, timedelta
-from typing import NoReturn, Union
+from typing import NoReturn, Optional, Union
 
 import flask
 import limoon
@@ -49,7 +49,7 @@ def index() -> Union[str, werkzeug.wrappers.Response]:
     if flask.request.method == "POST":
         return flask.redirect(flask.url_for("search", q=flask.request.form["q"] or None))
 
-    agenda = limoon.get_agenda()
+    agenda = limoon.get_agenda(page=p)
 
     return flask.render_template("index.html", agenda=agenda, p=p)
 
@@ -65,7 +65,7 @@ def debe() -> str:
 def topic(path: str) -> str:
     p = flask.request.args.get("p", default=1, type=int)
     a = flask.request.args.get("a", default=None, type=str)
-    topic = limoon.get_topic(path, p)
+    topic = limoon.get_topic(path, page=p, a=a)
 
     return flask.render_template("topic.html", topic=topic, p=p, a=a)
 
