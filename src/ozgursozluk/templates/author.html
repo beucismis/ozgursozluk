@@ -21,9 +21,11 @@
         <small class="author-following-count">{{ author.following_count }} Following</small>
     </div>
     {% if author.biography_html %}<div class="author-biography">{{ author.biography_html|safe }}</div>{% endif %}
-    Last Entrys:
-    <div class="author-last-entrys">
-        {% from "macros.html" import render_entry %}
-        {% for entry in author_last_entrys %}{{ render_entry(entry) }}{% endfor %}
-    </div>
+    {% if author_last_entrys %}
+        Last Entrys:
+        <div class="author-last-entrys">
+            {% from "macros.html" import render_entry %}
+            {% for entry in author_last_entrys %}{{ render_entry(entry) }}{% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

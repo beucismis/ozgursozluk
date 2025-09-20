@@ -3,9 +3,7 @@
         {{ entry.html|safe }}
         {% if entry.images_source %}
             <div class="entry-images-container">
-                {% for url in entry.images_source %}
-                    <img class="entry-image" src={{ url }} />
-                {% endfor %}
+                {% for url in entry.images_source %}<img class="entry-image" src={{ url }} alt={{ url }} />{% endfor %}
             </div>
         {% endif %}
         {% if
@@ -45,7 +43,7 @@
 {% macro render_agenda(topic) %}
     <div class="topic-item">
         <div class="topic-title">
-            <a href="{{ url_for('topic', path=topic.path) }}">{{ topic.title }}</a>
+            <a href="{{ url_for('topic', path=topic.path, a="popular") }}">{{ topic.title }}</a>
         </div>
         <div class="topic-entry-count">
             <!-- {% if topic.pinned %}<small>pinned</small>{% endif %} -->
