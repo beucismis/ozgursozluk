@@ -12,7 +12,7 @@ from . import __version__, configs, main
 
 
 @main.app.context_processor
-def global_template_variables() -> dict:
+def global_variables() -> dict:
     return dict(
         themes=configs.THEMES,
         flask_version=flask.__version__,
@@ -23,7 +23,7 @@ def global_template_variables() -> dict:
 
 @main.app.errorhandler(requests.ConnectTimeout)
 @main.app.errorhandler(requests.ConnectionError)
-def handle_connection_error(e) -> tuple[str, int]:
+def handle_connection_error(error) -> tuple[str, int]:
     return (
         flask.render_template("not-found.html", description="Connection error, please reload page!"),
         503,
@@ -31,27 +31,32 @@ def handle_connection_error(e) -> tuple[str, int]:
 
 
 @main.app.errorhandler(limoon.ElementNotFound)
-def handle_element_error(e) -> tuple[str, int]:
+def handle_element_error(error) -> tuple[str, int]:
     return (
-        flask.render_template("not-found.html", description=e.__doc__, message=e.message, html=e.html),
+        flask.render_template(
+            "not-found.html",
+            description=error.__doc__,
+            message=error.message,
+            html=error.html,
+        ),
         503,
     )
 
 
 @main.app.route("/", methods=["GET", "POST"])
 def index() -> Union[str, werkzeug.wrappers.Response]:
-    q = flask.request.args.get("q", default=None, type=str)
-    p = flask.request.args.get("p", default=1, type=int)
+    query = flask.request.args.get("q", default=None, type=str)
+    page = flask.request.args.get("p", default=1, type=int)
 
-    if q is not None:
-        return flask.redirect(flask.url_for("search", q=q))
+    if query is not None:
+        return flask.redirect(flask.url_for("search", q=query))
 
     if flask.request.method == "POST":
         return flask.redirect(flask.url_for("search", q=flask.request.form["q"] or None))
 
-    agenda = limoon.get_agenda(page=p)
+    agenda = limoon.get_agenda(page=page)
 
-    return flask.render_template("index.html", agenda=agenda, p=p)
+    return flask.render_template("index.html", agenda=agenda, page=page)
 
 
 @main.app.route("/debe")
@@ -63,15 +68,15 @@ def debe() -> str:
 
 @main.app.route("/<path>")
 def topic(path: str) -> str:
-    p = flask.request.args.get("p", default=1, type=int)
-    a = flask.request.args.get("a", default=None, type=str)
-    topic = limoon.get_topic(path, page=p, a=a)
+    page = flask.request.args.get("p", default=1, type=int)
+    action = flask.request.args.get("a", default=None, type=str)
+    topic = limoon.get_topic(path, page=page, action=action)
 
-    return flask.render_template("topic.html", topic=topic, p=p, a=a)
+    return flask.render_template("topic.html", topic=topic, page=page, action=action)
 
 
 @main.app.errorhandler(limoon.EntryNotFound)
-def handle_entry_not_found(e) -> tuple[str, int]:
+def handle_entry_not_found(error) -> tuple[str, int]:
     return (
         flask.render_template("not-found.html", description=limoon.EntryNotFound.__doc__),
         404,
@@ -86,7 +91,7 @@ def entry(id: int) -> str:
 
 
 @main.app.errorhandler(limoon.AuthorNotFound)
-def handle_author_not_found(e) -> tuple[str, int]:
+def handle_author_not_found(error) -> tuple[str, int]:
     return (
         flask.render_template("not-found.html", description=limoon.AuthorNotFound.__doc__),
         404,
@@ -102,7 +107,7 @@ def author(nickname: str) -> str:
 
 
 @main.app.errorhandler(limoon.SearchResultNotFound)
-def handle_search_result_not_found(e) -> tuple[str, int]:
+def handle_search_result_not_found(error) -> tuple[str, int]:
     return (
         flask.render_template("not-found.html", description=limoon.SearchResultNotFound.__doc__),
         404,
@@ -111,14 +116,14 @@ def handle_search_result_not_found(e) -> tuple[str, int]:
 
 @main.app.route("/search")
 def search() -> Union[str, NoReturn]:
-    q = flask.request.args.get("q", default=None, type=str)
+    query = flask.request.args.get("q", default=None, type=str)
 
-    if not q:
+    if not query:
         return flask.abort(404, description=limoon.SearchResultNotFound.__doc__)
 
-    search_result = limoon.get_search_topic(q)
+    search_result = limoon.get_search_topic(query)
 
-    return flask.render_template("search.html", search_result=search_result, q=q)
+    return flask.render_template("search.html", search_result=search_result, query=query)
 
 
 @main.app.route("/external/rentry")
@@ -136,7 +141,23 @@ def about() -> str:
 @main.app.route("/external/settings", methods=["GET", "POST"])
 def settings() -> Union[str, werkzeug.wrappers.Response]:
     if flask.request.method == "POST":
+        action = flask.request.form.get("action", "save")
         response = flask.redirect(flask.url_for("settings"))
+
+        if action == "reset":
+            response.set_cookie(
+                "theme",
+                configs.DEFAULT_THEME,
+                expires=datetime.now() + timedelta(days=365),
+            )
+            for cookie, default_value in configs.DEFAULT_COOKIES.items():
+                if cookie != "theme":
+                    response.set_cookie(
+                        cookie,
+                        default_value,
+                        expires=datetime.now() + timedelta(days=365),
+                    )
+            return response
 
         theme = flask.request.form.get("theme", configs.DEFAULT_THEME)
 
