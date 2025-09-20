@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ title }}</title>
+    <link>{{ link }}</link>
+    <description>{{ description }}</description>
+    <language>tr</language>
+    {% for entry in debe %}
+    <item>
+      <title>{{ entry.topic_title }}</title>
+      <link>{{ url_for('entry', id=entry.id) }}</link>
+      <description>?</description>
+      <pubDate>{{ entry.created }}</pubDate>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

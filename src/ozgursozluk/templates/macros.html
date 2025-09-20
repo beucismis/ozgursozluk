@@ -1,10 +1,12 @@
 {% macro render_entry(entry, clickable_date) %}
     <div class="entry-container">
         {{ entry.html|safe }}
-        {% if entry.images_source %}
-            <div class="entry-images-container">
-                {% for url in entry.images_source %}<img class="entry-image" src={{ url }} alt={{ url }} />{% endfor %}
-            </div>
+        {% if request.cookies.get('hide_entry_images') != 'True' %}
+            {% if entry.images_source %}
+                <div class="entry-images-container">
+                    {% for url in entry.images_source %}<img class="entry-image" src={{ url }} alt={{ url }} />{% endfor %}
+                </div>
+            {% endif %}
         {% endif %}
         {% if
             (request.cookies.get('hide_entry_favorite_count') == 'True') or

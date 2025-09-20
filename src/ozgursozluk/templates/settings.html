@@ -44,17 +44,24 @@
                                {% if hide_entry_date == "True" %}checked{% endif %}>
                         <span class="checkbox"></span>
                     </label>
+                    <label class="settings-group checkbox-container">
+                        Hide entry images
+                        <input name="hide_entry_images"
+                               type="checkbox"
+                               {% if hide_entry_images == "True" %}checked{% endif %}>
+                        <span class="checkbox"></span>
+                    </label>
                     <h3 class="setting-section-title">
                         Link Replacements <span style="opacity: 0.3;">(blank to disable)</span>
                     </h3>
                     Soon...
                 </div>
                 <div class="settings-note">Settings are stored client-side using cookies without any personal information.</div>
-                <button class="settings-submit" type="submit">Save settings</button>
+                <button class="settings-submit" type="submit" name="action" value="save">Save settings</button>
             </form>
-            <form class="settings-reset" method="post" action="/resetprefs">
-                <input name="settings-reset"" value="/" style="display: none;">
-                <button type="submit" disabled>Reset settings</button>
+            <form class="settings-reset" method="POST" action="/external/settings">
+                <input name="settings-reset" value="/" style="display: none;">
+                <button type="submit" name="action" value="reset">Reset settings</button>
             </form>
         </fieldset>
     </div>
