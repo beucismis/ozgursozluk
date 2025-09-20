@@ -1,0 +1,10 @@
+:root {
+    --main-fg: #f1f3f4;
+    --main-bg: #161821;
+    --title-fg: #c6c8d1;
+    --entry-bg: #1f2233;
+    --entry-link-fg: #81c14b;
+    --border: #454d73;
+    --button-bg: #454d73;
+    color-scheme: dark;
+}

@@ -12,11 +12,11 @@
             </p>
         </div>
         <div class="topic-nav-item">
-            {% if p > 1 %}
-                <a href="{{ url_for('index', p=p-1) }}">Previous</a>
-                {% if p < 3 %}/{% endif %}
+            {% if page > 1 %}
+                <a href="{{ url_for('index', p=page-1) }}">Previous</a>
+                {% if page < 3 %}/{% endif %}
             {% endif %}
-            {% if p < 3 %}<a href="{{ url_for('index', p=p+1) }}">Next</a>{% endif %}
+            {% if page < 3 %}<a href="{{ url_for('index', p=page+1) }}">Next</a>{% endif %}
             {% if 3 > 1 %}
                 -
                 <a href="{{ url_for('index', p=3) }}">Last Page</a>
@@ -36,11 +36,11 @@
     <div class="topic-nav" style="padding-top: 0">
         <div class="topic-nav-item"></div>
         <div class="topic-nav-item">
-            {% if p > 1 %}
-                <a href="{{ url_for('index', p=p-1) }}">Previous</a>
-                {% if p < 3 %}/{% endif %}
+            {% if page > 1 %}
+                <a href="{{ url_for('index', p=page-1) }}">Previous</a>
+                {% if page < 3 %}/{% endif %}
             {% endif %}
-            {% if p < 3 %}<a href="{{ url_for('index', p=p+1) }}">Next</a>{% endif %}
+            {% if page < 3 %}<a href="{{ url_for('index', p=page+1) }}">Next</a>{% endif %}
             {% if 3 > 1 %}
                 -
                 <a href="{{ url_for('index', p=3) }}">Last Page</a>

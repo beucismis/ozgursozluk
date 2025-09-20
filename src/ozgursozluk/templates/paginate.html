@@ -1,26 +1,28 @@
 <div>
-    {% if not a %}
-        {% if p is not none %}
-            {% if p > 1 %}
-                <a href="{{ url_for('topic', path=topic.path, p=p-1) }}">Previous</a>
-                {% if p < topic.page_count %}/{% endif %}
+    {% if not action %}
+        {% if page is not none %}
+            {% if page > 1 %}
+                <a href="{{ url_for('topic', path=topic.path, p=page-1) }}">Previous</a>
+                {% if page < topic.page_count %}/{% endif %}
             {% endif %}
-            {% if p < topic.page_count %}<a href="{{ url_for('topic', path=topic.path, p=p+1) }}">Next</a>{% endif %}
+            {% if page < topic.page_count %}<a href="{{ url_for('topic', path=topic.path, p=page+1) }}">Next</a>{% endif %}
             {% if topic.page_count > 1 %}
                 -
-                <a href="{{ url_for('topic', path=topic.path, p=topic.page_count) }}">Last Page</a>
+                <a href="{{ url_for('topic', path=topic.path, p=topic.page_count) }}">Last Page</a> ({{ topic.page_count }})
             {% endif %}
         {% endif %}
     {% else %}
-        {% if p is not none %}
-            {% if p > 1 %}
-                <a href="{{ url_for('topic', path=topic.path, p=p-1, a=a) }}">Previous</a>
-                {% if p < topic.page_count %}/{% endif %}
+        {% if page is not none %}
+            {% if page > 1 %}
+                <a href="{{ url_for('topic', path=topic.path, p=page-1, a=action) }}">Previous</a>
+                {% if page < topic.page_count %}/{% endif %}
             {% endif %}
-            {% if p < topic.page_count %}<a href="{{ url_for('topic', path=topic.path, p=p+1, a=a) }}">Next</a>{% endif %}
+            {% if page < topic.page_count %}
+                <a href="{{ url_for('topic', path=topic.path, p=page+1, a=action) }}">Next</a>
+            {% endif %}
             {% if topic.page_count > 1 %}
                 -
-                <a href="{{ url_for('topic', path=topic.path, p=topic.page_count, a=a) }}">Last Page</a>
+                <a href="{{ url_for('topic', path=topic.path, p=topic.page_count, a=action) }}">Last Page</a> ({{ topic.page_count }})
             {% endif %}
         {% endif %}
     {% endif %}
