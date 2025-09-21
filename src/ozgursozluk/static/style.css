@@ -176,6 +176,7 @@ nav {
 }
 
 .entry-container-items {
+    opacity: 0.8;
     text-align: right;
     padding-top: 0.5rem;
 }
@@ -231,6 +232,43 @@ nav {
 .about-container a,
 .settings-container a {
     text-decoration: underline;
+}
+
+.author-badges-container {
+    padding: 1rem;
+    margin: 0.5rem auto;
+    text-decoration: none;
+    justify-content: space-between;
+    background-color: var(--entry-bg);
+}
+
+.author-badge-container {
+    display: flex;
+    padding-bottom: 1rem;
+}
+
+.author-badge-container:last-child {
+    display: flex;
+    padding-bottom: 0;
+}
+
+.badge-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.badge-box:last-child {
+    padding-left: 1rem;
+}
+
+.author-badge-icon {
+    width: 55px;
+    height: 55px;
+}
+
+.author-badge-description {
+    opacity: 0.5;
 }
 
 .about-container {
@@ -439,4 +477,8 @@ a.b {
 
 sup.ab a {
     color: var(--entry-link-fg);
+}
+
+div.content {
+    word-wrap: break-word;
 }
