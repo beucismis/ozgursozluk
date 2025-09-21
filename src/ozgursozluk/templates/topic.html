@@ -16,16 +16,20 @@
                 {% if topic.nice %}
                     <a href="{{ url_for('topic', path=topic.path) }}"><b>Nice</b></a>
                 {% else %}
-                    <a href="{{ url_for('topic', path=topic.path, a='nice') }}">Nice</a>
+                    <a href="{{ url_for('topic', path=topic.path, action='nice') }}">Nice</a>
                 {% endif %}
             </p>
         </div>
         <div class="topic-nav-item">{% include "paginate.html" %}</div>
     </div>
     <div class="topic-container">
+        {% if topic.pinned_entry %}
+            {% from "macros.html" import render_entry %}
+            {{ render_entry(topic.pinned_entry, is_pinned_override=False) }}
+        {% endif %}
         {% for entry in topic.entrys %}
             {% from "macros.html" import render_entry %}
-            {{ render_entry(entry, True) }}
+            {{ render_entry(entry) }}
         {% endfor %}
     </div>
     <div class="topic-nav" style="padding-top: 0;">

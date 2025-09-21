@@ -10,7 +10,10 @@
         <img class="author-avatar" src="{{ author.avatar_url }}">
         <p class="author-nickname">{{ author.nickname }}</p>
         <p class="author-rank">
-            {% if author.rank %}{{ author.rank.name }} ({{ author.rank.karma }}){% endif %}
+            <a class="text-decoration: none;"
+               href="{{ url_for("author_badges", nickname=author.nickname) }}">
+                {% if author.rank %}{{ author.rank.name }} ({{ author.rank.karma }}){% endif %}
+            </a>
         </p>
         <small class="author-record-date">{{ author.record_date }}</small>
         -
@@ -25,7 +28,9 @@
         Last Entrys:
         <div class="author-last-entrys">
             {% from "macros.html" import render_entry %}
-            {% for entry in author_last_entrys %}{{ render_entry(entry) }}{% endfor %}
+            {% for entry in author_last_entrys %}
+                {{ render_entry(entry, is_pinned_override=entry.is_pinned_on_profile, hide_author_override=True) }}
+            {% endfor %}
         </div>
     {% endif %}
 {% endblock %}
