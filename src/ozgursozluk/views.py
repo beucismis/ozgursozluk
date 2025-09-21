@@ -106,6 +106,13 @@ def author(nickname: str) -> str:
     return flask.render_template("author.html", author=author, author_last_entrys=author_last_entrys)
 
 
+@main.app.route("/rozetler/<nickname>")
+def author_badges(nickname: str) -> str:
+    badges = limoon.get_author_badges(nickname)
+
+    return flask.render_template("author-badges.html", badges=badges, nickname=nickname)
+
+
 @main.app.errorhandler(limoon.SearchResultNotFound)
 def handle_search_result_not_found(error) -> tuple[str, int]:
     return (
