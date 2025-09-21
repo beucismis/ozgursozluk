@@ -82,10 +82,11 @@ Once the service is running, you can access the API at `http://localhost:5000`.
 ```
 Description: Redirector
 Example URL: https://eksisozluk.com/linux--32084
-Include pattern: ^https?://(?:.*\.)*(?<!link.)eksisozluk(.*)\.com(/.*)?$
-Redirect to: https://DOMAIN$1
-Pattern type: Regular Expression
-Example result: https://DOMAIN/linux--32084
+Include pattern: https://eksisozluk.com/*
+Redirect to: https://ozgursozluk.org/$1
+Pattern type: Wildcard
+Pattern Description: https://ozgursozluk.org/linux--32084
+Example result: https://ozgursozluk.org/linux--32084
 ```
 
 ## License

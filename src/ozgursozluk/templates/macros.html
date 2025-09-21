@@ -1,44 +1,40 @@
-{% macro render_entry(entry, clickable_date) %}
+{% macro render_entry(entry, is_pinned_override=False, clickable_date=True, hide_author_override=False) %}
+    {% set hide_pinned_topics = request.cookies.get('hide_pinned_topics') == 'True' %}
+    {% set hide_entry_favorite_count = request.cookies.get('hide_entry_favorite_count') == 'True' %}
+    {% set hide_entry_author = hide_author_override or request.cookies.get('hide_entry_author') == 'True' %}
+    {% set hide_entry_date = request.cookies.get('hide_entry_date') == 'True' %}
+    {% set hide_entry_images = request.cookies.get('hide_entry_images') == 'True' %}
     <div class="entry-container">
         {{ entry.html|safe }}
-        {% if request.cookies.get('hide_entry_images') != 'True' %}
-            {% if entry.images_source %}
-                <div class="entry-images-container">
-                    {% for url in entry.images_source %}<img class="entry-image" src={{ url }} alt={{ url }} />{% endfor %}
-                </div>
-            {% endif %}
+        {% if not hide_entry_images and entry.images_source %}
+            <div class="entry-images-container">
+                {% for url in entry.images_source %}<img class="entry-image" src="{{ url }}" alt="{{ url }}" />{% endfor %}
+            </div>
         {% endif %}
-        {% if
-            (request.cookies.get('hide_entry_favorite_count') == 'True') or
-            (request.cookies.get('hide_entry_author') == 'True') or
-            (request.cookies.get('hide_entry_date') == 'True')
-            %}
-            <br />
-        {% endif %}
+        {% if hide_pinned_topics or hide_entry_favorite_count or hide_entry_author or hide_entry_date %}<br />{% endif %}
         <div class="entry-container-items">
-            {% if request.cookies.get('hide_entry_favorite_count') == 'False' %}
-                <small class="entry-favorite-count">{{ entry.favorite_count }} favorites</small>
-            {% endif %}
-            {% if request.cookies.get('hide_entry_author') == 'False' %}
-                {% if request.cookies.get('hide_entry_favorite_count') == 'False' %}-{% endif %}
-                <small class="entry-author-nickname">
-                    <a href="{{ url_for('author', nickname=entry.author_nickname) }}">{{ entry.author_nickname }}</a>
-                </small>
-            {% endif %}
-            {% if request.cookies.get('hide_entry_date') == 'False' %}
-                {% if request.cookies.get('hide_entry_author') == 'False' %}
-                    -
-                {% elif request.cookies.get('hide_entry_favorite_count') == 'False' %}
-                    -
+            {% set parts = [] %}
+            {% if not hide_pinned_topics %}
+                {% if is_pinned_override or entry.is_pinned or entry.is_pinned_or_profile %}
+                    {% set _ = parts.append('<small><span class="icon-pin"></span></small>') %}
                 {% endif %}
-                <small class="entry-date">
-                    {% if clickable_date %}
-                        <a href="{{ url_for('entry', id=entry.id) }}">{{ entry.date }}</a>
-                    {% else %}
-                        {{ entry.date }}
-                    {% endif %}
-                </small>
             {% endif %}
+            {% if not hide_entry_favorite_count %}
+                {% set _ = parts.append('<small class="entry-favorite-count">%d favorites</small>' % entry.favorite_count) %}
+            {% endif %}
+            {% if not hide_entry_author %}
+                {% set _ = parts.append('<small class="entry-author-nickname"><a href="%s">%s</a></small>' %
+                                (url_for('author', nickname=entry.author_nickname), entry.author_nickname)) %}
+            {% endif %}
+            {% if not hide_entry_date %}
+                {% if clickable_date %}
+                    {% set date_html = '<a href="%s">%s</a>' % (url_for('entry', id=entry.id), entry.date) %}
+                {% else %}
+                    {% set date_html = entry.date %}
+                {% endif %}
+                {% set _ = parts.append('<small class="entry-date">%s</small>' % date_html) %}
+            {% endif %}
+            {{ parts | join(" - ") | safe }}
         </div>
     </div>
 {% endmacro %}
@@ -48,7 +44,10 @@
             <a href="{{ url_for('topic', path=topic.path, a="popular") }}">{{ topic.title }}</a>
         </div>
         <div class="topic-entry-count">
-            <!-- {% if topic.pinned %}<small>pinned</small>{% endif %} -->
+            {% set hide_pinned_topics = request.cookies.get('hide_pinned_topics') == 'True' %}
+            {% if hide_entry_favorite_count %}
+                {% if topic.is_pinned %}<small><span class="icon-pin"></span></small> -{% endif %}
+            {% endif %}
             {% if topic.entry_count %}<small>{{ topic.entry_count }}</small>{% endif %}
         </div>
     </div>
