@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ozgursozluk.org/sitemap.xml
