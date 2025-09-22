@@ -5,7 +5,9 @@
                 <a href="{{ url_for('topic', path=topic.path, p=page-1) }}">Previous</a>
                 {% if page < topic.page_count %}/{% endif %}
             {% endif %}
-            {% if page < topic.page_count %}<a href="{{ url_for('topic', path=topic.path, p=page+1) }}">Next</a>{% endif %}
+            {% if page < topic.page_count %}
+                <a href="{{ url_for('topic', path=topic.path, p=page+1) }}">Next</a> ({{ page+1 }})
+            {% endif %}
             {% if topic.page_count > 1 %}
                 -
                 <a href="{{ url_for('topic', path=topic.path, p=topic.page_count) }}">Last Page</a> ({{ topic.page_count }})
@@ -18,7 +20,7 @@
                 {% if page < topic.page_count %}/{% endif %}
             {% endif %}
             {% if page < topic.page_count %}
-                <a href="{{ url_for('topic', path=topic.path, p=page+1, a=action) }}">Next</a>
+                <a href="{{ url_for('topic', path=topic.path, p=page+1, a=action) }}">Next</a> ({{ page+1 }})
             {% endif %}
             {% if topic.page_count > 1 %}
                 -

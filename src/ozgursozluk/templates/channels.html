@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Channels - özgürsözlük{% endblock %}
+{% block meta %}<meta name="title" content="Channels - özgürsözlük" />{% endblock %}
+{% block main %}
+    {% if channels %}
+        <div class="topic-nav">
+            <div class="topic-nav-item">
+                <p>
+                    Channels - <a href="{{ url_for("index") }}">Gündem</a> - <a href="{{ url_for("debe") }}">Debe</a>
+                </p>
+            </div>
+        </div>
+        <div class="topic-container">
+            {% for channel in channels %}
+                <div class="topic-item">
+                    <div class="topic-title">
+                        <a href="{{ url_for('channel', name=channel.path) }}">#{{ channel.name }}
+                            <br />
+                            <small style="opacity: 0.5;">{{ channel.description }}</small></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if topics %}
+        <div class="topic-nav">
+            <div class="topic-nav-item">
+                <p>Channel: #{{ channel_name }}</p>
+            </div>
+            <div class="topic-nav-item">
+                <p>
+                    <a href="{{ url_for("channels") }}">Channels</a>
+                </p>
+            </div>
+        </div>
+        <div class="topic-container">
+            {% from "macros.html" import render_agenda %}
+            {% for topic in topics %}
+                {% if request.cookies.get('display_pinned_topics') == 'true' %}
+                    {{ render_agenda(topic, day=topic.day) }}
+                {% else %}
+                    {% if not topic.pinned %}{{ render_agenda(topic, action="search", day=topic.day) }}{% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

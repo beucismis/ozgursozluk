@@ -8,7 +8,7 @@
     <div class="topic-nav">
         <div class="topic-nav-item">
             <p>
-                Gündem - <a href="/debe">Debe</a>
+                Gündem - <a href="{{ url_for("debe") }}">Debe</a> - <a href="{{ url_for("channels") }}">Channels</a>
             </p>
         </div>
         <div class="topic-nav-item">
@@ -27,9 +27,9 @@
         {% from "macros.html" import render_agenda %}
         {% for topic in agenda %}
             {% if request.cookies.get('display_pinned_topics') == 'true' %}
-                {{ render_agenda(topic) }}
+                {{ render_agenda(topic, action="popular") }}
             {% else %}
-                {% if not topic.pinned %}{{ render_agenda(topic) }}{% endif %}
+                {% if not topic.pinned %}{{ render_agenda(topic, action="popular") }}{% endif %}
             {% endif %}
         {% endfor %}
     </div>

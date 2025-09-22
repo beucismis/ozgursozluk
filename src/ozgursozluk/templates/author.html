@@ -29,7 +29,7 @@
         <div class="author-last-entrys">
             {% from "macros.html" import render_entry %}
             {% for entry in author_last_entrys %}
-                {{ render_entry(entry, is_pinned_override=entry.is_pinned_on_profile, hide_author_override=True) }}
+                {{ render_entry(entry, is_pinned_override=entry.is_pinned_on_profile, hide_author_override=True, show_topic_title=True) }}
             {% endfor %}
         </div>
     {% endif %}

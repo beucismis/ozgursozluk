@@ -1,4 +1,4 @@
-{% macro render_entry(entry, is_pinned_override=False, clickable_date=True, hide_author_override=False) %}
+{% macro render_entry(entry, is_pinned_override=False, clickable_date=True, hide_author_override=False, show_topic_title=False) %}
     {% set hide_pinned_topics = request.cookies.get('hide_pinned_topics') == 'True' %}
     {% set hide_entry_favorite_count = request.cookies.get('hide_entry_favorite_count') == 'True' %}
     {% set hide_entry_author = hide_author_override or request.cookies.get('hide_entry_author') == 'True' %}
@@ -14,6 +14,9 @@
         {% if hide_pinned_topics or hide_entry_favorite_count or hide_entry_author or hide_entry_date %}<br />{% endif %}
         <div class="entry-container-items">
             {% set parts = [] %}
+            {% if show_topic_title %}
+                {% set _ = parts.append('<small class="entry-topic-title"><a href="%s">%s</a></small>' % (url_for('topic', path=entry.topic_path), entry.topic_title)) %}
+            {% endif %}
             {% if not hide_pinned_topics %}
                 {% if is_pinned_override or entry.is_pinned or entry.is_pinned_or_profile %}
                     {% set _ = parts.append('<small><span class="icon-pin"></span></small>') %}
@@ -38,10 +41,10 @@
         </div>
     </div>
 {% endmacro %}
-{% macro render_agenda(topic) %}
+{% macro render_agenda(topic, action=None, day=None) %}
     <div class="topic-item">
         <div class="topic-title">
-            <a href="{{ url_for('topic', path=topic.path, a="popular") }}">{{ topic.title }}</a>
+            <a href="{{ url_for('topic', path=topic.path, a=action, day=day) }}">{{ topic.title }}</a>
         </div>
         <div class="topic-entry-count">
             {% set hide_pinned_topics = request.cookies.get('hide_pinned_topics') == 'True' %}

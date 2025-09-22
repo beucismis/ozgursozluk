@@ -80,7 +80,7 @@ nav {
     margin: auto;
     /*display: flex;*/
     flex-wrap: wrap;
-    max-width: 850px;
+    max-width: 900px;
     min-height: 100vh;
     padding-top: 100px;
     box-sizing: border-box;
@@ -120,7 +120,7 @@ nav {
 .topic-nav {
     display: flex;
     margin: 1rem 0;
-    padding: 0 0.3rem;
+    padding: 0 0.1rem;
     align-items: center;
     justify-content: space-between;
 }

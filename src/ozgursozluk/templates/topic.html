@@ -10,31 +10,68 @@
 {% endblock %}
 {% block main %}
     <div class="topic-nav">
-        <div class="topic-nav-item">
-            <p>
-                {{ topic.title }} - Şükela:
-                {% if topic.nice %}
-                    <a href="{{ url_for('topic', path=topic.path) }}"><b>Nice</b></a>
-                {% else %}
-                    <a href="{{ url_for('topic', path=topic.path, action='nice') }}">Nice</a>
-                {% endif %}
-            </p>
-        </div>
+        <div class="topic-nav-item">{{ topic.title }}</div>
         <div class="topic-nav-item">{% include "paginate.html" %}</div>
     </div>
+    <div class="topic-nav">
+        <div class="topic-nav-item">
+            <p>
+                Şükela:
+                <a href="{{ url_for('topic', path=topic.path, a='nice') }}">Nice</a>
+                |
+                <a href="{{ url_for("topic", path=topic.path, a='dailynice') }}">Last 24h</a>
+                |
+                <a href="{{ url_for("topic", path=topic.path, a='search', day=max_date_value) }}">Today</a>
+                |
+                <a href="{{ url_for("topic", path=topic.path) }}">All</a>
+            </p>
+        </div>
+        <div class="topic-nav-item">
+            <div class="search-bar">
+                <form method="POST"
+                      action="/{{ topic.path }}"
+                      autocomplete="off"
+                      style="padding: 0">
+                    <input type="text"
+                           name="author"
+                           autofocus=""
+                           dir="auto"
+                           placeholder="author nickname"
+                           value="{{ "" if request.args.get("author") == none else request.args.get("author") }}"
+                           style="max-width: 150px;
+                                  color: var(--main-fg);
+                                  background: var(--entry-bg)" />
+                    <input type="date"
+                           name="day"
+                           min="1999-02-15"
+                           max="{{ max_date_value }}"
+                           value="{{ request.args.get("day") }}"
+                           style="color: var(--main-fg);
+                                  background: var(--entry-bg)" />
+                    <button type="submit" style="background: var(--entry-bg);">
+                        <span class="icon-search" style="color: var(--main-fg);"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="topic-container">
-        {% if topic.pinned_entry %}
-            {% from "macros.html" import render_entry %}
-            {{ render_entry(topic.pinned_entry, is_pinned_override=False) }}
+        {% set hide_pinned_topics = request.cookies.get('hide_pinned_topics') == 'True' %}
+        {% if not hide_pinned_topics %}
+            {% if topic.pinned_entry %}
+                {% from "macros.html" import render_entry %}
+                {{ render_entry(topic.pinned_entry, is_pinned_override=False) }}
+            {% endif %}
         {% endif %}
-        {% for entry in topic.entrys %}
-            {% from "macros.html" import render_entry %}
-            {{ render_entry(entry) }}
-        {% endfor %}
+        {% if topic.entrys != none %}
+            {% for entry in topic.entrys %}
+                {% from "macros.html" import render_entry %}
+                {{ render_entry(entry) }}
+            {% endfor %}
+        {% endif %}
     </div>
     <div class="topic-nav" style="padding-top: 0;">
         <div class="topic-nav-item"></div>
         <div class="topic-nav-item">{% include "paginate.html" %}</div>
     </div>
-</div>
 {% endblock %}
