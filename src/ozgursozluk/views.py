@@ -1,5 +1,5 @@
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from typing import NoReturn, Optional, Union
 
 import flask
@@ -18,6 +18,7 @@ def global_variables() -> dict:
         flask_version=flask.__version__,
         app_version=__version__,
         limoon_version=limoon_version,
+        max_date_value=date.today().strftime("%Y-%m-%d"),
     )
 
 
@@ -66,11 +67,37 @@ def debe() -> str:
     return flask.render_template("debe.html", debe=debe)
 
 
-@main.app.route("/<path>")
+@main.app.route("/kanallar")
+def channels() -> str:
+    return flask.render_template("channels.html", channels=limoon.CHANNELS)
+
+
+@main.app.route("/basliklar/kanal/<name>")
+def channel(name: str) -> str:
+    topics = limoon.get_channel(name)
+
+    return flask.render_template("channels.html", channel_name=name, topics=topics)
+
+
+@main.app.route("/<path>", methods=["GET", "POST"])
 def topic(path: str) -> str:
     page = flask.request.args.get("p", default=1, type=int)
     action = flask.request.args.get("a", default=None, type=str)
-    topic = limoon.get_topic(path, page=page, action=action)
+    day = flask.request.args.get("day", default=None, type=str)
+    author = flask.request.args.get("author", default=None, type=str)
+
+    try:
+        topic = limoon.get_topic(path, page=page, action=action, day=day, author=author)
+    except limoon.TopicNotFound as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
+
+    if flask.request.method == "POST":
+        author = flask.request.form.get("author", None)
+        day = flask.request.form.get("day", None)
+        return flask.redirect(flask.url_for("topic", path=path, p=page, a="search", day=day, author=author))
 
     return flask.render_template("topic.html", topic=topic, page=page, action=action)
 
