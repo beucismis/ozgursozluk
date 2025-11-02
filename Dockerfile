@@ -11,4 +11,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 EXPOSE 5000
 
-CMD ["flask", "--app", "ozgursozluk.main:app", "--host", "0.0.0.0", "run", "--debug"]
+ENV FLASK_APP=ozgursozluk.main:app
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_DEBUG=1
+
+CMD ["flask", "run"]
