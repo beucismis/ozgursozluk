@@ -1,9 +1,8 @@
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 
 import flask
 
 from . import __version__, configs
-
 
 app = flask.Flask(__name__)
 app.secret_key = configs.SECRET_KEY

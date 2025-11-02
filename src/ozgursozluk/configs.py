@@ -2,7 +2,6 @@ import secrets
 from os import environ
 from typing import Final
 
-
 SECRET_KEY: Final = environ.get("OZGURSOZLUK_SECRET_KEY", secrets.token_hex(24))
 
 THEMES: Final = [
