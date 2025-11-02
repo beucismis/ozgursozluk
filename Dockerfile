@@ -1,7 +1,7 @@
 FROM python:3.13-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 COPY . .
 
@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 EXPOSE 5000
 
-CMD ["flask", "--app", "ozgursozluk.main:app", "run"]
+CMD ["flask", "--app", "ozgursozluk.main:app", "--host", "0.0.0.0", "run", "--debug"]
