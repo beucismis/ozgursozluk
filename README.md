@@ -53,7 +53,7 @@ flask --app ozgursozluk.main:app run
 git clone https://github.com/beucismis/ozgursozluk
 cd ozgursozluk/
 docker build -t ozgursozluk .
-docker run -p 5000:5000 ozgursozluk
+docker run -p 5000:5000 --name ozgursozluk ozgursozluk
 ```
 
 See also, https://github.com/beucismis/ozgursozluk/wiki/Main
