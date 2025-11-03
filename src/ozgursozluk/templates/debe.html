@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Debe - özgürsözlük{% endblock %}
+{% block rss %}
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="debe"
+          href="{{ url_for('debe_xml', _external=True) }}" />
+{% endblock %}
 {% block meta %}<meta name="title" content="Debe - özgürsözlük" />{% endblock %}
 {% block main %}
     <div class="topic-nav">

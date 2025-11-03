@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename=filename) }}" />
         <link rel="manifest"
               href="{{ url_for('static', filename='manifest.json') }}">
+        {% block rss %}{% endblock %}
         <title>
             {% block title %}{% endblock %}
         </title>
