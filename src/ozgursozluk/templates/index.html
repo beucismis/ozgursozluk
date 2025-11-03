@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block title %}özgürsözlük - Free alternative front-end{% endblock %}
+{% block rss %}
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="gündem"
+          href="{{ url_for('gundem_xml', _external=True) }}" />
+{% endblock %}
 {% block meta %}
     <meta name="title" content="özgürsözlük" />
     <meta name="description" content="Free alternative front-end" />

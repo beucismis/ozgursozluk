@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>gündem</title>
+    <link>{{ url_for("index", _external=True) }}</link>
+    <description>özgür sözlük - gündem</description>
+    <language>tr</language>
+    {% for topic in agenda %}
+    <item>
+      <title>{{ topic.title }}</title>
+      <link>{{ url_for("topic", path=topic.path, a="popular", _external=True) }}</link>
+      <description>{{ topic.entry_count }} entry</description>
+      <pubDate>{{ topic.last_entry_time }}</pubDate>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

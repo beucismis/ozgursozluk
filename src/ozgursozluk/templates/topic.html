@@ -8,6 +8,12 @@
     <meta name="title" content="özgürsözlük">
     <meta name="description" content="{{ topic.title }}">
 {% endblock %}
+{% block rss %}
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="{{ topic.title }}"
+          href="{{ url_for('topic_xml', path=topic.path, _external=True) }}" />
+{% endblock %}
 {% block main %}
     <div class="topic-nav">
         <div class="topic-nav-item">{{ topic.title }}</div>

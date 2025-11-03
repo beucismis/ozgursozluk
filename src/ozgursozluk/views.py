@@ -1,11 +1,10 @@
-import random
-from datetime import datetime, timedelta, date
-from typing import NoReturn, Optional, Union
+from datetime import date, datetime, timedelta
+from typing import NoReturn, Union
 
 import flask
 import limoon
-import werkzeug
 import requests
+import werkzeug
 from limoon.__about__ import __version__ as limoon_version
 
 from . import __version__, configs, main
@@ -213,6 +212,38 @@ def settings() -> Union[str, werkzeug.wrappers.Response]:
     }
 
     return flask.render_template("settings.html", selected_theme=cookies.pop("theme"), **cookies)
+
+
+@main.app.route("/gundem.xml")
+def gundem_xml() -> flask.Response:
+    agenda = limoon.get_agenda(page=1)
+    agenda = [topic for topic in agenda if topic.path]
+    response = flask.make_response(flask.render_template("gundem.xml", agenda=agenda))
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+
+@main.app.route("/debe.xml")
+def debe_xml() -> flask.Response:
+    debe = limoon.get_debe()
+    debe = [entry for entry in debe if entry.id]
+    response = flask.make_response(flask.render_template("debe.xml", debe=debe))
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+
+@main.app.route("/<path>/rss.xml")
+def topic_xml(path: str) -> flask.Response:
+    page = flask.request.args.get("p", default=1, type=int)
+    action = flask.request.args.get("a", default=None, type=str)
+    author = flask.request.args.get("author", default=None, type=str)
+    topic = limoon.get_topic(path, page=page, action=action, author=author)
+    response = flask.make_response(flask.render_template("topic.xml", topic=topic))
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
 
 
 @main.app.errorhandler(404)
