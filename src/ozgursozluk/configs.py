@@ -7,6 +7,7 @@ SECRET_KEY: Final = environ.get("OZGURSOZLUK_SECRET_KEY", secrets.token_hex(24))
 THEMES: Final = [
     "Light",
     "Dark",
+    "Goth Girl",
     "Black Metal",
     "Violet",
     "Gruvbox",
@@ -15,6 +16,7 @@ THEMES: Final = [
     "Startpage",
     "Yotsuba B",
     "Iceberg Dark",
+    "Solarized Dark",
 ]
 
 DEFAULT_THEME: Final = "Light"
