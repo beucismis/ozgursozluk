@@ -11,8 +11,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 EXPOSE 5000
 
-ENV FLASK_APP=ozgursozluk.main:app
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_DEBUG=1
-
-CMD ["flask", "run"]
+CMD ["gunicorn", "src.ozgursozluk.main:app", "-b", "0.0.0.0:5000", "-w", "5"]
