@@ -46,5 +46,5 @@ python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 dev = ["black", "djlint"]
 
 [tool.hatch.envs.default.scripts]
-dev = "gunicorn src.ozgursozluk.main:app -b 127.0.0.1:5000 --reload"
 format = "black -l 120 . && djlint . --reformat --format-css"
+dev = "FLASK_ENV=development DEBUG=True gunicorn src.ozgursozluk.main:app -b 127.0.0.1:5000 --reload"
