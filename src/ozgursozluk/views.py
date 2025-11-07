@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from typing import NoReturn, Union
 
@@ -214,17 +215,21 @@ def settings() -> Union[str, werkzeug.wrappers.Response]:
     return flask.render_template("settings.html", selected_theme=cookies.pop("theme"), **cookies)
 
 
-@main.app.route("/gundem.xml")
+@main.app.route("/rss")
 def gundem_xml() -> flask.Response:
     agenda = limoon.get_agenda(page=1)
     agenda = [topic for topic in agenda if topic.path]
-    response = flask.make_response(flask.render_template("gundem.xml", agenda=agenda))
+
+    with ThreadPoolExecutor() as executor:
+        topics = list(executor.map(limoon.get_topic, [topic.path for topic in agenda]))
+
+    response = flask.make_response(flask.render_template("gundem.xml", topics=topics))
     response.headers["Content-Type"] = "application/xml"
 
     return response
 
 
-@main.app.route("/debe.xml")
+@main.app.route("/debe/rss")
 def debe_xml() -> flask.Response:
     debe = limoon.get_debe()
     debe = [entry for entry in debe if entry.id]
@@ -234,7 +239,7 @@ def debe_xml() -> flask.Response:
     return response
 
 
-@main.app.route("/<path>/rss.xml")
+@main.app.route("/<path>/rss")
 def topic_xml(path: str) -> flask.Response:
     page = flask.request.args.get("p", default=1, type=int)
     action = flask.request.args.get("a", default=None, type=str)
