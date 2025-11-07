@@ -20,7 +20,7 @@ This project is free alternative Ekşi Sözlük front-end focused on privacy and
 - Gündem & Debe Page Support – full support for special pages
 - Hide Displaying – favorite count, author and entry date
 - Entry Images - display images directly from the source
-- 8 Built-in Themes – customize the look with 8 themes
+- 10+ Built-in Themes – customize the look with 10+ themes
 - Self-Hosted, Ad-Free & Lightweight – fast, simple, and private on your server
 - Responsive Design – optimized for mobile and small screens
 
