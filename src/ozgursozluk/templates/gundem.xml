@@ -3,13 +3,19 @@
   <channel>
     <title>gündem</title>
     <link>{{ url_for("index", _external=True) }}</link>
-    <description>özgür sözlük - gündem</description>
     <language>tr</language>
-    {% for topic in agenda %}
+    {% for topic in topics %}
     <item>
       <title>{{ topic.title }}</title>
       <link>{{ url_for("topic", path=topic.path, a="popular", _external=True) }}</link>
-      <description>{{ topic.entry_count }} entry</description>
+      <description>
+        <![CDATA[
+          {% for entry in topic.entrys %}
+            <p>{{ entry.content }}</p>
+            <p>-- <a href="{{ url_for('author', nickname=entry.author.nickname, _external=True) }}">{{ entry.author.nickname }}</a></p>
+          {% endfor %}
+        ]]>
+      </description>
       <pubDate>{{ topic.last_entry_time }}</pubDate>
     </item>
     {% endfor %}

@@ -3,7 +3,6 @@
   <channel>
     <title>{{ topic.title }}</title>
     <link>{{ url_for("topic", path=topic.path, _external=True) }}</link>
-    <description>{{ topic.title }}</description>
     <language>tr</language>
     {% for entry in topic.entrys %}
     <item>

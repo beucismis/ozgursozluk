@@ -3,7 +3,6 @@
   <channel>
     <title>debe</title>
     <link>{{ url_for("debe", _external=True) }}</link>
-    <description>özgür sözlük - debe</description>
     <language>tr</language>
     {% for entry in debe %}
     <item>
