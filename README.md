@@ -1,5 +1,5 @@
-<p align="center" width="100%">
-<img height="128" src="https://github.com/user-attachments/assets/4893d92e-7077-4e2f-b1d4-ec809123d6ee" alt="ozgursozluk-logo" />
+<p align="left" width="100%">
+<img height="50" src="https://github.com/user-attachments/assets/4893d92e-7077-4e2f-b1d4-ec809123d6ee" alt="ozgursozluk-logo" />
 </p>
 
 This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. Made with <3 on the T61. Contributions are most welcome! Offical instance: [https://ozgursozluk.org](https://ozgursozluk.org)
