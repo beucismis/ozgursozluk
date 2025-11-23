@@ -5,7 +5,7 @@
     {% set hide_entry_date = request.cookies.get('hide_entry_date') == 'True' %}
     {% set hide_entry_images = request.cookies.get('hide_entry_images') == 'True' %}
     <div class="entry-container">
-        {{ entry.html|safe }}
+        {{ entry.html|replace_links|safe }}
         {% if not hide_entry_images and entry.images_source %}
             <div class="entry-images-container">
                 {% for url in entry.images_source %}<img class="entry-image" src="{{ url }}" alt="{{ url }}" />{% endfor %}

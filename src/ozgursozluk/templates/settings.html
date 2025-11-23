@@ -51,10 +51,23 @@
                                {% if hide_entry_images == "True" %}checked{% endif %}>
                         <span class="checkbox"></span>
                     </label>
-                    <h3 class="setting-section-title">
-                        Link Replacements <span style="opacity: 0.3;">(blank to disable)</span>
-                    </h3>
-                    Soon...
+                    <h3 class="setting-section-title">Link Replacements</h3>
+                    <label class="settings-group checkbox-container">
+                        Enable link replacements
+                        <input name="enable_link_replacements"
+                               type="checkbox"
+                               {% if enable_link_replacements == "True" %}checked{% endif %}>
+                        <span class="checkbox"></span>
+                    </label>
+                    {% for service, details in replaceable_services.items() %}
+                        <div class="settings-group settings-input">
+                            <label for="replace_{{ service }}">{{ details.name }}</label>
+                            <input type="text"
+                                   name="replace_{{ service }}"
+                                   placeholder="e.g. {{ details.default_instance }}"
+                                   value="{{ link_replacements.get(service, details.default_instance) }}">
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="settings-note">Settings are stored client-side using cookies without any personal information.</div>
                 <button class="settings-submit" type="submit" name="action" value="save">Save settings</button>

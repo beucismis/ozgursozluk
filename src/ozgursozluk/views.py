@@ -1,9 +1,11 @@
-from concurrent.futures import ThreadPoolExecutor
+import json
+import re
 from datetime import date, datetime, timedelta
 from typing import NoReturn, Union
 
 import flask
 import limoon
+import lxml
 import requests
 import werkzeug
 from limoon.__about__ import __version__ as limoon_version
@@ -15,11 +17,45 @@ from . import __version__, configs, main
 def global_variables() -> dict:
     return dict(
         themes=configs.THEMES,
+        replaceable_services=configs.REPLACEABLE_SERVICES,
         flask_version=flask.__version__,
         app_version=__version__,
         limoon_version=limoon_version,
         max_date_value=date.today().strftime("%Y-%m-%d"),
     )
+
+
+@main.app.template_filter()
+def replace_links(content: str) -> str:
+    if flask.request.cookies.get("enable_link_replacements") != "True":
+        return content
+
+    replacements_cookie = flask.request.cookies.get("link_replacements", "{}")
+
+    try:
+        user_replacements = json.loads(replacements_cookie)
+    except json.JSONDecodeError:
+        user_replacements = {}
+
+    for service, details in configs.REPLACEABLE_SERVICES.items():
+        instance = user_replacements.get(service) or details.get("default_instance")
+
+        if not instance:
+            continue
+
+        for original_domain in details["original_domains"]:
+            href_pattern = re.compile(
+                rf'(<a\s+(?:[^>]*?\s+)?href=["\'])https?://(?:www\.)?{re.escape(original_domain)}',
+                re.IGNORECASE,
+            )
+            content = href_pattern.sub(rf"\1https://{instance}", content)
+            text_pattern = re.compile(
+                rf"(>https?://(?:www\.)?){re.escape(original_domain)}(?=[/\s<\"'])",
+                re.IGNORECASE,
+            )
+            content = text_pattern.sub(rf"\1{instance}", content)
+
+    return content
 
 
 @main.app.errorhandler(requests.ConnectTimeout)
@@ -55,14 +91,26 @@ def index() -> Union[str, werkzeug.wrappers.Response]:
     if flask.request.method == "POST":
         return flask.redirect(flask.url_for("search", q=flask.request.form["q"] or None))
 
-    agenda = limoon.get_agenda(page=page)
+    try:
+        agenda = limoon.get_agenda(page=page)
+    except (limoon.AgendaNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("index.html", agenda=agenda, page=page)
 
 
 @main.app.route("/debe")
 def debe() -> str:
-    debe = limoon.get_debe()
+    try:
+        debe = limoon.get_debe()
+    except (limoon.DebeNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("debe.html", debe=debe)
 
@@ -74,7 +122,13 @@ def channels() -> str:
 
 @main.app.route("/basliklar/kanal/<name>")
 def channel(name: str) -> str:
-    topics = limoon.get_channel(name)
+    try:
+        topics = limoon.get_channel(name)
+    except (limoon.ChannelNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("channels.html", channel_name=name, topics=topics)
 
@@ -88,7 +142,7 @@ def topic(path: str) -> str:
 
     try:
         topic = limoon.get_topic(path, page=page, action=action, day=day, author=author)
-    except limoon.TopicNotFound as e:
+    except (limoon.TopicNotFound, UnicodeDecodeError) as e:
         return (
             flask.render_template("not-found.html", description=e.__doc__),
             404,
@@ -112,7 +166,13 @@ def handle_entry_not_found(error) -> tuple[str, int]:
 
 @main.app.route("/entry/<int:id>")
 def entry(id: int) -> str:
-    entry = limoon.get_entry(id)
+    try:
+        entry = limoon.get_entry(id)
+    except lxml.etree.ParserError:
+        return (
+            flask.render_template("not-found.html", description="Empty document received."),
+            503,
+        )
 
     return flask.render_template("entry.html", entry=entry)
 
@@ -127,15 +187,27 @@ def handle_author_not_found(error) -> tuple[str, int]:
 
 @main.app.route("/biri/<nickname>")
 def author(nickname: str) -> str:
-    author = limoon.get_author(nickname)
-    author_last_entrys = limoon.get_author_last_entrys(nickname)
+    try:
+        author = limoon.get_author(nickname)
+        author_last_entrys = limoon.get_author_last_entrys(nickname)
+    except (limoon.AuthorNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("author.html", author=author, author_last_entrys=author_last_entrys)
 
 
 @main.app.route("/rozetler/<nickname>")
 def author_badges(nickname: str) -> str:
-    badges = limoon.get_author_badges(nickname)
+    try:
+        badges = limoon.get_author_badges(nickname)
+    except (limoon.AuthorNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("author-badges.html", badges=badges, nickname=nickname)
 
@@ -155,14 +227,26 @@ def search() -> Union[str, NoReturn]:
     if not query:
         return flask.abort(404, description=limoon.SearchResultNotFound.__doc__)
 
-    search_result = limoon.get_search_topic(query)
+    try:
+        search_result = limoon.get_search_topic(query)
+    except (limoon.SearchResultNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("search.html", search_result=search_result, query=query)
 
 
 @main.app.route("/external/rentry")
 def rentry() -> str:
-    entry = limoon.get_random_entry()
+    try:
+        entry = limoon.get_random_entry()
+    except (limoon.EntryNotFound, UnicodeDecodeError) as e:
+        return (
+            flask.render_template("not-found.html", description=e.__doc__),
+            404,
+        )
 
     return flask.render_template("entry.html", entry=entry)
 
@@ -179,20 +263,29 @@ def settings() -> Union[str, werkzeug.wrappers.Response]:
         response = flask.redirect(flask.url_for("settings"))
 
         if action == "reset":
-            response.set_cookie(
-                "theme",
-                configs.DEFAULT_THEME,
-                expires=datetime.now() + timedelta(days=365),
-            )
+            response.set_cookie("link_replacements", "", expires=0)
+
             for cookie, default_value in configs.DEFAULT_COOKIES.items():
-                if cookie != "theme":
-                    response.set_cookie(
-                        cookie,
-                        default_value,
-                        expires=datetime.now() + timedelta(days=365),
-                    )
+                response.set_cookie(
+                    cookie,
+                    default_value,
+                    expires=datetime.now() + timedelta(days=365),
+                )
             return response
 
+        replacements = {}
+
+        for service, details in configs.REPLACEABLE_SERVICES.items():
+            instance = flask.request.form.get(f"replace_{service}")
+
+            if instance:
+                replacements[service] = instance
+
+        response.set_cookie(
+            "link_replacements",
+            json.dumps(replacements),
+            expires=datetime.now() + timedelta(days=365),
+        )
         theme = flask.request.form.get("theme", configs.DEFAULT_THEME)
 
         if theme not in configs.THEMES:
@@ -211,44 +304,36 @@ def settings() -> Union[str, werkzeug.wrappers.Response]:
         cookie: flask.request.cookies.get(cookie, default_value)
         for cookie, default_value in configs.DEFAULT_COOKIES.items()
     }
+    replacements_cookie = flask.request.cookies.get("link_replacements")
+    link_replacements = {}
 
-    return flask.render_template("settings.html", selected_theme=cookies.pop("theme"), **cookies)
+    if replacements_cookie:
+        try:
+            link_replacements = json.loads(replacements_cookie)
+        except json.JSONDecodeError:
+            pass
+
+    return flask.render_template(
+        "settings.html",
+        selected_theme=cookies.pop("theme"),
+        link_replacements=link_replacements,
+        **cookies,
+    )
 
 
 @main.app.route("/rss")
 def gundem_xml() -> flask.Response:
-    agenda = limoon.get_agenda(page=1)
-    agenda = [topic for topic in agenda if topic.path]
-
-    with ThreadPoolExecutor() as executor:
-        topics = list(executor.map(limoon.get_topic, [topic.path for topic in agenda]))
-
-    response = flask.make_response(flask.render_template("gundem.xml", topics=topics))
-    response.headers["Content-Type"] = "application/xml"
-
-    return response
+    raise NotImplementedError()
 
 
 @main.app.route("/debe/rss")
 def debe_xml() -> flask.Response:
-    debe = limoon.get_debe()
-    debe = [entry for entry in debe if entry.id]
-    response = flask.make_response(flask.render_template("debe.xml", debe=debe))
-    response.headers["Content-Type"] = "application/xml"
-
-    return response
+    raise NotImplementedError()
 
 
 @main.app.route("/<path>/rss")
 def topic_xml(path: str) -> flask.Response:
-    page = flask.request.args.get("p", default=1, type=int)
-    action = flask.request.args.get("a", default=None, type=str)
-    author = flask.request.args.get("author", default=None, type=str)
-    topic = limoon.get_topic(path, page=page, action=action, author=author)
-    response = flask.make_response(flask.render_template("topic.xml", topic=topic))
-    response.headers["Content-Type"] = "application/xml"
-
-    return response
+    raise NotImplementedError()
 
 
 @main.app.errorhandler(404)
