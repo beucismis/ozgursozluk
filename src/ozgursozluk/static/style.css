@@ -304,29 +304,33 @@ fieldset {
 }
 
 .settings-group {
-    display: block;
-}
-
-.settings-input {
-    position: relative;
-    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .settings-group label {
-    padding-right: 150px;
+    flex-grow: 1;
 }
 
-.settings-group select {
-    top: 0;
-    right: 0;
+.settings-group select,
+.settings-group input[type="text"] {
     border: none;
-    display: block;
-    padding: 0 2px;
-    appearance: none;
-    position: absolute;
+    padding: 2px 4px;
     border-radius: 4px;
     color: var(--main-fg);
     background: var(--main-bg);
+    width: 170px;
+    flex-shrink: 0;
+}
+
+.checkbox-container {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 22px;
 }
 
 .setting-section-title,
@@ -335,15 +339,6 @@ fieldset {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--main-bg);
-}
-
-.checkbox-container {
-    display: block;
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-    margin-bottom: 5px;
-    padding-right: 22px;
 }
 
 .checkbox-container input {
