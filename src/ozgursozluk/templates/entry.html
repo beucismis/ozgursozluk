@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% block title %}{{ entry.topic_title }} - #{{ entry.id }} - özgürsözlük{% endblock %}
+{% block description %}{{ entry.topic_title }} - #{{ entry.id }}{% endblock %}
 {% block meta %}
-    <meta name="title" content="özgürsözlük">
-    <meta name="description"
-          content="{{ entry.topic_title }} - #{{ entry.id }}">
+    <meta name="title"
+          content="{{ entry.topic_title }} - #{{ entry.id }} - özgürsözlük">
 {% endblock %}
 {% block main %}
     <div class="topic-nav">
         <div class="topic-nav-item">
             <p>
                 {{ entry.topic_title }} - Şükela:
-                <a href="{{ url_for('topic', path=entry.topic_path, a='nice') }}">Nice</a>
+                <a href="{{ url_for('content.topic', path=entry.topic_path, a='nice') }}">Nice</a>
                 |
-                <a href="{{ url_for('topic', path=entry.topic_path) }}">All</a>
+                <a href="{{ url_for('content.topic', path=entry.topic_path) }}">All</a>
             </p>
         </div>
     </div>

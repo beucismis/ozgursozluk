@@ -8,14 +8,14 @@
         {{ entry.html|replace_links|safe }}
         {% if not hide_entry_images and entry.images_source %}
             <div class="entry-images-container">
-                {% for url in entry.images_source %}<img class="entry-image" src="{{ url }}" alt="{{ url }}" />{% endfor %}
+                {% for url in entry.images_source %}<img class="entry-image" src="{{ url }}" alt="Image in entry" />{% endfor %}
             </div>
         {% endif %}
         {% if hide_pinned_topics or hide_entry_favorite_count or hide_entry_author or hide_entry_date %}<br />{% endif %}
         <div class="entry-container-items">
             {% set parts = [] %}
             {% if show_topic_title %}
-                {% set _ = parts.append('<small class="entry-topic-title"><a href="%s">%s</a></small>' % (url_for('topic', path=entry.topic_path), entry.topic_title)) %}
+                {% set _ = parts.append('<small class="entry-topic-title"><a href="%s">%s</a></small>' % (url_for('content.topic', path=entry.topic_path), entry.topic_title)) %}
             {% endif %}
             {% if not hide_pinned_topics %}
                 {% if is_pinned_override or entry.is_pinned or entry.is_pinned_or_profile %}
@@ -27,11 +27,11 @@
             {% endif %}
             {% if not hide_entry_author %}
                 {% set _ = parts.append('<small class="entry-author-nickname"><a href="%s">%s</a></small>' %
-                                (url_for('author', nickname=entry.author_nickname), entry.author_nickname)) %}
+                                (url_for('content.author', nickname=entry.author_nickname), entry.author_nickname)) %}
             {% endif %}
             {% if not hide_entry_date %}
                 {% if clickable_date %}
-                    {% set date_html = '<a href="%s">%s</a>' % (url_for('entry', id=entry.id), entry.date) %}
+                    {% set date_html = '<a href="%s">%s</a>' % (url_for('content.entry', id=entry.id), entry.date) %}
                 {% else %}
                     {% set date_html = entry.date %}
                 {% endif %}
@@ -43,9 +43,9 @@
 {% endmacro %}
 {% macro render_agenda(topic, action=None, day=None) %}
     <div class="topic-item">
-        <div class="topic-title">
-            <a href="{{ url_for('topic', path=topic.path, a=action, day=day) }}">{{ topic.title }}</a>
-        </div>
+        <h2 class="topic-title">
+            <a href="{{ url_for('content.topic', path=topic.path, a=action, day=day) }}">{{ topic.title }}</a>
+        </h2>
         <div class="topic-entry-count">
             {% set hide_pinned_topics = request.cookies.get('hide_pinned_topics') == 'True' %}
             {% if hide_entry_favorite_count %}

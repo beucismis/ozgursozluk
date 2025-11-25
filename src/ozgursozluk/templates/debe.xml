@@ -2,12 +2,12 @@
 <rss version="2.0">
   <channel>
     <title>debe</title>
-    <link>{{ url_for("debe", _external=True) }}</link>
+    <link>{{ url_for("core.debe", _external=True) }}</link>
     <language>tr</language>
     {% for entry in debe %}
     <item>
       <title>{{ entry.topic_title }}</title>
-      <link>{{ url_for("entry", id=entry.id, _external=True) }}</link>
+      <link>{{ url_for("content.entry", id=entry.id, _external=True) }}</link>
       <description><![CDATA[ {{ entry.content | safe }} ]]></description>
       <pubDate>{{ entry.created }}</pubDate>
     </item>

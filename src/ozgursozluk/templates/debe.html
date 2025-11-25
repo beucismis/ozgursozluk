@@ -4,14 +4,14 @@
     <link rel="alternate"
           type="application/rss+xml"
           title="debe"
-          href="{{ url_for('debe_xml', _external=True) }}" />
+          href="{{ url_for('utility.debe_xml', _external=True) }}" />
 {% endblock %}
 {% block meta %}<meta name="title" content="Debe - özgürsözlük" />{% endblock %}
 {% block main %}
     <div class="topic-nav">
         <div class="topic-nav-item">
             <p>
-                Debe - <a href="{{ url_for("index") }}">Gündem</a> - <a href="{{ url_for("channels") }}">Channels</a>
+                Debe - <a href="{{ url_for("core.index") }}">Gündem</a> - <a href="{{ url_for("core.channels") }}">Channels</a>
             </p>
         </div>
         <div class="topic-nav-item"></div>
@@ -21,7 +21,7 @@
             {% for entry in debe %}
                 <a class="debe-entry"
                    style="text-decoration: none"
-                   href="{{ url_for('entry', id=entry.id) }}">
+                   href="{{ url_for('content.entry', id=entry.id) }}">
                     <div>
                         <div class="debe-entry-title">{{ entry.topic_title }}</div>
                     </div>

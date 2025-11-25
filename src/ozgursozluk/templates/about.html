@@ -3,9 +3,9 @@
 {% block meta %}<meta name="title" content="About - özgürsözlük">{% endblock %}
 {% block main %}
     <div class="about-container">
-        <h3 class="about-section-title" style="margin-top: 0;">About</h3>
+        <h1 class="about-section-title" style="margin-top: 0;">About</h1>
         <p>
-            This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. The source is available on GitHub at <a href="https://github.com/beucismis/ozgursozluk">https://github.com/beucismis/ozgursozluk</a>. Made with <3 on the <a href="{{ url_for('topic', path='thinkpad-t61--1883047') }}">T61</a>.
+            This project is free alternative Ekşi Sözlük front-end focused on privacy and performance. The source is available on GitHub at <a href="https://github.com/beucismis/ozgursozluk">https://github.com/beucismis/ozgursozluk</a>. Made with <3 on the <a href="{{ url_for('content.topic', path='thinkpad-t61--1883047') }}">T61</a>.
         </p>
         <p>
             <ul>
@@ -23,9 +23,9 @@
         </p>
         <p>This project is not officially affiliated with eksisozluk.com.</p>
         <p>
-            Page <a href="{{ url_for("privacy_policy") }}">Privacy Policy</a> and <a href="{{ url_for("terms_of_service") }}">Terms of Service</a> for this site.
+            Page <a href="{{ url_for("utility.privacy_policy") }}">Privacy Policy</a> and <a href="{{ url_for("utility.terms_of_service") }}">Terms of Service</a> for this site.
         </p>
-        <h3 class="about-section-title">Donating</h3>
+        <h2 class="about-section-title">Donating</h2>
         <p>
             BTC: bc1q0hp2qnljdvnp938958umy5gqs7ej6ahckldua75alancwf9um8asyefd4f
             <br />
@@ -34,20 +34,23 @@
             SOL: FQUN3X36Pg5m7j8bnu4jCWxpFyiv1D7MzxkzCyNQ8rRw
             <br />
         </p>
-        <h3 class="about-section-title">Contact</h3>
+        <h2 class="about-section-title">Contact</h2>
         <p>
             Mail: <a herf="mailto:beucismis@tutamail.com">beucismis@tutamail.com</a>
         </p>
-        <h3 class="about-section-title">Instance Info</h3>
+        <h2 class="about-section-title">Instance Info</h2>
         <p style="display: flex; gap: 5px;">
             <a href="https://github.com/pallets/flask">
-                <img src="https://img.shields.io/badge/flask-v{{ flask_version }}-blue" />
+                <img src="https://img.shields.io/badge/flask-v{{ flask_version }}-blue"
+                     alt="Flask version badge" />
             </a>
             <a href="https://github.com/beucismis/ozgursozluk">
-                <img src="https://img.shields.io/badge/ozgursozluk-v{{ app_version }}-blue" />
+                <img src="https://img.shields.io/badge/ozgursozluk-v{{ app_version }}-blue"
+                     alt="ozgursozluk version badge" />
             </a>
             <a href="https://github.com/beucismis/limoon">
-                <img src="https://img.shields.io/badge/limoon-v{{ limoon_version }}-blue" />
+                <img src="https://img.shields.io/badge/limoon-v{{ limoon_version }}-blue"
+                     alt="limoon version badge" />
             </a>
         </p>
     </div>

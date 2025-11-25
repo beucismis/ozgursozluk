@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block title %}{{ author.nickname }} - özgürsözlük{% endblock %}
-{% block meta %}
-    <meta name="title" content="{{ author.nickname }} - özgürsözlük">
-    <meta name="description"
-          content="{{ author.nickname }} {% if author.level %}({{ author.level }}){% endif %}">
+{% block description %}
+    {{ author.nickname }}
+    {% if author.level %}({{ author.level }}){% endif %}
 {% endblock %}
+{% block meta %}<meta name="title" content="{{ author.nickname }} - özgürsözlük">{% endblock %}
 {% block main %}
     <div class="author-container">
-        <img class="author-avatar" src="{{ author.avatar_url }}">
+        <img class="author-avatar"
+             src="{{ author.avatar_url }}"
+             alt="{{ author.nickname }}'s avatar">
         <p class="author-nickname">{{ author.nickname }}</p>
         <p class="author-rank">
             <a class="text-decoration: none;"
-               href="{{ url_for("author_badges", nickname=author.nickname) }}">
+               href="{{ url_for("content.author_badges", nickname=author.nickname) }}">
                 {% if author.rank %}{{ author.rank.name }} ({{ author.rank.karma }}){% endif %}
             </a>
         </p>

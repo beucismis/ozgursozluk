@@ -4,15 +4,16 @@
     {% if page > 1 %}- page: {{ page }}{% endif %}
     - özgürsözlük
 {% endblock %}
+{% block description %}{{ topic.title }}{% endblock %}
 {% block meta %}
-    <meta name="title" content="özgürsözlük">
-    <meta name="description" content="{{ topic.title }}">
+    <meta name="title"
+          content="{{ topic.title }}{% if page > 1 %} - page: {{ page }}{% endif %} - özgürsözlük">
 {% endblock %}
 {% block rss %}
     <link rel="alternate"
           type="application/rss+xml"
           title="{{ topic.title }}"
-          href="{{ url_for('topic_xml', path=topic.path, _external=True) }}" />
+          href="{{ url_for('utility.topic_xml', path=topic.path, _external=True) }}" />
 {% endblock %}
 {% block main %}
     <div class="topic-nav">
@@ -23,19 +24,19 @@
         <div class="topic-nav-item">
             <p>
                 Şükela:
-                <a href="{{ url_for('topic', path=topic.path, a='nice') }}">Nice</a>
+                <a href="{{ url_for('content.topic', path=topic.path, a='nice') }}">Nice</a>
                 |
-                <a href="{{ url_for("topic", path=topic.path, a='dailynice') }}">Last 24h</a>
+                <a href="{{ url_for("content.topic", path=topic.path, a='dailynice') }}">Last 24h</a>
                 |
-                <a href="{{ url_for("topic", path=topic.path, a='search', day=max_date_value) }}">Today</a>
+                <a href="{{ url_for("content.topic", path=topic.path, a='search', day=max_date_value) }}">Today</a>
                 |
-                <a href="{{ url_for("topic", path=topic.path) }}">All</a>
+                <a href="{{ url_for("content.topic", path=topic.path) }}">All</a>
             </p>
         </div>
         <div class="topic-nav-item">
             <div class="search-bar">
                 <form method="POST"
-                      action="/{{ topic.path }}"
+                      action="{{ url_for('content.topic', path=topic.path) }}"
                       autocomplete="off"
                       style="padding: 0">
                     <input type="text"

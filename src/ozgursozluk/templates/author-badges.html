@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}{{ nickname }} - özgürsözlük{% endblock %}
-{% block meta %}<meta name="title" content="{{ nickname }} - özgürsözlük">{% endblock %}
+{% block title %}Badges for {{ nickname }} - özgürsözlük{% endblock %}
+{% block meta %}<meta name="title" content="Badges for {{ nickname }} - özgürsözlük">{% endblock %}
 {% block main %}
     <div class="topic-nav">
         <div class="topic-nav-item">
             <p>
-                Author: <a href="{{ url_for("author", nickname=nickname) }}">{{ nickname }}</a>
+                Author: <a href="{{ url_for("content.author", nickname=nickname) }}">{{ nickname }}</a>
             </p>
         </div>
     </div>
@@ -13,7 +13,9 @@
         {% for badge in badges %}
             <div class="author-badge-container">
                 <div class="badge-box">
-                    <img class="author-badge-icon" src="{{ badge.icon_url }}" />
+                    <img class="author-badge-icon"
+                         src="{{ badge.icon_url }}"
+                         alt="{{ badge.name }}" />
                 </div>
                 <div class="badge-box">
                     <p class="author-badge-name">{{ badge.name }}</p>

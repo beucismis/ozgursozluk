@@ -5,61 +5,77 @@
         <meta content="origin" name="referrer" />
         <meta name="theme-color" content="#000000">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {% block meta %}{% endblock %}
-        <link rel="stylesheet" type="text/css" href="/static/fontello.css">
-        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-        {% set theme = request.cookies.get("theme", "Light") %}
-        {% if theme not in themes %}
-            {% set theme = "Light" %}
-        {% endif %}
-        {% set filename = "theme/" ~ (theme|lower|replace(" ", "-")) ~ ".css" %}
-        <link rel="stylesheet" href="{{ url_for('static', filename=filename) }}" />
-        <link rel="manifest"
-              href="{{ url_for('static', filename='manifest.json') }}">
-        {% block rss %}{% endblock %}
-        <title>
-            {% block title %}{% endblock %}
-        </title>
-    </head>
-    <body>
-        <nav>
-            <div class="inner-nav">
-                <div class="nav-item">
-                    <img class="site-logo"
-                         src="{{ url_for('static', filename='favicon.png') }}" />
-                    <a class="site-name" href="/">
-                        <span class="ozgur">özgür</span><span class="sozluk">sözlük</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <div class="search-bar">
-                        <form method="POST" action="/" autocomplete="off">
-                            <input type="text" name="q" autofocus="" placeholder="Search..." dir="auto" />
-                            <button type="submit">
-                                <span class="icon-search"></span>
-                            </button>
-                        </form>
+        {%- set page_title -%}{%- block title -%}{%- endblock -%}{%- endset -%}
+            {%- set page_description -%}{%- block description -%}{%- endblock -%}{%- endset -%}
+                <title>{{ page_title|trim }}</title>
+                <meta name="description" content="{{ page_description|trim }}" />
+                <meta property="og:title" content="{{ page_title|trim }}" />
+                <meta property="og:description" content="{{ page_description|trim }}" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="{{ request.url | safe }}" />
+                <meta property="og:site_name" content="özgürsözlük" />
+                <meta property="og:image"
+                      content="{{ url_for('static', filename='favicon.png', _external=True) }}" />
+                <link rel="canonical" href="{{ request.base_url }}" />
+                <meta property="og:locale" content="tr_TR" />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content="{{ page_title|trim }}" />
+                <meta name="twitter:description" content="{{ page_description|trim }}" />
+                <meta name="twitter:image"
+                      content="{{ url_for('static', filename='favicon.png', _external=True) }}" />
+                {% block meta %}{% endblock %}
+                <link rel="stylesheet" type="text/css" href="/static/fontello.css">
+                <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
+                <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+                {% set theme = request.cookies.get("theme", "Light") %}
+                {% if theme not in themes %}
+                    {% set theme = "Light" %}
+                {% endif %}
+                {% set filename = "theme/" ~ (theme|lower|replace(" ", "-")) ~ ".css" %}
+                <link rel="stylesheet" href="{{ url_for('static', filename=filename) }}" />
+                <link rel="manifest"
+                      href="{{ url_for('static', filename='manifest.json') }}">
+                {% block rss %}{% endblock %}
+            </head>
+            <body>
+                <nav>
+                    <div class="inner-nav">
+                        <div class="nav-item">
+                            <img class="site-logo"
+                                 src="{{ url_for('static', filename='favicon.png') }}"
+                                 alt="özgürsözlük logo" />
+                            <a class="site-name" href="{{ url_for("core.index") }}">
+                                <span class="ozgur">özgür</span><span class="sozluk">sözlük</span>
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <div class="search-bar">
+                                <form method="POST" action="{{ url_for("core.index") }}" autocomplete="off">
+                                    <input type="text" name="q" autofocus="" placeholder="Search..." dir="auto" />
+                                    <button type="submit">
+                                        <span class="icon-search"></span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="nav-item right">
+                            <div>
+                                <a href="{{ url_for("utility.rentry") }}">Rentry</a>
+                            </div>
+                            <div>
+                                <a href="{{ url_for("utility.about") }}">About</a>
+                            </div>
+                            <div>
+                                <a href="{{ url_for("utility.settings") }}">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="container">
+                    <div class="panel-container">
+                        {% block main %}{% endblock %}
                     </div>
                 </div>
-                <div class="nav-item right">
-                    <div>
-                        <a href="{{ url_for("rentry") }}">Rentry</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for("about") }}">About</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for("settings") }}">Settings</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="panel-container">
-                {% block main %}{% endblock %}
-            </div>
-        </div>
-        <div style="margin-bottom: 5rem;"></div>
-    </body>
-</html>
+                <div style="margin-bottom: 5rem;"></div>
+            </body>
+        </html>

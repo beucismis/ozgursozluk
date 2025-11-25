@@ -1,12 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Channels - özgürsözlük{% endblock %}
-{% block meta %}<meta name="title" content="Channels - özgürsözlük" />{% endblock %}
+{% block title %}
+    {% if channel_name %}
+        {{ channel_name }}
+    {% else %}
+        Channels
+    {% endif %}
+    - özgürsözlük
+{% endblock %}
+{% block meta %}
+    <meta name="title"
+          content="{% if channel_name %}{{ channel_name }}{% else %}Channels{% endif %} - özgürsözlük" />
+{% endblock %}
 {% block main %}
     {% if channels %}
         <div class="topic-nav">
             <div class="topic-nav-item">
                 <p>
-                    Channels - <a href="{{ url_for("index") }}">Gündem</a> - <a href="{{ url_for("debe") }}">Debe</a>
+                    Channels - <a href="{{ url_for("core.index") }}">Gündem</a> - <a href="{{ url_for("core.debe") }}">Debe</a>
                 </p>
             </div>
         </div>
@@ -14,7 +24,7 @@
             {% for channel in channels %}
                 <div class="topic-item">
                     <div class="topic-title">
-                        <a href="{{ url_for('channel', name=channel.path) }}">#{{ channel.name }}
+                        <a href="{{ url_for('content.channel', name=channel.path) }}">#{{ channel.name }}
                             <br />
                             <small style="opacity: 0.5;">{{ channel.description }}</small></a>
                     </div>
@@ -29,7 +39,7 @@
             </div>
             <div class="topic-nav-item">
                 <p>
-                    <a href="{{ url_for("channels") }}">Channels</a>
+                    <a href="{{ url_for("core.channels") }}">Channels</a>
                 </p>
             </div>
         </div>

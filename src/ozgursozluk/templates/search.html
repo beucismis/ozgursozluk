@@ -1,9 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Search - özgürsözlük{% endblock %}
-{% block meta %}
-    <meta name="title" content="Search - özgürsözlük">
-    <meta name="description" content="{{ query }}">
-{% endblock %}
+{% block title %}Search results for '{{ query }}' - özgürsözlük{% endblock %}
+{% block description %}Search results for '{{ query }}'{% endblock %}
+{% block meta %}<meta name="title" content="Search results for '{{ query }}' - özgürsözlük">{% endblock %}
 {% block main %}
     <div class="topic-nav">
         <div class="topic-nav-item">
@@ -14,7 +12,7 @@
         {% for topic in search_result %}
             <div class="topic-item">
                 <div class="topic-title">
-                    <a href="{{ url_for('topic', path=topic.path) }}">{{ topic.title }}</a>
+                    <a href="{{ url_for('content.topic', path=topic.path) }}">{{ topic.title }}</a>
                 </div>
                 <div clas="topic-entry-count">
                     <!-- {% if topic.pinned %}<small>pinned</small>{% endif %} -->

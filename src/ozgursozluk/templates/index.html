@@ -1,31 +1,29 @@
 {% extends "base.html" %}
-{% block title %}özgürsözlük - Free alternative front-end{% endblock %}
+{% block title %}Gündem - özgürsözlük{% endblock %}
+{% block description %}Free alternative Ekşi Sözlük front-end{% endblock %}
 {% block rss %}
     <link rel="alternate"
           type="application/rss+xml"
           title="gündem"
-          href="{{ url_for('gundem_xml', _external=True) }}" />
+          href="{{ url_for('utility.gundem_xml', _external=True) }}" />
 {% endblock %}
-{% block meta %}
-    <meta name="title" content="özgürsözlük" />
-    <meta name="description" content="Free alternative front-end" />
-{% endblock %}
+{% block meta %}<meta name="title" content="Gündem - özgürsözlük" />{% endblock %}
 {% block main %}
     <div class="topic-nav">
         <div class="topic-nav-item">
             <p>
-                Gündem - <a href="{{ url_for("debe") }}">Debe</a> - <a href="{{ url_for("channels") }}">Channels</a>
+                Gündem - <a href="{{ url_for("core.debe") }}">Debe</a> - <a href="{{ url_for("core.channels") }}">Channels</a>
             </p>
         </div>
         <div class="topic-nav-item">
             {% if page > 1 %}
-                <a href="{{ url_for('index', p=page-1) }}">Previous</a>
+                <a href="{{ url_for('core.index', p=page-1) }}">Previous</a>
                 {% if page < 3 %}/{% endif %}
             {% endif %}
-            {% if page < 3 %}<a href="{{ url_for('index', p=page+1) }}">Next</a>{% endif %}
+            {% if page < 3 %}<a href="{{ url_for('core.index', p=page+1) }}">Next</a>{% endif %}
             {% if 3 > 1 %}
                 -
-                <a href="{{ url_for('index', p=3) }}">Last Page</a>
+                <a href="{{ url_for('core.index', p=3) }}">Last Page</a>
             {% endif %}
         </div>
     </div>
@@ -43,13 +41,13 @@
         <div class="topic-nav-item"></div>
         <div class="topic-nav-item">
             {% if page > 1 %}
-                <a href="{{ url_for('index', p=page-1) }}">Previous</a>
+                <a href="{{ url_for('core.index', p=page-1) }}">Previous</a>
                 {% if page < 3 %}/{% endif %}
             {% endif %}
-            {% if page < 3 %}<a href="{{ url_for('index', p=page+1) }}">Next</a>{% endif %}
+            {% if page < 3 %}<a href="{{ url_for('core.index', p=page+1) }}">Next</a>{% endif %}
             {% if 3 > 1 %}
                 -
-                <a href="{{ url_for('index', p=3) }}">Last Page</a>
+                <a href="{{ url_for('core.index', p=3) }}">Last Page</a>
             {% endif %}
         </div>
     </div>

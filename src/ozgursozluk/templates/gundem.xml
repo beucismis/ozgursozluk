@@ -2,17 +2,17 @@
 <rss version="2.0">
   <channel>
     <title>gündem</title>
-    <link>{{ url_for("index", _external=True) }}</link>
+    <link>{{ url_for("core.index", _external=True) }}</link>
     <language>tr</language>
     {% for topic in topics %}
     <item>
       <title>{{ topic.title }}</title>
-      <link>{{ url_for("topic", path=topic.path, a="popular", _external=True) }}</link>
+      <link>{{ url_for("content.topic", path=topic.path, a="popular", _external=True) }}</link>
       <description>
         <![CDATA[
           {% for entry in topic.entrys %}
             <p>{{ entry.content }}</p>
-            <p>-- <a href="{{ url_for('author', nickname=entry.author.nickname, _external=True) }}">{{ entry.author.nickname }}</a></p>
+            <p>-- <a href="{{ url_for('content.author', nickname=entry.author.nickname, _external=True) }}">{{ entry.author.nickname }}</a></p>
           {% endfor %}
         ]]>
       </description>
