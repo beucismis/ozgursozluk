@@ -71,10 +71,28 @@ Once the service is running, you can access the API at `http://localhost:5000`.
 | `FLASK_RUN_PORT`       | `5000`                   |
 | `EKSI_SOZLUK_BASE_URL` | `https://eksisozluk.com` |
 
-## Developer Notes
+## Development
 
-- The ASGI app is defined as `app` in `src/ozgursozluk/main.py`.
-- When installed as a package, you can launch it using `gunicorn`, `uvicorn`, `hypercorn` or any compatible ASGI tool.
+This project uses [Hatch](https://hatch.pypa.io/latest/) for project management.
+
+1.  Install dependencies:
+    
+    ```
+    pip install hatch
+    hatch env create
+    ```
+
+2.  Run development server: (with hot-reloading)
+    
+    ```
+    hatch run dev
+    ```
+
+3.  Format code:
+    
+    ```
+    hatch run format
+    ```
 
 ## Redirection
 
