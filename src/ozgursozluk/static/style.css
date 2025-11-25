@@ -1,19 +1,15 @@
 * {
-    margin: 0;
-    padding: 0;
-    outline: unset;
-    text-decoration: none;
     box-sizing: border-box;
+    margin: 0;
+    outline: unset;
+    padding: 0;
+    text-decoration: none;
 }
 
 html {
-    color: var(--main-fg);
     background-color: var(--main-bg);
-    font-family:
-        Helvetica Neue,
-        Helvetica,
-        Arial,
-        sans-serif;
+    color: var(--main-fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 a {
@@ -21,36 +17,36 @@ a {
 }
 
 nav {
-    padding: 0;
-    width: 100%;
-    z-index: 1000;
-    display: flex;
-    position: fixed;
     align-items: center;
     background-color: var(--entry-bg);
+    display: flex;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 
 .inner-nav {
-    margin: auto;
-    display: flex;
-    padding: 0 1rem;
-    flex-basis: 1000px;
     align-items: center;
     box-sizing: border-box;
+    display: flex;
+    flex-basis: 1000px;
+    margin: auto;
+    padding: 0 1rem;
 }
 
 .nav-item {
-    flex: 1;
+    align-items: center;
     display: flex;
+    flex: 1;
+    flex-wrap: wrap;
     line-height: 50px;
     overflow: hidden;
-    flex-wrap: wrap;
-    align-items: center;
 }
 
 .nav-item.right {
-    text-align: right;
     justify-content: flex-end;
+    text-align: right;
 }
 
 .nav-item.right a {
@@ -58,8 +54,8 @@ nav {
 }
 
 .nav-item a.site-name {
-    font-size: 25px;
     font-family: FreeSerif;
+    font-size: 25px;
 }
 
 .ozgur {
@@ -71,19 +67,18 @@ nav {
 }
 
 .site-logo {
-    height: 25px;
-    width: 25px;
+    height: 21px;
     margin-right: 0.5rem;
+    width: 21px;
 }
 
 .container {
-    margin: auto;
-    /*display: flex;*/
+    box-sizing: border-box;
     flex-wrap: wrap;
+    margin: auto;
     max-width: 900px;
     min-height: 100vh;
     padding-top: 100px;
-    box-sizing: border-box;
 }
 
 .panel-container {
@@ -91,38 +86,38 @@ nav {
 }
 
 .search-bar > form {
+    display: flex;
     margin: auto;
     padding: 12px;
-    display: flex;
 }
 
 .search-bar > form input {
-    border: 0;
-    width: 100%;
-    padding: 5px;
-    height: unset;
-    font-size: 15px;
-    margin-right: 8px;
-    border-radius: 4px;
     background: var(--main-bg);
+    border: 0;
+    border-radius: 4px;
+    font-size: 15px;
+    height: unset;
+    margin-right: 8px;
+    padding: 5px;
+    width: 100%;
 }
 
 .search-bar > form button {
+    background: var(--main-bg);
     border: 0;
-    width: 30px;
-    height: 30px;
+    border-radius: 3px;
     cursor: pointer;
     font-weight: bold;
-    border-radius: 3px;
-    background: var(--main-bg);
+    height: 30px;
+    width: 30px;
 }
 
 .topic-nav {
+    align-items: center;
     display: flex;
+    justify-content: space-between;
     margin: 1rem 0;
     padding: 0 0.1rem;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .topic-nav > .topic-nav-item p {
@@ -130,22 +125,32 @@ nav {
     padding: 0;
 }
 
+.page-title {
+    font-size: 1.2em;
+    margin-right: 0.5rem;
+}
+
 .topic-nav .topic-nav-item a {
     text-decoration: underline;
 }
 
 .topic-container {
-    width: 100%;
     margin: 0 auto;
+    width: 100%;
+}
+
+.topic-title {
+    font-size: 1em;
+    font-weight: normal;
 }
 
 .topic-item {
-    display: flex;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    text-decoration: none;
-    justify-content: space-between;
     background-color: var(--entry-bg);
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    text-decoration: none;
 }
 
 .topic-entry-count small {
@@ -153,32 +158,28 @@ nav {
 }
 
 .topic-container-entry-wrapper {
-    gap: 0.5rem;
     display: grid;
+    gap: 0.5rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .topic-container-entry-wrapper .debe-entry {
+    background-color: var(--entry-bg);
     margin: 0;
     padding: 0.5rem;
-    background-color: var(--entry-bg);
 }
 
 .entry-container {
-    display: block;
-    padding: 0.5rem;
-    margin: 1rem 0;
     background-color: var(--entry-bg);
-}
-
-.entry-container a {
-    text-decoration: underline;
+    display: block;
+    margin: 1rem 0;
+    padding: 0.5rem;
 }
 
 .entry-container-items {
     opacity: 0.8;
-    text-align: right;
     padding-top: 0.5rem;
+    text-align: right;
 }
 
 .entry-container a {
@@ -186,47 +187,47 @@ nav {
 }
 
 .entry-images-container {
-    gap: 0.5rem;
-    padding: 0.5rem;
-    margin-top: 1rem;
-    display: grid;
     border: 1px solid var(--main-bg);
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
 }
 
 .entry-image {
-    width: 50%;
+    border-radius: 3px;
     height: auto;
     margin: auto;
     object-fit: cover;
-    border-radius: 3px;
+    width: 50%;
 }
 
 .author-container {
-    width: 100%;
     margin: 1rem auto;
     text-align: center;
+    width: 100%;
 }
 
 .author-avatar {
     border: none;
-    width: 150px;
+    border-radius: 50%;
     height: 150px;
     margin: 0.5rem;
-    border-radius: 50%;
+    width: 150px;
 }
 
 .author-rank {
-    opacity: 0.5;
     font-size: 14px;
+    opacity: 0.5;
     padding-bottom: 1rem;
 }
 
 .author-biography {
-    width: 100%;
+    background-color: var(--entry-bg);
+    margin: 1rem auto;
     padding: 0.5rem;
     text-align: left;
-    margin: 1rem auto;
-    background-color: var(--entry-bg);
+    width: 100%;
 }
 
 .about-container a,
@@ -234,12 +235,18 @@ nav {
     text-decoration: underline;
 }
 
-.author-badges-container {
-    padding: 1rem;
-    margin: 0.5rem auto;
-    text-decoration: none;
-    justify-content: space-between;
+.author-badges-container,
+.about-container,
+.settings-container,
+.not-found-container {
     background-color: var(--entry-bg);
+    justify-content: space-between;
+    padding: 1rem;
+    text-decoration: none;
+}
+
+.author-badges-container {
+    margin: 0.5rem auto;
 }
 
 .author-badge-container {
@@ -248,7 +255,6 @@ nav {
 }
 
 .author-badge-container:last-child {
-    display: flex;
     padding-bottom: 0;
 }
 
@@ -263,8 +269,8 @@ nav {
 }
 
 .author-badge-icon {
-    width: 55px;
     height: 55px;
+    width: 55px;
 }
 
 .author-badge-description {
@@ -272,11 +278,7 @@ nav {
 }
 
 .about-container {
-    padding: 1rem;
     margin: 0.5rem 0;
-    text-decoration: none;
-    justify-content: space-between;
-    background-color: var(--entry-bg);
 }
 
 .about-container p {
@@ -285,17 +287,13 @@ nav {
 }
 
 .about-container ul {
-    padding-left: 1.3em;
     margin-bottom: 14px;
+    padding-left: 1.3em;
 }
 
 .settings-container {
-    padding: 1rem;
-    max-width: 500px;
     margin: 0.5rem auto;
-    text-decoration: none;
-    justify-content: space-between;
-    background-color: var(--entry-bg);
+    max-width: 500px;
 }
 
 fieldset {
@@ -304,9 +302,9 @@ fieldset {
 }
 
 .settings-group {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
 }
 
@@ -316,49 +314,50 @@ fieldset {
 
 .settings-group select,
 .settings-group input[type="text"] {
+    background: var(--main-bg);
     border: none;
-    padding: 2px 4px;
     border-radius: 4px;
     color: var(--main-fg);
-    background: var(--main-bg);
-    width: 170px;
     flex-shrink: 0;
+    padding: 2px 4px;
+    width: 170px;
 }
 
 .checkbox-container {
-    display: block;
     cursor: pointer;
-    user-select: none;
-    position: relative;
+    display: block;
     padding-right: 22px;
+    position: relative;
+    user-select: none;
 }
 
 .setting-section-title,
 .about-section-title {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--main-bg);
+    font-size: inherit;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
 }
 
 .checkbox-container input {
-    opacity: 0;
-    height: 0;
-    width: 0;
     cursor: pointer;
+    height: 0;
+    opacity: 0;
     position: absolute;
+    width: 0;
 }
 
 .checkbox {
-    top: 1px;
-    right: 0;
-    width: 17px;
-    height: 17px;
-    border: none;
-    padding: 0 2px;
-    border-radius: 4px;
-    position: absolute;
     background-color: var(--main-bg);
+    border: none;
+    border-radius: 4px;
+    height: 17px;
+    padding: 0 2px;
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 17px;
 }
 
 .checkbox:after {
@@ -376,30 +375,29 @@ fieldset {
 }
 
 .checkbox-container .checkbox::after {
-    left: 2px;
     bottom: 0;
-    font-size: 13px;
     content: "\e801";
     font-family: fontello;
+    font-size: 13px;
+    left: 2px;
 }
 
 .settings-note {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 10px 0 10px 0;
-    border-top: 1px solid var(--main-bg);
     border-bottom: 1px solid var(--main-bg);
+    border-top: 1px solid var(--main-bg);
+    margin: 20px 0;
+    padding: 10px 0;
 }
 
 button {
+    background: var(--main-bg);
     border: 0;
-    float: right;
-    padding: 5px;
-    font-size: 15px;
-    cursor: pointer;
     border-radius: 4px;
     color: var(--main-fg);
-    background: var(--main-bg);
+    cursor: pointer;
+    float: right;
+    font-size: 15px;
+    padding: 5px;
 }
 
 .settings button {
@@ -411,27 +409,23 @@ button {
 }
 
 .not-found-container {
-    padding: 1rem;
     margin: 0.5rem 0;
-    text-decoration: none;
-    justify-content: space-between;
-    background-color: var(--entry-bg);
 }
 
 .not-found-title {
+    border-bottom: 1px solid var(--main-bg);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--main-bg);
 }
 
 .fake-button {
-    cursor: pointer;
-    padding: 5px;
-    font-size: 15px;
+    background-color: var(--button-bg);
     border-radius: 4px;
     color: var(--main-fg);
+    cursor: pointer;
+    font-size: 15px;
+    padding: 5px;
     text-decoration: none;
-    background-color: var(--button-bg);
 }
 
 .fake-button:hover {
@@ -439,10 +433,10 @@ button {
 }
 
 .code {
-    padding: 0.5rem;
+    border: 1px solid var(--main-bg);
     font-family: monospace;
     overflow-wrap: break-word;
-    border: 1px solid var(--main-bg);
+    padding: 0.5rem;
 }
 
 @media (max-width: 768px) {
