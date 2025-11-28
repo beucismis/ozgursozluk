@@ -94,6 +94,9 @@ This project uses [Hatch](https://hatch.pypa.io/latest/) for project management.
     hatch run format
     ```
 
+- The ASGI app is defined as `app` in `src/ozgursozluk/main.py`.
+- When installed as a package, you can launch it using `gunicorn`, `uvicorn`, `hypercorn` or any compatible ASGI tool.
+
 ## Redirection
 
 [Redirector](https://einaregilsson.com/redirector) browser extension is recommended for use. Configuration:
